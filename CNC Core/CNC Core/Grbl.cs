@@ -1109,7 +1109,7 @@ namespace CNC.Core
 
             model.Silent = true;
             Firmware = model.Firmware;
-            dispatcher = Dispatcher.CurrentDispatcher;
+            dispatcher = Dispatcher.UIThread;
             dataReceived += Process;
 
             new Thread(() =>
@@ -1313,9 +1313,9 @@ namespace CNC.Core
 
         private static void Process(string data)
         {
-            if (Dispatcher.CurrentDispatcher != dispatcher)
+            if (Dispatcher.UIThread != dispatcher)
             {
-                dispatcher.Invoke(dataReceived, data);
+                dispatcher.Invoke(() => dataReceived(data));
                 return;
             }
 
@@ -1889,7 +1889,7 @@ namespace CNC.Core
             if (!GrblParserState.IsLoaded)
                 GrblParserState.Get(model);
 
-            dispatcher = Dispatcher.CurrentDispatcher;
+            dispatcher = Dispatcher.UIThread;
             dataReceived += process;
             LatheMode = GrblParserState.LatheMode;
 
@@ -1989,9 +1989,9 @@ namespace CNC.Core
 
         private static void process(string data)
         {
-            if (Dispatcher.CurrentDispatcher != dispatcher)
+            if (Dispatcher.UIThread != dispatcher)
             {
-                dispatcher.Invoke(dataReceived, data);
+                dispatcher.Invoke(() => dataReceived(data));
                 return;
             }
 
@@ -2132,7 +2132,8 @@ namespace CNC.Core
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    // TODO: Replace with cross-platform dialog
+                    Debug.WriteLine($"Error: {e.Message}");
                 }
 
             return ok;
@@ -2211,7 +2212,7 @@ namespace CNC.Core
 
             if (GrblInfo.IsGrblHAL && GrblInfo.Build >= 20240307 && Spindles.Count == 0)
             {
-                dispatcher = Dispatcher.CurrentDispatcher;
+                dispatcher = Dispatcher.UIThread;
                 dataReceived += process;
 
                 PollGrbl.Suspend();
@@ -2242,9 +2243,9 @@ namespace CNC.Core
 
         private static void process(string data)
         {
-            if (Dispatcher.CurrentDispatcher != dispatcher)
+            if (Dispatcher.UIThread != dispatcher)
             {
-                dispatcher.Invoke(dataReceived, data);
+                dispatcher.Invoke(() => dataReceived(data));
                 return;
             }
 
@@ -3158,7 +3159,8 @@ namespace CNC.Core
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                // TODO: Replace with cross-platform dialog
+                Debug.WriteLine($"Error: {e.Message}");
             }
 
             return ok;

@@ -94,7 +94,7 @@ namespace CNC.Core
 
             Clear();
 
-            // Keyboard = new KeypressHandler(this); // Disabled for cross-platform build
+            Keyboard = new KeypressHandler(this); // Restored for cross-platform build
             MDICommand = new ActionCommand<string>(ExecuteMDI);
             StartFromBlock = new ActionCommand<int>(ExecuteStartFromBlock, canExecuteStartFromBlock);
 
@@ -348,7 +348,7 @@ namespace CNC.Core
                 StartFromBlockNum = block;
         }
 
-        // public KeypressHandler Keyboard { get; private set; } // Disabled for cross-platform build
+        public KeypressHandler Keyboard { get; private set; } // Restored for cross-platform build
 
         public bool ResponseLogVerbose { get { return _responseLogVerbose; } set { _responseLogVerbose = value; OnPropertyChanged(); } }
         public bool ResponseLogFilterRT { get; set; } = false;
