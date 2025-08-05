@@ -65,7 +65,7 @@ namespace CNC.Core
             internal string method, dummy;
 
             public Key Key;
-            public ModifierKeys Modifiers;
+            public KeyModifiers Modifiers;
             public bool OnUp;
             [XmlIgnore]
             public UserControl context;
@@ -82,11 +82,11 @@ namespace CNC.Core
         private GrblViewModel grbl;
         private List<KeypressHandlerFn> handlers = new List<KeypressHandlerFn>();
 
-        public void AddHandler(Key key, ModifierKeys modifiers, Func<Key, bool> handler, UserControl context = null, bool onUp = true)
+        public void AddHandler(Key key, KeyModifiers modifiers, Func<Key, bool> handler, UserControl context = null, bool onUp = true)
         {
             handlers.Add(new KeypressHandlerFn(){Key = key, Modifiers = modifiers, Call = handler, context = context, OnUp = onUp });
         }
-        public void AddHandler(Key key, ModifierKeys modifiers, Func<Key, bool> handler, bool onUp)
+        public void AddHandler(Key key, KeyModifiers modifiers, Func<Key, bool> handler, bool onUp)
         {
             handlers.Add(new KeypressHandlerFn() { Key = key, Modifiers = modifiers, Call = handler, context = null, OnUp = onUp });
         }
@@ -338,7 +338,7 @@ namespace CNC.Core
 
                 if ((isJogging = command != string.Empty))
                 {
-                    if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+                    if ((Keyboard.Modifiers & KeyModifiers.Control) == KeyModifiers.Control)
                     {
                         for (int i = 0; i < N_AXIS; i++)
                             axisjog[i] = Key.None;
@@ -349,7 +349,7 @@ namespace CNC.Core
                     else if (IsContinuousJoggingEnabled)
                     {
                         preCancel = true;
-                        if ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                        if ((Keyboard.Modifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
                             jogMode = JogMode.Fast;
                         else
                             jogMode = JogMode.Slow;
@@ -422,7 +422,7 @@ namespace CNC.Core
 
             IsRepeating = e.IsRepeat;
 
-            if (Keyboard.Modifiers == ModifierKeys.Alt)
+            if (Keyboard.Modifiers == KeyModifiers.Alt)
             {
                 var handler = handlers.Where(k => k.Modifiers == Keyboard.Modifiers && k.Key == e.SystemKey && k.OnUp == e.IsUp && k.context == context).FirstOrDefault();
                 if (handler != null)
@@ -434,7 +434,7 @@ namespace CNC.Core
                         return handler.Call(e.SystemKey);
                 }
             }
-            else if (Keyboard.Modifiers == ModifierKeys.None || Keyboard.Modifiers == ModifierKeys.Control || Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+            else if (Keyboard.Modifiers == KeyModifiers.None || Keyboard.Modifiers == KeyModifiers.Control || Keyboard.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
             {
                 var handler = handlers.Where(k => k.Modifiers == Keyboard.Modifiers && k.Key == e.Key && k.OnUp == e.IsUp && k.context == context).FirstOrDefault();
                 if (handler != null)

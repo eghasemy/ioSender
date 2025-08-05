@@ -115,7 +115,7 @@ namespace CNC.Core
             }
         }
 
-        public override int ReadByte()
+        public int ReadByte()
         {
             int c = input.Length == 0 ? -1 : input[0];
 
@@ -125,7 +125,7 @@ namespace CNC.Core
             return c;
         }
 
-        public override void WriteByte(byte data)
+        public void WriteByte(byte data)
         {
             websocket.Send(new byte[1] { data });
         }
@@ -142,7 +142,7 @@ namespace CNC.Core
             websocket.Send(bytes);
         }
 
-        public override void WriteCommand(string command)
+        public void WriteCommand(string command)
         {
             state = Comms.State.AwaitAck;
 

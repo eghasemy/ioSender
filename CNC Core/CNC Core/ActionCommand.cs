@@ -7,6 +7,7 @@
  */
 
 using System;
+using System.Windows.Input;
 using Avalonia.Input;
 
 namespace CNC.Core

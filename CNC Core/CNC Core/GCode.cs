@@ -47,131 +47,9 @@ namespace CNC.Core
 {
     /// <summary>
     /// Constants for GRBL compatibility
-    /// </summary>
-    public class GrblConstants
-    {
-        public const string
-            FORMAT_METRIC = "###0.000",
-            FORMAT_IMPERIAL = "##0.0000";
-    }
+    // Duplicate class definitions removed - using real implementations from dedicated files
 
-    /// <summary>
-    /// Streaming state enumeration
-    /// </summary>
-    public enum StreamingState
-    {
-        NoFile = 0,
-        Idle,
-        Send,
-        SendMDI,
-        Home,
-        Check,
-        Jog,
-        Error,
-        Disconnect,
-        AwaitResetStop,
-        FeedHold,
-        ToolChange,
-        Stop,
-        Halted,
-        JobFinished
-    }
-
-    /// <summary>
-    /// Grbl states enumeration
-    /// </summary>
-    public enum GrblStates
-    {
-        Unknown = 0,
-        Idle,
-        Run,
-        Jog,
-        Hold,
-        Alarm,
-        Check,
-        Tool,
-        Home,
-        Sleep,
-        Door
-    }
-
-    /// <summary>
-    /// Single Grbl state enumeration alias
-    /// </summary>
-    public enum GrblState
-    {
-        Unknown = 0,
-        Idle,
-        Run,
-        Jog,
-        Hold,
-        Alarm,
-        Check,
-        Tool,
-        Home,
-        Sleep,
-        Door
-    }
-
-    /// <summary>
-    /// Grbl encoder mode enumeration
-    /// </summary>
-    public enum GrblEncoderMode
-    {
-        Unknown = 0,
-        FeedRate,
-        SpindleRPM,
-        SingleAxis,
-        RapidRate
-    }
-
-    /// <summary>
-    /// GCode block for cross-platform compatibility
-    /// </summary>
-    public class GCodeBlock : ViewModelBase
-    {
-        private string _data, _sent;
-
-        public GCodeBlock(uint lineNum, string block, int length, bool isComment, bool programEnd)
-        {
-            LineNum = lineNum;
-            Data = block;
-            Length = length;
-            IsComment = isComment;
-            ProgramEnd = programEnd;
-        }
-
-        public uint LineNum { get; set; }
-        public int Length { get; set; }
-        public string Data { get { return _data; } set { _data = value; OnPropertyChanged(); } }
-        public string Sent { get { return _sent; } set { _sent = value; OnPropertyChanged(); } }
-        public bool File { get; set; }
-        public bool IsComment { get; set; }
-        public bool ProgramEnd { get; set; }
-        public bool Ok { get; set; }
-    }
-
-    /// <summary>
-    /// GCode job for cross-platform compatibility
-    /// </summary>
-    public class GCodeJob
-    {
-        public GCodeJob()
-        {
-            // Basic constructor
-        }
-    }
-
-    /// <summary>
-    /// GrblViewModel stub for cross-platform compatibility
-    /// </summary>
-    public class GrblViewModel : MeasureViewModel
-    {
-        public GrblViewModel()
-        {
-            // Basic constructor
-        }
-    }
+    // Duplicate enum definitions removed - using real implementations from dedicated files
 }
 
 namespace CNC.GCode
@@ -701,21 +579,9 @@ namespace CNC.GCode
     /// <summary>
     /// Minimal placeholder classes for build compatibility
     /// </summary>
-    public class GCodeParser
-    {
-        // Placeholder for cross-platform build
-    }
-    
     public class CoordinateSystem
     {
         // Placeholder for cross-platform build
-    }
-
-    public class GCodeToken
-    {
-        public char Command { get; set; }
-        public double Value { get; set; }
-        public string Letter { get; set; } = string.Empty;
     }
 
     public class GrblSettingDetails
@@ -728,67 +594,5 @@ namespace CNC.GCode
 
 namespace CNC.Core
 {
-    /// <summary>
-    /// Action enum for CNC operations
-    /// </summary>
-    public enum Action
-    {
-        New,
-        Add,
-        Delete,
-        Save,
-        SaveAs,
-        Exit,
-        Stop,
-        Start,
-        Pause
-    }
-
-    /// <summary>
-    /// Camera movement mode enum for cross-platform compatibility
-    /// </summary>
-    public enum CameraMoveMode
-    {
-        Off,
-        XY,
-        XYZ
-    }
-
-    /// <summary>
-    /// Serial ports helper class for cross-platform compatibility
-    /// </summary>
-    public class SerialPorts
-    {
-        public static string[] GetPortNames()
-        {
-            return System.IO.Ports.SerialPort.GetPortNames();
-        }
-        
-        public string[] PortNames => GetPortNames();
-    }
-
-    /// <summary>
-    /// Position class for cross-platform compatibility
-    /// </summary>
-    public class Position
-    {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
-        public double A { get; set; }
-        public double B { get; set; }
-        public double C { get; set; }
-    }
-
-    /// <summary>
-    /// Tool class for cross-platform compatibility
-    /// </summary>
-    public class Tool
-    {
-        public int Code { get; set; }
-        public string Description { get; set; } = "";
-        public double Radius { get; set; }
-        public double XOffset { get; set; }
-        public double ZOffset { get; set; }
-    }
+    // Duplicate class definitions removed - using real implementations from dedicated files
 }

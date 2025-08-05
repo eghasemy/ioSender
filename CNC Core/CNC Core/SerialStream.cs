@@ -51,7 +51,7 @@ using Avalonia.Controls;
 
 namespace CNC.Core
 {
-#if !WINDOWS
+#if false // Commented out - using real implementations from Comms.cs and Grbl.cs
     // Simple fallback constants for cross-platform builds
     public static class GrblConstants
     {
@@ -285,7 +285,7 @@ namespace CNC.Core
             }
         }
 
-        public override int ReadByte()
+        public int ReadByte()
         {
             int c = input.Length == 0 ? -1 : input[0];
 
@@ -295,7 +295,7 @@ namespace CNC.Core
             return c;
         }
 
-        public override void WriteByte(byte data)
+        public void WriteByte(byte data)
         {
             if(serialPort != null)
                 serialPort.BaseStream.Write(new byte[1] { data }, 0, 1);
@@ -319,7 +319,7 @@ namespace CNC.Core
 #endif
         }
 
-        public override void WriteCommand(string command)
+        public void WriteCommand(string command)
         {
             state = Comms.State.AwaitAck;
 

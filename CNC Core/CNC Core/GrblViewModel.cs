@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Linq;
+using System.Windows.Input;
 using Avalonia.Media;
 using System.Collections.ObjectModel;
 using Avalonia.Input;
