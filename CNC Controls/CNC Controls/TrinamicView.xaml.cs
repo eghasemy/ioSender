@@ -38,16 +38,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Controls.Shapes;
 using System.Collections.Generic;
 using System.Threading;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using System.ComponentModel;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -135,50 +136,50 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty SFiltEnabledProperty = DependencyProperty.Register(nameof(SFiltEnabled), typeof(bool), typeof(TrinamicView), new PropertyMetadata(false, new PropertyChangedCallback(OnSFiltEnabledChanged)));
+        public static readonly DependencyProperty SFiltEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool SFiltEnabled
         {
-            get { return (bool)GetValue(SFiltEnabledProperty); }
-            private set { SetValue(SFiltEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            private set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnSFiltEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Comms.com.WriteCommand(string.Format("M122H{0}", (bool)e.NewValue == true ? 1 : 0));
         }
 
-        public static readonly DependencyProperty AxisEnabledProperty = DependencyProperty.Register(nameof(AxisEnabled), typeof(EnumFlags<AxisFlags>), typeof(TrinamicView), new PropertyMetadata(new EnumFlags<AxisFlags>(AxisFlags.X)));
+        public static readonly DependencyProperty AxisEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public EnumFlags<AxisFlags> AxisEnabled
         {
-            get { return (EnumFlags<AxisFlags>)GetValue(AxisEnabledProperty); }
-            private set { SetValue(AxisEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            private set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty DriverStatusProperty = DependencyProperty.Register(nameof(DriverStatus), typeof(string), typeof(TrinamicView));
+        public static readonly DependencyProperty DriverStatusProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string DriverStatus
         {
-            get { return (string)GetValue(DriverStatusProperty); }
-            set { SetValue(DriverStatusProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SGValueMinProperty = DependencyProperty.Register(nameof(SGValueMin), typeof(int), typeof(TrinamicView), new PropertyMetadata(-64));
+        public static readonly DependencyProperty SGValueMinProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int SGValueMin
         {
-            get { return (int)GetValue(SGValueMinProperty); }
-            set { SetValue(SGValueMinProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SGValueMaxProperty = DependencyProperty.Register(nameof(SGValueMax), typeof(int), typeof(TrinamicView), new PropertyMetadata(63));
+        public static readonly DependencyProperty SGValueMaxProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int SGValueMax
         {
-            get { return (int)GetValue(SGValueMaxProperty); }
-            set { SetValue(SGValueMaxProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SGValueProperty = DependencyProperty.Register(nameof(SGValue), typeof(int), typeof(TrinamicView));
+        public static readonly DependencyProperty SGValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int SGValue
         {
-            get { return (int)GetValue(SGValueProperty); }
-            set { SetValue(SGValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         #endregion
 

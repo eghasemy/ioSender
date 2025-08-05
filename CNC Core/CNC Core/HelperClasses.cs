@@ -19,8 +19,10 @@ using System.Diagnostics;
 using System.IO;
 #if WINDOWS
 using CNC.GCode;
-using System.Windows.Markup;
-using System.Windows;
+using Avalonia.Markup.Xaml;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 #endif
 
 namespace CNC.Core
@@ -28,7 +30,8 @@ namespace CNC.Core
     public class LibStrings
     {
 #if WINDOWS
-        static ResourceDictionary resource = new ResourceDictionary();
+        // TODO: ResourceDictionary usage needs Avalonia equivalent
+        // static ResourceDictionary resource = new ResourceDictionary();
 #else
         static Dictionary<string, string> fallbackStrings = new Dictionary<string, string>
         {

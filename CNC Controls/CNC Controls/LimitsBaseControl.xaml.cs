@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -54,32 +54,32 @@ namespace CNC.Controls
             //UnitProperty.OverrideMetadata(typeof(string), new PropertyMetadata("mm"));
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(LimitsBaseControl), new PropertyMetadata());
+        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
-            set { SetValue(LabelProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty UnitProperty = DependencyProperty.Register(nameof(Unit), typeof(string), typeof(LimitsBaseControl), new PropertyMetadata("mm"));
+        public static readonly DependencyProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Unit
         {
-            get { return (string)GetValue(UnitProperty); }
-            set { SetValue(UnitProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(nameof(MinValue), typeof(double), typeof(LimitsBaseControl), new PropertyMetadata());
+        public static readonly DependencyProperty MinValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double MinValue
         {
-            get { return (double)GetValue(MinValueProperty); }
-            set { SetValue(MinValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(nameof(MaxValue), typeof(double), typeof(LimitsBaseControl), new PropertyMetadata());
+        public static readonly DependencyProperty MaxValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double MaxValue
         {
-            get { return (double)GetValue(MinValueProperty); }
-            set { SetValue(MaxValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
     }
 }

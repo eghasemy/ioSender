@@ -42,6 +42,7 @@ using System.Collections.Generic;
 using CNC.Core;
 using CNC.GCode;
 using RP.Math;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {

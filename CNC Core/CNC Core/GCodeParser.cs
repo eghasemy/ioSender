@@ -45,8 +45,9 @@ using System.Xml.Serialization;
 using CNC.Core;
 using System.Text;
 #if WINDOWS
-using System.Windows;
-using System.Windows.Media.Media3D;
+using Avalonia;
+using Avalonia.Controls;
+using CNC.Core;  // Cross-platform 3D math types
 #endif
 
 namespace CNC.GCode

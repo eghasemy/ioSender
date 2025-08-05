@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Linq;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
 
 namespace CNC.Controls
@@ -86,7 +86,7 @@ namespace CNC.Controls
                     foreach (SidebarItem cmd in SidebarItems)
                     {
                         cmd.IsEnabled = _currentView.ViewType == ViewType.GRBL || _currentView.ViewType == ViewType.Probing;
-                        cmd.Visibility = Visibility.Hidden;
+                        cmd.IsVisible = false;
                     }
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(CurrentViewType));

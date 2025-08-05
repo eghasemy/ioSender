@@ -40,9 +40,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Text;
 #if WINDOWS
-using System.Windows.Threading;
+using Avalonia.Threading;
 #endif
 using WebSocketSharp;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {

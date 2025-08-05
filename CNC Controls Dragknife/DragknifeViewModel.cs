@@ -40,9 +40,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using RP.Math;
 using System;
 using System.Collections.Generic;
-using System.Windows;
+using Avalonia;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls.DragKnife
 {

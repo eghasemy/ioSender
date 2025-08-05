@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
 
 namespace CNC.Controls
@@ -50,11 +50,11 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty FeedRateProperty = DependencyProperty.Register(nameof(FeedRate), typeof(int), typeof(OutlineBaseControl), new PropertyMetadata(500));
+        public static readonly DependencyProperty FeedRateProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int FeedRate
         {
-            get { return (int)GetValue(FeedRateProperty); }
-            set { SetValue(FeedRateProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void button_Go(object sender, RoutedEventArgs e)

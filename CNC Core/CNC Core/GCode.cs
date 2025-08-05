@@ -41,11 +41,11 @@ using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 #if WINDOWS
-using System.Windows.Media.Media3D;
+using CNC.Core;  // Cross-platform 3D math types
 #else
 using CNC.Core;
+using Avalonia.Controls;
 #endif
-using CNC.Core;
 
 namespace CNC.GCode
 {

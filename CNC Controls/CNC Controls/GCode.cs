@@ -41,8 +41,8 @@ using CNC.Core;
 using CNC.GCode;
 #if WINDOWS
 using Microsoft.Win32;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 #endif
 using System;
 using System.Collections.Generic;

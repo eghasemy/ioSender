@@ -51,13 +51,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using CNC.Core;  // Cross-platform 3D math types
 using HelixToolkit.Wpf;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Input;
 
 namespace CNC.Controls.Viewer
 {

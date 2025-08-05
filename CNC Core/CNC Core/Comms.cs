@@ -39,7 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 #if WINDOWS
-using System.Windows.Threading;
+using Avalonia.Threading;
+using Avalonia.Controls;
 #endif
 
 namespace CNC.Core

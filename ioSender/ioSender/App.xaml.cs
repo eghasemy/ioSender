@@ -47,6 +47,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Threading;
+using Avalonia.Controls;
 
 namespace GCode_Sender
 {

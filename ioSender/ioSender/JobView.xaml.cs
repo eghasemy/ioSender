@@ -41,6 +41,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CNC.Core;
+using Avalonia.Input;
 
 namespace GCode_Sender
 {
@@ -301,10 +302,10 @@ namespace GCode_Sender
 
             if (limitsControl.Visibility == Visibility.Collapsed)
             {
-                limitsControl.Visibility = Visibility.Hidden;
+                limitsControl.IsVisible = false;
                 limitsControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 height = limitsControl.DesiredSize.Height;
-                limitsControl.Visibility = Visibility.Collapsed;
+                limitsControl.IsVisible = false;
             }
             else
                 height = limitsControl.ActualHeight;

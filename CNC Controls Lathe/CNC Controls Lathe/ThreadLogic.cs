@@ -49,9 +49,11 @@ using System;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
+using Avalonia;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Controls.Lathe
 {

@@ -37,9 +37,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace CNC.Controls
 {
@@ -90,7 +90,7 @@ namespace CNC.Controls
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (last != null && last != view && last.IsVisible)
-                last.Visibility = Visibility.Hidden;
+                last.IsVisible = false;
 
             view.Visibility = view.IsVisible ? Visibility.Hidden : Visibility.Visible;
             last = view;

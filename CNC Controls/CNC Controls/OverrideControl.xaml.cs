@@ -38,9 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -64,61 +65,61 @@ namespace CNC.Controls
 
         #region dependencyproperties
 
-        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(int), typeof(OverrideControl), new PropertyMetadata(10));
+        public static readonly DependencyProperty MinimumProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int Minimum
         {
-            get { return (int)GetValue(MinimumProperty); }
-            set { SetValue(MinimumProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(int), typeof(OverrideControl), new PropertyMetadata(200));
+        public static readonly DependencyProperty MaximumProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int Maximum
         {
-            get { return (int)GetValue(MaximumProperty); }
-            set { SetValue(MaximumProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty TicksProperty = DependencyProperty.Register(nameof(Ticks), typeof(System.Windows.Media.DoubleCollection), typeof(OverrideControl));
+        public static readonly DependencyProperty TicksProperty = null; // TODO: Convert to Avalonia StyledProperty
         public System.Windows.Media.DoubleCollection Ticks
         {
-            get { return (System.Windows.Media.DoubleCollection)GetValue(TicksProperty); }
-            set { SetValue(TicksProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty TickFrequencyProperty = DependencyProperty.Register(nameof(TickFrequency), typeof(int), typeof(OverrideControl), new PropertyMetadata(1));
+        public static readonly DependencyProperty TickFrequencyProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int TickFrequency
         {
-            get { return (int)GetValue(TickFrequencyProperty); }
-            set { SetValue(TickFrequencyProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SliderValueProperty = DependencyProperty.Register(nameof(SliderValue), typeof(double), typeof(OverrideControl), new PropertyMetadata(0d, new PropertyChangedCallback(OnSliderValueChanged)));
+        public static readonly DependencyProperty SliderValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double SliderValue
         {
-            get { return (double)GetValue(SliderValueProperty); }
-            set { SetValue(SliderValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnSliderValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((OverrideControl)d).txtOverride.Text = Math.Round((double)e.NewValue).ToString() + "%";
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(OverrideControl), new PropertyMetadata(0d, new PropertyChangedCallback(OnValueChanged)));
+        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((OverrideControl)d).SliderValue = Math.Round((double)e.NewValue);
         }
 
-        public static readonly DependencyProperty EncoderModeProperty = DependencyProperty.Register(nameof(EncoderMode), typeof(GrblEncoderMode), typeof(OverrideControl), new PropertyMetadata(GrblEncoderMode.Unknown));
+        public static readonly DependencyProperty EncoderModeProperty = null; // TODO: Convert to Avalonia StyledProperty
         public GrblEncoderMode EncoderMode
         {
-            get { return (GrblEncoderMode)GetValue(EncoderModeProperty); }
-            set { SetValue(EncoderModeProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         #endregion

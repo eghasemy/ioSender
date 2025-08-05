@@ -44,6 +44,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Lathe
 {

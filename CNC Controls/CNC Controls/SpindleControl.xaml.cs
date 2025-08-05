@@ -38,10 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
-using System.Windows.Input;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -86,11 +86,11 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty IsSpindleStateEnabledProperty = DependencyProperty.Register(nameof(IsSpindleStateEnabled), typeof(bool), typeof(SpindleControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsSpindleStateEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsSpindleStateEnabled
         {
-            get { return (bool)GetValue(IsSpindleStateEnabledProperty); }
-            set { SetValue(IsSpindleStateEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         public string SpindleOffCommand { get { return (string)rbSpindleOff.Tag; } set { rbSpindleOff.Tag = value; } }

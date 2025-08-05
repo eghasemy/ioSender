@@ -42,10 +42,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Input;
 using System.Xml.Serialization;
 using CNC.Core;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {

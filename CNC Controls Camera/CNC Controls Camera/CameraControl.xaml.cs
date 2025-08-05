@@ -41,10 +41,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using AForge.Video.DirectShow;
 using CNC.Core;
 
@@ -111,29 +111,29 @@ namespace CNC.Controls.Camera
             }
         }
 
-        public static readonly DependencyProperty IsMoveEnabledProperty = DependencyProperty.Register(nameof(IsMoveEnabled), typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsMoveEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsMoveEnabled
         {
-            get { return (bool)GetValue(IsMoveEnabledProperty); }
-            set { SetValue(IsMoveEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty GuideScaleProperty = DependencyProperty.Register(nameof(GuideScale), typeof(int), typeof(CameraControl), new PropertyMetadata(10, new PropertyChangedCallback(OnGuideScaleChanged)));
+        public static readonly DependencyProperty GuideScaleProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int GuideScale
         {
-            get { return (int)GetValue(GuideScaleProperty); }
-            set { SetValue(GuideScaleProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnGuideScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             AppConfig.Settings.Camera.GuideScale = (int)e.NewValue;
         }
 
-        public static readonly DependencyProperty MoveCameraToSpindlePositionProperty = DependencyProperty.Register(nameof(MoveCameraToSpindlePosition), typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty MoveCameraToSpindlePositionProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool MoveCameraToSpindlePosition
         {
-            get { return (bool)GetValue(MoveCameraToSpindlePositionProperty); }
-            set { SetValue(MoveCameraToSpindlePositionProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         public GrblViewModel grbl {  get { return Grbl.GrblViewModel;  } }

@@ -37,14 +37,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Threading;
 using CNC.Core;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -158,7 +159,7 @@ namespace CNC.Controls
 
         private void ShowSetting(GrblSettingDetails setting, bool assign)
         {
-            details.Visibility = Visibility.Visible;
+            details.IsVisible = true;
 
             if (curSetting != null)
             {
@@ -383,7 +384,7 @@ namespace CNC.Controls
             if (e != null && e.NewValue is GrblSettingDetails && (e.NewValue as GrblSettingDetails).Value != null)
                 ShowSetting(e.NewValue as GrblSettingDetails, true);
             else
-                details.Visibility = Visibility.Hidden;
+                details.IsVisible = false;
         }
 
         private void searchField_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

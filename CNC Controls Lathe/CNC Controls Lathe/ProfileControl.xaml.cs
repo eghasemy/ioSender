@@ -38,8 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.Collections;
 
 namespace CNC.Controls.Lathe
@@ -71,18 +71,18 @@ namespace CNC.Controls.Lathe
             cbxProfile.SelectedValue = options.Profiles.First().Id;
         }
 
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(ProfileData), typeof(ProfileControl), new PropertyMetadata());
+        public static readonly DependencyProperty SelectedItemProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string SelectedItem
         {
-            get { return (string)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(ProfileControl), new PropertyMetadata());
+        public static readonly DependencyProperty ItemsSourceProperty = null; // TODO: Convert to Avalonia StyledProperty
         public IEnumerable ItemsSource
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void cbxProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)

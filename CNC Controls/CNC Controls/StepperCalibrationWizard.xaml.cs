@@ -40,8 +40,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using CNC.Core;
 using CNC.GCode;
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -134,29 +134,29 @@ namespace CNC.Controls
             ResolutionUnit = setting.Unit;
         }
 
-        public static readonly DependencyProperty AxisProperty = DependencyProperty.Register(nameof(Axis), typeof(int), typeof(StepperCalibrationWizard), new PropertyMetadata(0, new PropertyChangedCallback(OnAxisChanged)));
+        public static readonly DependencyProperty AxisProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int Axis
         {
-            get { return (int)GetValue(AxisProperty); }
-            set { SetValue(AxisProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnAxisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((StepperCalibrationWizard)d).getAxisDetails((int)e.NewValue);
         }
 
-        public static readonly DependencyProperty CanUpdateProperty = DependencyProperty.Register(nameof(CanUpdate), typeof(bool), typeof(StepperCalibrationWizard), new PropertyMetadata(false));
+        public static readonly DependencyProperty CanUpdateProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanUpdate
         {
-            get { return (bool)GetValue(CanUpdateProperty); }
-            set { SetValue(CanUpdateProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty DistanceProperty = DependencyProperty.Register(nameof(Distance), typeof(double), typeof(StepperCalibrationWizard), new PropertyMetadata(100d, new PropertyChangedCallback(OnDistanceChanged)));
+        public static readonly DependencyProperty DistanceProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Distance
         {
-            get { return (double)GetValue(DistanceProperty); }
-            set { SetValue(DistanceProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnDistanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -164,18 +164,18 @@ namespace CNC.Controls
             ((StepperCalibrationWizard)d).ActualDistance = (double)e.NewValue;
         }
 
-        public static readonly DependencyProperty DistanceUnitProperty = DependencyProperty.Register(nameof(DistanceUnit), typeof(string), typeof(StepperCalibrationWizard), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty DistanceUnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string DistanceUnit
         {
-            get { return (string)GetValue(DistanceUnitProperty); }
-            set { SetValue(DistanceUnitProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ActualDistanceProperty = DependencyProperty.Register(nameof(ActualDistance), typeof(double), typeof(StepperCalibrationWizard), new PropertyMetadata(100d, new PropertyChangedCallback(OnActualDistanceChanged)));
+        public static readonly DependencyProperty ActualDistanceProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double ActualDistance
         {
-            get { return (double)GetValue(ActualDistanceProperty); }
-            set { SetValue(ActualDistanceProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnActualDistanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -187,18 +187,18 @@ namespace CNC.Controls
                 instance.Resolution = Math.Round(dbl.Parse(instance.setting.Value) / (double)e.NewValue * instance.Distance, GrblInfo.IsGrblHAL ? 6 : 3);
         }
 
-        public static readonly DependencyProperty ResolutionProperty = DependencyProperty.Register(nameof(Resolution), typeof(double), typeof(StepperCalibrationWizard), new PropertyMetadata(0d));
+        public static readonly DependencyProperty ResolutionProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Resolution
         {
-            get { return (double)GetValue(ResolutionProperty); }
-            set { SetValue(ResolutionProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ResolutionUnitProperty = DependencyProperty.Register(nameof(ResolutionUnit), typeof(string), typeof(StepperCalibrationWizard), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty ResolutionUnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string ResolutionUnit
         {
-            get { return (string)GetValue(ResolutionUnitProperty); }
-            set { SetValue(ResolutionUnitProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

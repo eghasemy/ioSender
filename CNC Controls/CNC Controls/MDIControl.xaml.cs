@@ -37,9 +37,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CNC.Core;
@@ -57,18 +57,18 @@ namespace CNC.Controls
 
         public new bool IsFocused { get { return txtMDI.IsKeyboardFocusWithin; } }
 
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(string), typeof(MDIControl), new PropertyMetadata(""));
+        public static readonly DependencyProperty CommandProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Command
         {
-            get { return (string)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CommandsProperty = DependencyProperty.Register(nameof(Commands), typeof(ObservableCollection<string>), typeof(MDIControl));
+        public static readonly DependencyProperty CommandsProperty = null; // TODO: Convert to Avalonia StyledProperty
         public ObservableCollection<string> Commands
         {
-            get { return (ObservableCollection<string>)GetValue(CommandsProperty); }
-            set { SetValue(CommandsProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)

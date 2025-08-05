@@ -38,8 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
 using System.Threading;
@@ -68,18 +68,18 @@ namespace CNC.Controls
         public AxisFlags AxisEnabledFlags { get { return GrblInfo.AxisFlags; } }
         public CoordinateSystem Offset { get; private set; } = new CoordinateSystem();
 
-        public static readonly DependencyProperty CanEditProperty = DependencyProperty.Register(nameof(CanEdit), typeof(bool), typeof(OffsetView), new PropertyMetadata(false));
+        public static readonly DependencyProperty CanEditProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanEdit
         {
-            get { return (bool)GetValue(CanEditProperty); }
-            set { SetValue(CanEditProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty IsPredefinedProperty = DependencyProperty.Register(nameof(IsPredefined), typeof(bool), typeof(OffsetView), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsPredefinedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsPredefined
         {
-            get { return (bool)GetValue(IsPredefinedProperty); }
-            set { SetValue(IsPredefinedProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         #region Methods and properties required by CNCView interface

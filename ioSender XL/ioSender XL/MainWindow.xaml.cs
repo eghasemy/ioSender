@@ -38,12 +38,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
 using CNC.Controls;
 using CNC.Converters;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
@@ -150,7 +150,7 @@ namespace GCode_Sender
 #if ADD_CAMERA
             enableCamera(this);
 #else
-            menuCamera.Visibility = Visibility.Hidden;
+            menuCamera.IsVisible = false;
 #endif
             if (!AppConfig.Settings.GCodeViewer.IsEnabled)
                 ShowView(false, ViewType.GCodeViewer);
@@ -410,7 +410,7 @@ namespace GCode_Sender
             else
             {
                 if (UIViewModel.Console.IsVisible)
-                    UIViewModel.Console.Visibility = Visibility.Hidden;
+                    UIViewModel.Console.IsVisible = false;
                 else
                     UIViewModel.Console.Show();
             }

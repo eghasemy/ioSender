@@ -41,7 +41,8 @@ using System;
 using System.Text;
 using System.Net.Sockets;
 #if WINDOWS
-using System.Windows.Threading;
+using Avalonia.Threading;
+using Avalonia.Controls;
 #endif
 
 namespace CNC.Core

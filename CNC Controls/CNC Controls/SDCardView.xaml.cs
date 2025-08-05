@@ -38,9 +38,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using System.Threading;
 using System.Net;
 using Microsoft.Win32;
@@ -101,46 +101,46 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly DependencyProperty RewindProperty = DependencyProperty.Register(nameof(Rewind), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+        public static readonly DependencyProperty RewindProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool Rewind
         {
-            get { return (bool)GetValue(RewindProperty); }
-            set { SetValue(RewindProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanRewindProperty = DependencyProperty.Register(nameof(CanRewind), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+        public static readonly DependencyProperty CanRewindProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanRewind
         {
-            get { return (bool)GetValue(CanRewindProperty); }
-            set { SetValue(CanRewindProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ViewAllProperty = DependencyProperty.Register(nameof(ViewAll), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+        public static readonly DependencyProperty ViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool ViewAll
         {
-            get { return (bool)GetValue(ViewAllProperty); }
-            set { SetValue(ViewAllProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanViewAllProperty = DependencyProperty.Register(nameof(CanViewAll), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+        public static readonly DependencyProperty CanViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanViewAll
         {
-            get { return (bool)GetValue(CanViewAllProperty); }
-            set { SetValue(CanViewAllProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanUploadProperty = DependencyProperty.Register(nameof(CanUpload), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+        public static readonly DependencyProperty CanUploadProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanUpload
         {
-            get { return (bool)GetValue(CanUploadProperty); }
-            set { SetValue(CanUploadProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanDeleteProperty = DependencyProperty.Register(nameof(CanDelete), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+        public static readonly DependencyProperty CanDeleteProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanDelete
         {
-            get { return (bool)GetValue(CanDeleteProperty); }
-            set { SetValue(CanDeleteProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         #endregion

@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.ComponentModel;
 using CNC.Core;
 
@@ -83,11 +83,11 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty MacrosProperty = DependencyProperty.Register(nameof(MacroExecuteControl.Macros), typeof(ObservableCollection<CNC.GCode.Macro>), typeof(MacroExecuteControl), new PropertyMetadata(new PropertyChangedCallback(OnMacrosChanged)));
+        public static readonly DependencyProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
-            get { return (ObservableCollection<CNC.GCode.Macro>)GetValue(MacrosProperty); }
-            set { SetValue(MacrosProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private static void OnMacrosChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -104,11 +104,11 @@ namespace CNC.Controls
             IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? Visibility.Visible : Visibility.Hidden;
         }
 
-        public static readonly DependencyProperty IsMessageVisibleProperty = DependencyProperty.Register(nameof(IsMessageVisible), typeof(Visibility), typeof(MacroExecuteControl), new PropertyMetadata(Visibility.Visible));
+        public static readonly DependencyProperty IsMessageVisibleProperty = null; // TODO: Convert to Avalonia StyledProperty
         public Visibility IsMessageVisible
         {
-            get { return (Visibility)GetValue(IsMessageVisibleProperty); }
-            set { SetValue(IsMessageVisibleProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

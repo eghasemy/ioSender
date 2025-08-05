@@ -37,9 +37,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace CNC.Controls
 {
@@ -54,22 +54,22 @@ namespace CNC.Controls
             LEDOff = btnLED.Background;
         }
 
-        public static readonly DependencyProperty IsSetProperty = DependencyProperty.Register(nameof(IsSet), typeof(bool), typeof(SignalControl), new PropertyMetadata(false, new PropertyChangedCallback(OnIsSetChanged)));
+        public static readonly DependencyProperty IsSetProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsSet
         {
-            get { return (bool)GetValue(IsSetProperty); }
-            set { SetValue(IsSetProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnIsSetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as SignalControl).btnLED.Background = (bool)e.NewValue ? LEDOn : LEDOff;
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(SignalControl), new PropertyMetadata());
+        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
-            set { SetValue(LabelProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
     }
 }

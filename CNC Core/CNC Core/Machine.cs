@@ -41,7 +41,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CNC.GCode;
 #if WINDOWS
-using System.Windows.Media.Media3D;
+using CNC.Core;  // Cross-platform 3D math types
 #else
 using CNC.Core;
 #endif

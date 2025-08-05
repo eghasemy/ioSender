@@ -45,7 +45,8 @@ using System.IO.Ports;
 using System.Collections.ObjectModel;
 #if WINDOWS
 using System.Management;
-using System.Windows.Threading;
+using Avalonia.Threading;
+using Avalonia.Controls;
 #endif
 
 namespace CNC.Core

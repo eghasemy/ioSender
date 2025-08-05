@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.GCode;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Lathe
 {
@@ -54,11 +54,11 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsCssEnabledProperty = DependencyProperty.Register(nameof(IsCssEnabled), typeof(bool), typeof(CssControl), new PropertyMetadata(new PropertyChangedCallback(OnCssEnabledChanged)));
+        public static readonly DependencyProperty IsCssEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool? IsCssEnabled
         {
-            get { return (bool?)GetValue(IsCssEnabledProperty); }
-            set { SetValue(IsCssEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private static void OnCssEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -67,25 +67,25 @@ namespace CNC.Controls.Lathe
             (d as CssControl).data.Unit = ((CssControl)d).IsCssEnabled == true ? (d as CssControl).Unit : "RPM";
         }
 
-        public static readonly DependencyProperty SpindleDirProperty = DependencyProperty.Register(nameof(SpindleDir), typeof(SpindleState), typeof(CssControl), new PropertyMetadata(SpindleState.CW));
+        public static readonly DependencyProperty SpindleDirProperty = null; // TODO: Convert to Avalonia StyledProperty
         public SpindleState SpindleDir
         {
-            get { return (SpindleState)GetValue(SpindleDirProperty); }
-            set { SetValue(SpindleDirProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(CssControl), new PropertyMetadata(double.NaN));
+        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty UnitProperty = DependencyProperty.Register(nameof(Unit), typeof(string), typeof(CssControl), new PropertyMetadata("m/min", new PropertyChangedCallback(OnUnitChanged)));
+        public static readonly DependencyProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Unit
         {
-            get { return (string)GetValue(UnitProperty); }
-            set { SetValue(UnitProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnUnitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -39,13 +39,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
+using Avalonia;
 using CNC.Core;
 using CNC.Controls;
 using System.Collections.Generic;
 using System.Threading;
 using System.IO;
 using Microsoft.Win32;
+using Avalonia.Controls;
 
 namespace Grbl_Config_App
 {

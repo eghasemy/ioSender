@@ -42,9 +42,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows;
+using Avalonia.Controls;
+using Avalonia.Data;
+using Avalonia;
 using CNC.Core;
 using CNC.GCode;
 

@@ -38,11 +38,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.IO;
-using System.Windows;
+using Avalonia;
 using System.Xml.Serialization;
-using System.Windows.Threading;
-using System.Windows.Input;
+using Avalonia.Threading;
+using Avalonia.Input;
 using CNC.Core;
+using Avalonia.Controls;
 
 namespace CNC.Converters
 {

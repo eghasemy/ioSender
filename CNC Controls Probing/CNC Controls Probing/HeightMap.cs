@@ -39,9 +39,10 @@ using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Media.Media3D;
+using Avalonia;
+using CNC.Core;  // Cross-platform 3D math types
 using System.Xml;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {

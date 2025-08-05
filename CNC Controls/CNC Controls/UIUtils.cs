@@ -40,10 +40,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
 using System.Globalization;
 using System.ComponentModel;
 using CNC.Core;
@@ -332,10 +332,8 @@ namespace CNC.Controls
     // By O. R. Mapper, https://stackoverflow.com/questions/10097417/how-do-i-create-an-autoscrolling-textbox
     public static class TextBoxUtilities
     {
-        public static readonly DependencyProperty AlwaysScrollToEndProperty = DependencyProperty.RegisterAttached("AlwaysScrollToEnd",
-                                                                                                                  typeof(bool),
-                                                                                                                  typeof(TextBoxUtilities),
-                                                                                                                  new PropertyMetadata(false, AlwaysScrollToEndChanged));
+        // TODO: Convert AlwaysScrollToEndProperty to Avalonia AttachedProperty
+        public static readonly DependencyProperty AlwaysScrollToEndProperty = null;
 
         private static void AlwaysScrollToEndChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

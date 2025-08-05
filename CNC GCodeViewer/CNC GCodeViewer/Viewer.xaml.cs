@@ -38,7 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Collections.Generic;
-using System.Windows.Controls;
+using Avalonia.Controls;
 using CNC.GCode;
 using CNC.Core;
 

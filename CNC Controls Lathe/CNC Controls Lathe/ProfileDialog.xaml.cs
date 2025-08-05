@@ -37,9 +37,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Data;
 using System;
 using System.Globalization;
 using System.Collections.ObjectModel;

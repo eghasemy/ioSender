@@ -39,11 +39,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Linq;
-using System.Windows.Media;
+using Avalonia.Media;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using Avalonia.Input;
 using System.Threading;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {

@@ -46,15 +46,17 @@ using System.Globalization;
 using System.IO;
 using System.Data;
 using System.Diagnostics;
-using System.Windows.Media;
+using Avalonia.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
-using System.Windows.Threading;
-using System.Windows;
+using Avalonia.Threading;
+using Avalonia;
 using CNC.GCode;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Core
 {

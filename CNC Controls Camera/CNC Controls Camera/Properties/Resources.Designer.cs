@@ -10,6 +10,7 @@
 
 namespace CNC.Controls.Camera.Properties {
     using System;
+using Avalonia.Controls;
     
     
     /// <summary>

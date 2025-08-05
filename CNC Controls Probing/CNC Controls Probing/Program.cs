@@ -38,18 +38,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
+using Avalonia;
 using System.Collections.Generic;
 using System.Threading;
 using System.Collections.Concurrent;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {
     public class LibStrings
     {
-        static ResourceDictionary resource = new ResourceDictionary();
+        // TODO: ResourceDictionary usage needs Avalonia equivalent
+        // static ResourceDictionary resource = new ResourceDictionary();
 
         public static string FindResource(string key)
         {

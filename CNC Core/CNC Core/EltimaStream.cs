@@ -42,9 +42,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using System.IO;
 using System.Collections.ObjectModel;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {

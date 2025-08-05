@@ -42,9 +42,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Markup;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 
 namespace GCode_Sender
 {

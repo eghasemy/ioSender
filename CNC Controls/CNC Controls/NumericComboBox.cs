@@ -41,9 +41,9 @@ using CNC.Core;
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -70,11 +70,11 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(nameof(Format), typeof(string), typeof(NumericComboBox), new PropertyMetadata(GrblConstants.FORMAT_METRIC, new PropertyChangedCallback(OnFormatChanged)));
+        public static readonly DependencyProperty FormatProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Format
         {
-            get { return (string)GetValue(FormatProperty); }
-            set { SetValue(FormatProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

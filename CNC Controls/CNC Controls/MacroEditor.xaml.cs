@@ -38,9 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Collections.ObjectModel;
-using System.Windows;
+using Avalonia;
 using CNC.Core;
 using System;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {

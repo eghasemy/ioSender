@@ -42,6 +42,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {

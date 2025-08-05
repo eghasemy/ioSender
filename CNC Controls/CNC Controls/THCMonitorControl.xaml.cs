@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -55,7 +55,7 @@ namespace CNC.Controls
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
+            this.IsVisible = false;
         }
     }
 }

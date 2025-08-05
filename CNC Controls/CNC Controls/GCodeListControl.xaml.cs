@@ -38,8 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.Collections.Generic;
 using CNC.Core;
 
@@ -61,18 +61,18 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly DependencyProperty SingleSelectedProperty = DependencyProperty.Register(nameof(SingleSelected), typeof(bool), typeof(GCodeListControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty SingleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool SingleSelected
         {
-            get { return (bool)GetValue(SingleSelectedProperty); }
-            private set { SetValue(SingleSelectedProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            private set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MultipleSelectedProperty = DependencyProperty.Register(nameof(MultipleSelected), typeof(bool), typeof(GCodeListControl), new PropertyMetadata(false));
+        public static readonly DependencyProperty MultipleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool MultipleSelected
         {
-            get { return (bool)GetValue(MultipleSelectedProperty); }
-            private set { SetValue(MultipleSelectedProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            private set { /* TODO: Implement Avalonia property setter */ }
         }
         #endregion
 

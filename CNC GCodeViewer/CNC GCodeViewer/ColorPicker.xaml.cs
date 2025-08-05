@@ -38,9 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Controls.Primitives;
 
 namespace CNC.Controls.Viewer
 {
@@ -56,22 +57,22 @@ namespace CNC.Controls.Viewer
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(Color), typeof(ColorPicker), new PropertyMetadata(Colors.AliceBlue, new PropertyChangedCallback(OnIsSelectedColorChanged)));
+        public static readonly DependencyProperty SelectedColorProperty = null; // TODO: Convert to Avalonia StyledProperty
         public Color SelectedColor
         {
-            get { return (Color)GetValue(SelectedColorProperty); }
-            set { SetValue(SelectedColorProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnIsSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ColorPicker)d).cbut.Background = new SolidColorBrush((Color)e.NewValue);
         }
 
-        public static readonly DependencyProperty IsPickerOpenProperty = DependencyProperty.Register(nameof(IsPickerOpen), typeof(bool), typeof(ColorPicker), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsPickerOpenProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsPickerOpen
         {
-            get { return (bool)GetValue(IsPickerOpenProperty); }
-            set { SetValue(IsPickerOpenProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void Popup_Open(object sender, RoutedEventArgs e)

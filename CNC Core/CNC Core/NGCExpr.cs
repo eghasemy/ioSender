@@ -58,6 +58,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Core
 {

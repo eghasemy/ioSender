@@ -40,21 +40,24 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.IO;
 using System.Xml.Serialization;
-using System.Windows;
+using Avalonia;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
+using Avalonia.Media;
 using System.Threading;
-using System.Windows.Media.Media3D;
+using CNC.Core;  // Cross-platform 3D math types
 using CNC.Core;
 using CNC.GCode;
 using static CNC.GCode.GCodeParser;
 using System.Collections.Generic;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
     public class LibStrings
     {
-        static ResourceDictionary resource = new ResourceDictionary();
+        // TODO: ResourceDictionary usage needs Avalonia equivalent
+        // static ResourceDictionary resource = new ResourceDictionary();
 
         public static string FindResource(string key)
         {

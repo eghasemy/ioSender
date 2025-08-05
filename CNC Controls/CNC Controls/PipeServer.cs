@@ -42,6 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {

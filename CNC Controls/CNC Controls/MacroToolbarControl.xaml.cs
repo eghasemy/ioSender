@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
 
 namespace CNC.Controls
@@ -60,11 +60,11 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        public static readonly DependencyProperty MacrosProperty = DependencyProperty.Register(nameof(MacroToolbarControl.Macros), typeof(ObservableCollection<CNC.GCode.Macro>), typeof(MacroToolbarControl));
+        public static readonly DependencyProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
-            get { return (ObservableCollection<CNC.GCode.Macro>)GetValue(MacrosProperty); }
-            set { SetValue(MacrosProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

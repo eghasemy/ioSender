@@ -39,13 +39,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Media;
+using Avalonia.Data;
+using Avalonia.Media;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Windows;
+using Avalonia;
 using System.Collections.Generic;
-using System.Windows.Controls;
+using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
 

@@ -37,9 +37,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace CNC.Controls
 {
@@ -57,18 +57,18 @@ namespace CNC.Controls
             ScaledOff = btnScaled.Background;
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(DROBaseControl), new PropertyMetadata());
+        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
-            set { SetValue(LabelProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(DROBaseControl), new PropertyMetadata());
+        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
         public bool IsReadOnly
@@ -77,11 +77,11 @@ namespace CNC.Controls
             set { txtReadout.IsReadOnly = value; }
         }
 
-        public static readonly DependencyProperty IsScaledProperty = DependencyProperty.Register(nameof(IsScaled), typeof(bool), typeof(DROBaseControl), new PropertyMetadata(false, new PropertyChangedCallback(OnIsScaledChanged)));
+        public static readonly DependencyProperty IsScaledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsScaled
         {
-            get { return (bool)GetValue(IsScaledProperty); }
-            set { SetValue(IsScaledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
         private static void OnIsScaledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
