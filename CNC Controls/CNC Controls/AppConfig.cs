@@ -46,6 +46,7 @@ using Avalonia.Media;
 using System.Threading;
 using CNC.Core; // Cross-platform 3D math types
 using CNC.GCode;
+using CNC.GCode;
 using static CNC.GCode.GCodeParser;
 using System.Collections.Generic;
 using Avalonia.Controls;
@@ -422,7 +423,7 @@ namespace CNC.Controls
             Base.PortParams = port;
         }
 
-        public int SetupAndOpen(string appname, GrblViewModel model, System.Windows.Threading.Dispatcher dispatcher)
+        public int SetupAndOpen(string appname, GrblViewModel model, object dispatcher)
         {
             int status = 0;
             bool selectPort = false;

@@ -42,6 +42,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls

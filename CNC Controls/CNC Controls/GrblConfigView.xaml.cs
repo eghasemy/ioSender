@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls

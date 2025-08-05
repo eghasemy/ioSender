@@ -48,6 +48,7 @@ using Avalonia.Threading;
 using System.ComponentModel;
 using CNC.Core;
 using CNC.GCode;
+using CNC.GCode;
 using Avalonia.Input;
 
 using Avalonia.Interactivity;
@@ -205,7 +206,7 @@ namespace CNC.Controls
             GetDriverStatus(string.Empty);
         }
 
-        private void Slider_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Slider_LostMouseCapture(object sender, Avalonia.Input.PointerEventArgs e)
         {
             Comms.com.WriteString(string.Format("M914{0}{1}\r", AxisEnabled.Value.ToString(), SGValue));
         }

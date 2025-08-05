@@ -44,6 +44,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CNC.Core;
 using CNC.GCode;
+using CNC.GCode;
 using System.Threading;
 
 using Avalonia.Interactivity;

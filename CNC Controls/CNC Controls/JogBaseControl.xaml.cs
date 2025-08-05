@@ -44,6 +44,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using CNC.Core;
 using CNC.GCode;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls
@@ -118,42 +119,42 @@ namespace CNC.Controls
 
                     if (AppConfig.Settings.Jog.Mode == JogConfig.JogMode.UI)
                     {
-                        keyboard.AddHandler(Key.PageUp, ModifierKeys.None, CursorJogZplus, false);
-                        keyboard.AddHandler(Key.PageDown, ModifierKeys.None, CursorJogZminus, false);
-                        keyboard.AddHandler(Key.Left, ModifierKeys.None, CursorJogXminus, false);
-                        keyboard.AddHandler(Key.Up, ModifierKeys.None, CursorJogYplus, false);
-                        keyboard.AddHandler(Key.Right, ModifierKeys.None, CursorJogXplus, false);
-                        keyboard.AddHandler(Key.Down, ModifierKeys.None, CursorJogYminus, false);
+                        keyboard.AddHandler(Key.PageUp, KeyModifiers.None, CursorJogZplus, false);
+                        keyboard.AddHandler(Key.PageDown, KeyModifiers.None, CursorJogZminus, false);
+                        keyboard.AddHandler(Key.Left, KeyModifiers.None, CursorJogXminus, false);
+                        keyboard.AddHandler(Key.Up, KeyModifiers.None, CursorJogYplus, false);
+                        keyboard.AddHandler(Key.Right, KeyModifiers.None, CursorJogXplus, false);
+                        keyboard.AddHandler(Key.Down, KeyModifiers.None, CursorJogYminus, false);
                     }
 
-                    keyboard.AddHandler(xplus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogXplus, false);
-                    keyboard.AddHandler(xminus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogXminus, false);
-                    keyboard.AddHandler(yplus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogYplus, false);
-                    keyboard.AddHandler(yminus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogYminus, false);
-                    keyboard.AddHandler(zplus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogZplus, false);
-                    keyboard.AddHandler(zminus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogZminus, false);
+                    keyboard.AddHandler(xplus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogXplus, false);
+                    keyboard.AddHandler(xminus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogXminus, false);
+                    keyboard.AddHandler(yplus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogYplus, false);
+                    keyboard.AddHandler(yminus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogYminus, false);
+                    keyboard.AddHandler(zplus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogZplus, false);
+                    keyboard.AddHandler(zminus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogZminus, false);
                     if(GrblInfo.AxisFlags.HasFlag(AxisFlags.A)) {
-                        keyboard.AddHandler(aplus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogAplus, false);
-                        keyboard.AddHandler(aminus, ModifierKeys.Control | ModifierKeys.Shift, KeyJogAminus, false);
+                        keyboard.AddHandler(aplus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogAplus, false);
+                        keyboard.AddHandler(aminus, KeyModifiers.Control | KeyModifiers.Shift, KeyJogAminus, false);
                     }
 
                     if (AppConfig.Settings.Jog.Mode != JogConfig.JogMode.Keypad)
                     {
-                        keyboard.AddHandler(Key.End, ModifierKeys.None, EndJog, false);
+                        keyboard.AddHandler(Key.End, KeyModifiers.None, EndJog, false);
 
-                        keyboard.AddHandler(Key.NumPad0, ModifierKeys.Control, JogStep0);
-                        keyboard.AddHandler(Key.NumPad1, ModifierKeys.Control, JogStep1);
-                        keyboard.AddHandler(Key.NumPad2, ModifierKeys.Control, JogStep2);
-                        keyboard.AddHandler(Key.NumPad3, ModifierKeys.Control, JogStep3);
-                        keyboard.AddHandler(Key.NumPad4, ModifierKeys.Control, JogFeed0);
-                        keyboard.AddHandler(Key.NumPad5, ModifierKeys.Control, JogFeed1);
-                        keyboard.AddHandler(Key.NumPad6, ModifierKeys.Control, JogFeed2);
-                        keyboard.AddHandler(Key.NumPad7, ModifierKeys.Control, JogFeed3);
+                        keyboard.AddHandler(Key.NumPad0, KeyModifiers.Control, JogStep0);
+                        keyboard.AddHandler(Key.NumPad1, KeyModifiers.Control, JogStep1);
+                        keyboard.AddHandler(Key.NumPad2, KeyModifiers.Control, JogStep2);
+                        keyboard.AddHandler(Key.NumPad3, KeyModifiers.Control, JogStep3);
+                        keyboard.AddHandler(Key.NumPad4, KeyModifiers.Control, JogFeed0);
+                        keyboard.AddHandler(Key.NumPad5, KeyModifiers.Control, JogFeed1);
+                        keyboard.AddHandler(Key.NumPad6, KeyModifiers.Control, JogFeed2);
+                        keyboard.AddHandler(Key.NumPad7, KeyModifiers.Control, JogFeed3);
 
-                        keyboard.AddHandler(Key.NumPad2, ModifierKeys.None, FeedDec);
-                        keyboard.AddHandler(Key.NumPad4, ModifierKeys.None, StepDec);
-                        keyboard.AddHandler(Key.NumPad6, ModifierKeys.None, StepInc);
-                        keyboard.AddHandler(Key.NumPad8, ModifierKeys.None, FeedInc);
+                        keyboard.AddHandler(Key.NumPad2, KeyModifiers.None, FeedDec);
+                        keyboard.AddHandler(Key.NumPad4, KeyModifiers.None, StepDec);
+                        keyboard.AddHandler(Key.NumPad6, KeyModifiers.None, StepInc);
+                        keyboard.AddHandler(Key.NumPad8, KeyModifiers.None, FeedInc);
                     }
                 }
             }

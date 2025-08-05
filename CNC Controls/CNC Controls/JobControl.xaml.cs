@@ -47,6 +47,7 @@ using Avalonia.Input;
 using System.Threading;
 using CNC.Core;
 using CNC.GCode;
+using CNC.GCode;
 using Avalonia.Data;
 
 using Avalonia.Interactivity;
@@ -152,29 +153,29 @@ namespace CNC.Controls
 
                     var parent = UIUtils.TryFindParent<UserControl>(this);
 
-                    keyboard.AddHandler(Key.R, ModifierKeys.Alt, StartJob, parent);
-                    keyboard.AddHandler(Key.S, ModifierKeys.Alt, StopJob, parent);
-                    keyboard.AddHandler(Key.H, ModifierKeys.Control, Home, parent);
-                    keyboard.AddHandler(Key.U, ModifierKeys.Control, Unlock);
-                    keyboard.AddHandler(Key.R, ModifierKeys.Shift | ModifierKeys.Control, Reset);
-                    keyboard.AddHandler(Key.Space, ModifierKeys.None, FeedHold, parent);
-                    keyboard.AddHandler(Key.F1, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F2, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F3, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F4, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F5, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F6, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F7, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F8, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F9, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F10, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F11, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F12, ModifierKeys.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.R, KeyModifiers.Alt, StartJob, parent);
+                    keyboard.AddHandler(Key.S, KeyModifiers.Alt, StopJob, parent);
+                    keyboard.AddHandler(Key.H, KeyModifiers.Control, Home, parent);
+                    keyboard.AddHandler(Key.U, KeyModifiers.Control, Unlock);
+                    keyboard.AddHandler(Key.R, KeyModifiers.Shift | KeyModifiers.Control, Reset);
+                    keyboard.AddHandler(Key.Space, KeyModifiers.None, FeedHold, parent);
+                    keyboard.AddHandler(Key.F1, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F2, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F3, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F4, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F5, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F6, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F7, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F8, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F9, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F10, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F11, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F12, KeyModifiers.None, FnKeyHandler);
 
-                    keyboard.AddHandler(Key.OemMinus, ModifierKeys.Control, FeedRateDown);
-                    keyboard.AddHandler(Key.OemPlus, ModifierKeys.Control, FeedRateUp);
-                    keyboard.AddHandler(Key.OemMinus, ModifierKeys.Shift | ModifierKeys.Control, FeedRateDownFine);
-                    keyboard.AddHandler(Key.OemPlus, ModifierKeys.Shift | ModifierKeys.Control, FeedRateUpFine);
+                    keyboard.AddHandler(Key.OemMinus, KeyModifiers.Control, FeedRateDown);
+                    keyboard.AddHandler(Key.OemPlus, KeyModifiers.Control, FeedRateUp);
+                    keyboard.AddHandler(Key.OemMinus, KeyModifiers.Shift | KeyModifiers.Control, FeedRateDownFine);
+                    keyboard.AddHandler(Key.OemPlus, KeyModifiers.Shift | KeyModifiers.Control, FeedRateUpFine);
                 }
 
                 GCodeParser.IgnoreM6 = AppConfig.Settings.Base.IgnoreM6;

@@ -45,6 +45,7 @@ using System.IO;
 using System;
 using System.Threading;
 using CNC.Core;
+using CNC.GCode;
 using Avalonia.Input;
 
 using Avalonia.Interactivity;
@@ -380,7 +381,7 @@ namespace CNC.Controls
         }
         #endregion
 
-        private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void treeView_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e != null && e.NewValue is GrblSettingDetails && (e.NewValue as GrblSettingDetails).Value != null)
                 ShowSetting(e.NewValue as GrblSettingDetails, true);
@@ -390,7 +391,7 @@ namespace CNC.Controls
 
         private void searchField_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            if(e.Key == System.Windows.Input.Key.Return && e.IsDown)
+            if(e.Key == Avalonia.Input.Key.Return && e.IsDown)
             {
                 var setting = GrblSettings.Get((GrblSetting)searchField.Value);
 

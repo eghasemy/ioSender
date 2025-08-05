@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.Core;
 using CNC.GCode;
+using CNC.GCode;
 using Avalonia.Interactivity;
 #if WINDOWS
 using Microsoft.Win32;
@@ -139,14 +140,14 @@ namespace CNC.Controls
             return types;
         }
 
-        public bool AddTransformer(Type converter, string name, ObservableCollection<MenuItem> menu)
+        public bool AddTransformer(Type converter, string name, ObservableCollection<Avalonia.Controls.MenuItem> menu)
         {
             bool ok = converter.GetInterface("CNC.Controls.IGCodeTransformer") != null;
             if (ok)
             {
                 Transformers.Add(new GCodeTransformer { Type = converter, Name = name });
 
-                MenuItem item = new MenuItem()
+                Avalonia.Controls.MenuItem item = new Avalonia.Controls.MenuItem()
                 {
                     Header = name,
                     Tag = menu.Count
@@ -167,7 +168,7 @@ namespace CNC.Controls
 
         private void TransformMenu_Click(object sender, RoutedEventArgs e)
         {
-            Transform((int)(sender as MenuItem).Tag);
+            Transform((int)(sender as Avalonia.Controls.MenuItem).Tag);
         }
 
         public void Transform(int id)
@@ -199,7 +200,7 @@ namespace CNC.Controls
                     row.Sent = string.Empty;
         }
 
-        public void Drag(object sender, DragEventArgs e)
+        public void Drag(object sender, Avalonia.Input.DragEventArgs e)
         {
             bool allow = Model != null && GrblParserState.IsLoaded && (Model.StreamingState == StreamingState.Idle || Model.StreamingState == StreamingState.NoFile);
 
@@ -213,7 +214,7 @@ namespace CNC.Controls
             e.Effects = allow ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
-        public void Drop(object sender, DragEventArgs e)
+        public void Drop(object sender, Avalonia.Input.DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 

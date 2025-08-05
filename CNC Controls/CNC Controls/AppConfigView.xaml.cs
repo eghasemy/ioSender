@@ -40,6 +40,8 @@ using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
+using CNC.GCode;
 using Avalonia.Input;
 
 using Avalonia.Interactivity;

@@ -43,6 +43,7 @@ using Avalonia.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CNC.Core;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls

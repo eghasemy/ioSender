@@ -579,11 +579,6 @@ namespace CNC.GCode
         // Placeholder for cross-platform build
     }
     
-    public class GrblViewModel
-    {
-        // Placeholder for cross-platform build
-    }
-    
     public enum StreamingState
     {
         Idle,
@@ -598,10 +593,97 @@ namespace CNC.GCode
         Error,
         Unknown
     }
+
+    // Missing GCode types for build compatibility
+    public class GCodeJob
+    {
+        public List<GCodeBlock> Blocks { get; set; } = new List<GCodeBlock>();
+        public string File { get; set; } = string.Empty;
+        public bool IsLoaded { get; set; }
+        public int LineCount { get; set; }
+    }
+
+    public class GCodeBlock
+    {
+        public int LineNumber { get; set; }
+        public string Data { get; set; } = string.Empty;
+        public List<GCodeToken> Tokens { get; set; } = new List<GCodeToken>();
+        public bool IsValid { get; set; } = true;
+    }
+
+    public class GCodeToken
+    {
+        public char Command { get; set; }
+        public double Value { get; set; }
+        public string Letter { get; set; } = string.Empty;
+    }
+
+    public enum GrblState
+    {
+        Unknown,
+        Idle,
+        Run,
+        Hold,
+        Jog,
+        Alarm,
+        Door,
+        Check,
+        Home,
+        Sleep,
+        Tool
+    }
+
+    public enum GrblEncoderMode
+    {
+        Unknown,
+        FeedRate,
+        RapidRate,
+        SpindleRPM
+    }
+
+    // Additional missing types for build compatibility
+    public class GrblViewModel
+    {
+        public GrblState GrblState { get; set; }
+        public bool IsLoaded { get; set; }
+        public StreamingState StreamingState { get; set; }
+    }
+
+    public class GrblStates
+    {
+        public static readonly GrblState Unknown = GrblState.Unknown;
+        public static readonly GrblState Idle = GrblState.Idle;
+        public static readonly GrblState Run = GrblState.Run;
+    }
+
+    public class GrblSettingDetails
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public object Value { get; set; } = new object();
+    }
+
+    public delegate void ToolChangedHandler(int toolNumber);
 }
 
 namespace CNC.Core
 {
+    /// <summary>
+    /// Action enum for CNC operations
+    /// </summary>
+    public enum Action
+    {
+        New,
+        Add,
+        Delete,
+        Save,
+        SaveAs,
+        Exit,
+        Stop,
+        Start,
+        Pause
+    }
+
     /// <summary>
     /// Camera movement mode enum for cross-platform compatibility
     /// </summary>

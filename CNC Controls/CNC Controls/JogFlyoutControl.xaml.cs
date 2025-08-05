@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System.ComponentModel;
 using Avalonia;
 using CNC.Core;
+using CNC.GCode;
 using Avalonia.Input;
 using Avalonia.Controls;
 
@@ -51,6 +52,22 @@ namespace CNC.Controls
         public JogFlyoutControl()
         {
             InitializeComponent();
+            
+            // Add key event handlers
+            this.KeyDown += (sender, e) => {
+                if (!(e.Handled = ProcessKeyPreview(e)))
+                {
+                    if (KeyboardDevice.Instance.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
+                        Focus();
+                }
+            };
+            
+            this.KeyUp += (sender, e) => {
+                if (!(e.Handled = ProcessKeyPreview(e)))
+                {
+                    // Handle key up
+                }
+            };
         }
 
         public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
@@ -77,23 +94,6 @@ namespace CNC.Controls
                         Visibility = false;
                     break;
             }
-        }
-
-        protected override void OnPreviewKeyDown(KeyEventArgs e)
-        {
-            if (!(e.Handled = ProcessKeyPreview(e)))
-            {
-                if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
-                    Focus();
-
-                base.OnPreviewKeyDown(e);
-            }
-        }
-
-        protected override void OnPreviewKeyUp(KeyEventArgs e)
-        {
-            if (!(e.Handled = ProcessKeyPreview(e)))
-                base.OnPreviewKeyDown(e);
         }
 
         protected bool ProcessKeyPreview(KeyEventArgs e)

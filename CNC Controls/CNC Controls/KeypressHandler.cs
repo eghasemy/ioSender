@@ -42,6 +42,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Input;
 using CNC.Core;
+using CNC.GCode;
 using Avalonia.Controls;
 
 namespace CNC.Controls
@@ -59,7 +60,7 @@ namespace CNC.Controls
         public class KeypressHandlerFn
         {
             public Key key;
-            public ModifierKeys modifiers;
+            public KeyModifiers modifiers;
             public Func<Key, bool> Call;
         }
 
@@ -71,7 +72,7 @@ namespace CNC.Controls
         private GrblViewModel grbl;
         private List<KeypressHandlerFn> handlers = new List<KeypressHandlerFn>();
 
-        public void AddHandler(Key key, ModifierKeys modifiers, Func<Key, bool> handler)
+        public void AddHandler(Key key, KeyModifiers modifiers, Func<Key, bool> handler)
         {
             handlers.Add(new KeypressHandlerFn(){key = key, modifiers = modifiers, Call = handler});
         }
@@ -267,7 +268,7 @@ namespace CNC.Controls
 
                 if ((isJogging = command != string.Empty))
                 {
-                    if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+                    if ((Keyboard.Modifiers & KeyModifiers.Control) == KeyModifiers.Control)
                     {
                         for (int i = 0; i < 3; i++)
                             axisjog[i] = Key.None;
@@ -278,7 +279,7 @@ namespace CNC.Controls
                     else if (fullJog)
                     {
                         preCancel = true;
-                        if ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                        if ((Keyboard.Modifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
                             jogMode = JogMode.Fast;
                         else
                             jogMode = JogMode.Slow;
@@ -325,13 +326,13 @@ namespace CNC.Controls
 
             if (e.IsUp)
             {
-                if (Keyboard.Modifiers == ModifierKeys.Alt)
+                if (Keyboard.Modifiers == KeyModifiers.Alt)
                 {
                     var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.SystemKey).FirstOrDefault();
                     if (handler != null)
                         return handler.Call(e.SystemKey);
                 }
-                else if (Keyboard.Modifiers == ModifierKeys.None || Keyboard.Modifiers == ModifierKeys.Control || Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+                else if (Keyboard.Modifiers == KeyModifiers.None || Keyboard.Modifiers == KeyModifiers.Control || Keyboard.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
                 {
                     var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.Key).FirstOrDefault();
                     if (handler != null)

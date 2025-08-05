@@ -42,6 +42,7 @@ using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
 namespace CNC.Controls
 {
@@ -68,7 +69,7 @@ namespace CNC.Controls
         //public ObservableCollection<CNCView> CNCViews { get;  }
         public ObservableCollection<SidebarItem> SidebarItems { get; }
         public ObservableCollection<UserControl> ConfigControls { get; }
-        public ObservableCollection<MenuItem> TransformMenuItems { get; } = new ObservableCollection<MenuItem>();
+        public ObservableCollection<Avalonia.Controls.MenuItem> TransformAvalonia.Controls.MenuItems { get; } = new ObservableCollection<Avalonia.Controls.MenuItem>();
 
         public bool IsConfigControlInstantiated<T>()
         {

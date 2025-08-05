@@ -41,6 +41,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using CNC.Core;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls

@@ -44,6 +44,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using CNC.Core;
 using CNC.GCode;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls
@@ -93,16 +94,16 @@ namespace CNC.Controls
 
                 keyboardMappingsOk = true;
 
-                keyboard.AddHandler(Key.X, ModifierKeys.Control | ModifierKeys.Shift, ZeroX);
-                keyboard.AddHandler(Key.Y, ModifierKeys.Control | ModifierKeys.Shift, ZeroY);
-                keyboard.AddHandler(Key.Z, ModifierKeys.Control | ModifierKeys.Shift, ZeroZ);
+                keyboard.AddHandler(Key.X, KeyModifiers.Control | KeyModifiers.Shift, ZeroX);
+                keyboard.AddHandler(Key.Y, KeyModifiers.Control | KeyModifiers.Shift, ZeroY);
+                keyboard.AddHandler(Key.Z, KeyModifiers.Control | KeyModifiers.Shift, ZeroZ);
                 if (GrblInfo.AxisFlags.HasFlag(AxisFlags.A))
-                    keyboard.AddHandler(Key.A, ModifierKeys.Control | ModifierKeys.Shift, ZeroA);
+                    keyboard.AddHandler(Key.A, KeyModifiers.Control | KeyModifiers.Shift, ZeroA);
                 if (GrblInfo.AxisFlags.HasFlag(AxisFlags.B))
-                    keyboard.AddHandler(Key.B, ModifierKeys.Control | ModifierKeys.Shift, ZeroB);
+                    keyboard.AddHandler(Key.B, KeyModifiers.Control | KeyModifiers.Shift, ZeroB);
                 if (GrblInfo.AxisFlags.HasFlag(AxisFlags.C))
-                    keyboard.AddHandler(Key.C, ModifierKeys.Control | ModifierKeys.Shift, ZeroC);
-                keyboard.AddHandler(Key.D0, ModifierKeys.Control | ModifierKeys.Shift, ZeroAxes);
+                    keyboard.AddHandler(Key.C, KeyModifiers.Control | KeyModifiers.Shift, ZeroC);
+                keyboard.AddHandler(Key.D0, KeyModifiers.Control | KeyModifiers.Shift, ZeroAxes);
             }
 
             foreach (DROBaseControl axis in UIUtils.FindLogicalChildren<DROBaseControl>(this))

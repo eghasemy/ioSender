@@ -42,6 +42,7 @@ using Avalonia;
 using Avalonia.Controls;
 using System.Collections.Generic;
 using CNC.Core;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls
@@ -77,12 +78,12 @@ namespace CNC.Controls
         }
         #endregion
 
-        private void grdGCode_Drag(object sender, DragEventArgs e)
+        private void grdGCode_Drag(object sender, Avalonia.Input.DragEventArgs e)
         {
             GCode.File.Drag(sender, e);
         }
 
-        private void grdGCode_Drop(object sender, DragEventArgs e)
+        private void grdGCode_Drop(object sender, Avalonia.Input.DragEventArgs e)
         {
             GCode.File.Drop(sender, e);
         }

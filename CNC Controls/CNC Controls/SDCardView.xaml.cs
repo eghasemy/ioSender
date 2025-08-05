@@ -45,6 +45,7 @@ using System.Threading;
 using System.Net;
 using Microsoft.Win32;
 using CNC.Core;
+using CNC.GCode;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls

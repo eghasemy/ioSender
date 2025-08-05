@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using Avalonia;
 using CNC.Core;
+using CNC.GCode;
 using System;
 using Avalonia.Controls;
 

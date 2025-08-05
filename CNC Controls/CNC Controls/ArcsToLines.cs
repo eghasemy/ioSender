@@ -41,6 +41,7 @@ using System;
 using System.Collections.Generic;
 using CNC.Core; // Cross-platform 3D math types
 using CNC.GCode;
+using CNC.GCode;
 using Avalonia;
 using Avalonia.Controls;
 

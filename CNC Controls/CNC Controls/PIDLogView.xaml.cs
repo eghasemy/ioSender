@@ -45,6 +45,7 @@ using Avalonia.Media;
 using Avalonia.Controls.Shapes;
 using System.Globalization;
 using CNC.Core;
+using CNC.GCode;
 using Avalonia.Input;
 
 using Avalonia.Interactivity;
@@ -81,7 +82,7 @@ namespace CNC.Controls
 
         #endregion
 
-        private void sldError_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldError_ValueChanged(object sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (DataContext is PIDLogViewModel)
             {

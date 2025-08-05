@@ -41,6 +41,7 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 using Avalonia.Input;
 
 namespace CNC.Controls
@@ -79,8 +80,8 @@ namespace CNC.Controls
             set { SetValue(MaximumProperty, value); }
         }
 
-        public static readonly StyledProperty<System.Windows.Media.DoubleCollection> TicksProperty = AvaloniaProperty.Register<OverrideControl, System.Windows.Media.DoubleCollection>(nameof(Ticks));
-        public System.Windows.Media.DoubleCollection Ticks
+        public static readonly StyledProperty<IList<double>> TicksProperty = AvaloniaProperty.Register<OverrideControl, IList<double>>(nameof(Ticks));
+        public IList<double> Ticks
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
@@ -124,7 +125,7 @@ namespace CNC.Controls
 
         #endregion
 
-        private void Slider_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Slider_LostMouseCapture(object sender, Avalonia.Input.PointerEventArgs e)
         {
             int len = 0;
             byte[] cmd = new byte[30];
@@ -175,7 +176,7 @@ namespace CNC.Controls
             CommandGenerated?.Invoke(cmd, 1);
         }
 
-        private void Slider_GotMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Slider_GotMouseCapture(object sender, Avalonia.Input.PointerEventArgs e)
         {
             lastValue = Math.Round(Value);
         }

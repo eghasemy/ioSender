@@ -59,6 +59,9 @@ namespace CNC.Controls
             TextWrapping = TextWrapping.NoWrap;
             if (Format == NumericProperties.MetricFormat)
                 NumericProperties.OnFormatChanged(this, np, Format);
+                
+            // Wire up text changed event handler
+            this.TextChanged += OnTextChanged;
         }
 
         public new string Text { get { return base.Text; } set { base.Text = value; } }
@@ -105,9 +108,9 @@ namespace CNC.Controls
             base.Text = string.Empty;
         }
 
-        protected override void OnPreviewKeyUp(KeyEventArgs e)
+        protected override void OnKeyUp(KeyEventArgs e)
         {
-            base.OnPreviewKeyUp(e);
+            base.OnKeyUp(e);
 
             if (e.Key == Key.Delete || e.Key == Key.Back)
             {
@@ -119,9 +122,9 @@ namespace CNC.Controls
             }
         }
 
-        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+        protected override void OnTextInput(Avalonia.Input.TextInputEventArgs e)
         {
-            TextBox textBox = (TextBox)e.OriginalSource;
+            TextBox textBox = this;
             string text = textBox.SelectionLength > 0 ? textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength) : textBox.Text;
             text = text.Insert(textBox.CaretIndex, e.Text);
             if (!(e.Handled = !NumericProperties.IsStringNumeric(text, np)))
@@ -134,7 +137,7 @@ namespace CNC.Controls
             base.OnPreviewTextInput(e);
         }
 
-        protected override void OnTextChanged(TextChangedEventArgs e)
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
             double val = 0d;
             if (double.TryParse(Text == string.Empty ? "NaN" : Text, np.Styles, CultureInfo.InvariantCulture, out val))
@@ -146,7 +149,7 @@ namespace CNC.Controls
                     updateText = true;
                 }
 
-                base.OnTextChanged(e);
+                // Don't call base.OnTextChanged for event handler
             }
             else if(Text == string.Empty || Text == ".")
             {

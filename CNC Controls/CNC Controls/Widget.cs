@@ -41,6 +41,7 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 using Avalonia.Data;
 using CNC.GCode;
 using Avalonia.Input;
@@ -550,7 +551,7 @@ namespace CNC.Controls
 
         private void wWidget_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == Avalonia.Input.Key.Enter)
                 Assign();
         }
 
