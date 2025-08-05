@@ -439,4 +439,17 @@ namespace CNC.Core
             return new object[0];
         }
     }
+    
+    /// <summary>
+    /// WPF Mouse and Cursor compatibility classes
+    /// </summary>
+    public static class Mouse
+    {
+        public static object OverrideCursor { get; set; }
+    }
+    
+    public static class Cursors
+    {
+        public static object Wait { get; } = new object();
+    }
 }

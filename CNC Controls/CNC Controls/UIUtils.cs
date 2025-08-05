@@ -219,9 +219,9 @@ namespace CNC.Controls
 
         public static T TryFindParent<T>(AvaloniaObject current) where T : class
         {
-            AvaloniaObject parent = VisualTreeHelper.GetParent(current);
+            AvaloniaObject parent = (AvaloniaObject)VisualTreeHelper.GetParent(current);
             if (parent == null)
-                parent = LogicalTreeHelper.GetParent(current);
+                parent = (AvaloniaObject)LogicalTreeHelper.GetParent(current);
 
             if (parent == null)
                 return null;
@@ -338,7 +338,7 @@ namespace CNC.Controls
     public static class TextBoxUtilities
     {
         // TODO: Convert AlwaysScrollToEndProperty to Avalonia AttachedProperty
-        public static readonly StyledProperty<bool> AlwaysScrollToEndProperty = AvaloniaProperty.RegisterAttached<TextBoxUtilities, TextBox, bool>("AlwaysScrollToEnd", false);
+        public static readonly StyledProperty<bool> AlwaysScrollToEndProperty = AvaloniaProperty.RegisterAttached<Control, bool>("AlwaysScrollToEnd", false);
 
         private static void AlwaysScrollToEndChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
