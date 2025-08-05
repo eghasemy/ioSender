@@ -40,7 +40,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System.Collections.Generic;
 using System.Linq;
 using CNC.GCode;
+#if WINDOWS
 using System.Windows.Media.Media3D;
+#else
+using CNC.Core;
+#endif
 using System.Globalization;
 
 namespace CNC.Core

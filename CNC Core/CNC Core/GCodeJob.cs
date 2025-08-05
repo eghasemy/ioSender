@@ -41,8 +41,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
+#if WINDOWS
 using System.Windows;
 using System.Windows.Media.Media3D;
+#else
+using CNC.Core;
+#endif
 using System.Collections.ObjectModel;
 using CNC.GCode;
 

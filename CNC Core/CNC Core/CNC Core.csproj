@@ -27,9 +27,10 @@
     <Compile Remove="**/*.cs" />
   </ItemGroup>
 
-  <!-- For cross-platform build, only include essential communication files -->
+  <!-- For cross-platform build, include minimal essential files with cross-platform 3D math -->
   <ItemGroup>
     <Compile Include="HelperClasses.cs" />
+    <Compile Include="Math3D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

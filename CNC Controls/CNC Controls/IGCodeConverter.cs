@@ -43,6 +43,6 @@ namespace CNC.Controls
     {
         string FileType { get; }
         string FileExtensions { get; }
-        bool LoadFile(CNC.Controls.GCode job, string filename);
+        bool LoadFile(object job, string filename);
     }
 }

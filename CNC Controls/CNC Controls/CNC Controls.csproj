@@ -32,12 +32,8 @@
     <Resource Remove="**/*" />
   </ItemGroup>
 
-  <!-- For cross-platform build, only include core GCode parsing files -->
+  <!-- For cross-platform build, only include core interfaces -->
   <ItemGroup>
-    <Compile Include="GCode.cs" />
-    <Compile Include="GCodeCompress.cs" />
-    <Compile Include="GCodeRotate.cs" />
-    <Compile Include="GCodeWrap.cs" />
     <Compile Include="IGCodeConverter.cs" />
     <Compile Include="IGCodeTransformer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
