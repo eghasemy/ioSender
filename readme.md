@@ -1,5 +1,11 @@
 ## ioSender - a gcode sender for grblHAL and Grbl controllers
 
+### Cross-Platform Support
+ioSender now runs natively on **Windows**, **Linux**, and **macOS** thanks to the Avalonia UI framework migration.
+
+📖 **[Build Guide](BUILD.md)** - Complete instructions for building on all platforms  
+🚀 **[Quick Start](QUICKSTART.md)** - Get up and running in minutes
+
 ---
 
 Please check out the [Wiki](https://github.com/terjeio/Grbl-GCode-Sender/wiki) for further details.
