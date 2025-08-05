@@ -6,6 +6,7 @@
     <AssemblyName>CNC.Controls.Avalonia</AssemblyName>
     <UICulture>en-US</UICulture>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -35,9 +36,10 @@
     <ProjectReference Include="..\..\CNC Core\CNC Core\CNC Core.csproj" />
   </ItemGroup>
 
-  <!-- Avalonia XAML files -->
-  <ItemGroup>
+  <!-- Avalonia XAML files are compiled automatically by Avalonia.BuildServices -->
+  <!-- Remove explicit AvaloniaResource to let Avalonia handle XAML compilation -->
+  <!--<ItemGroup>
     <AvaloniaResource Include="**/*.xaml" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

@@ -196,7 +196,7 @@ namespace CNC.Controls
         public object Convert(IList<object?> value, Type targetType, object parameter, CultureInfo culture)
         {
             string res = string.Empty;
-            string format = value.Length > 1 && value[1] is string ? value[1] as string : "####0.000";
+            string format = value.Count > 1 && value[1] is string ? value[1] as string : "####0.000";
 
             if(value[0] is Position) switch(GrblInfo.NumAxes)
             {
@@ -284,7 +284,7 @@ namespace CNC.Controls
     {
         public object Convert(IList<object?> value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.Length == 2 && value[0] is double && value[1] is double
+            return value.Count == 2 && value[0] is double && value[1] is double
                     ? string.Format("F: {0}  S: {1}", ((double)value[0]).ToInvariantString(), ((double)value[1]).ToInvariantString())
                     : string.Empty;
         }
@@ -299,7 +299,7 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Brush result = Brushes.White;
+            Brush result = (Brush)Brushes.White;
 
             if (value is GrblState)
                 result = new SolidColorBrush(((GrblState)value).Color);
@@ -325,7 +325,7 @@ namespace CNC.Controls
             // value[1] = IsJobRunning
             // value[2] = IsSleeping
 
-            if (!result && GrblInfo.HomingEnabled && value.Length > 2 && value[1] is bool && !(bool)value[1] && value[2] is bool && !(bool)value[2])
+            if (!result && GrblInfo.HomingEnabled && value.Count > 2 && value[1] is bool && !(bool)value[1] && value[2] is bool && !(bool)value[2])
                 result = state != GrblStates.Unknown && !((GrblState)value[0]).MPG && (state == GrblStates.Idle || state == GrblStates.Alarm || !GrblInfo.IsGrblHAL);
 
             return result;
@@ -346,11 +346,11 @@ namespace CNC.Controls
             if (value is HomedState) switch ((HomedState)value)
             {
                 case HomedState.NotHomed:
-                    result = Brushes.LightYellow;
+                    result = (Brush)Brushes.LightYellow;
                     break;
 
                 case HomedState.Homed:
-                    result = Brushes.LightGreen;
+                    result = (Brush)Brushes.LightGreen;
                     break;
             }
 
@@ -387,7 +387,7 @@ namespace CNC.Controls
             foreach (var value in values)
                 result &= value is bool && (bool)value;
 
-            return values.Length == 2 && values[0] is GrblEncoderMode && !values[0].Equals(GrblEncoderMode.Unknown) && values[1] is GrblEncoderMode && values[0].Equals(values[1]) ? Brushes.Salmon : ReadOnlyBackGround;
+            return values.Count == 2 && values[0] is GrblEncoderMode && !values[0].Equals(GrblEncoderMode.Unknown) && values[1] is GrblEncoderMode && values[0].Equals(values[1]) ? Brushes.Salmon : ReadOnlyBackGround;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -421,7 +421,7 @@ namespace CNC.Controls
     {
         public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return values.Length == 2 && values[0] is GrblState && values[1] is GrblStates && ((GrblState)values[0]).State == (GrblStates)values[1];
+            return values.Count == 2 && values[0] is GrblState && values[1] is GrblStates && ((GrblState)values[0]).State == (GrblStates)values[1];
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -507,7 +507,7 @@ namespace CNC.Controls
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Visibility && (Visibility)value == true;
+            return value is bool && (bool)value;
         }
     }
 
@@ -517,10 +517,10 @@ namespace CNC.Controls
         {
             bool enabled = false;
 
-            if(values.Length == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
+            if(values.Count == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
                 enabled = ((int)values[0] & (int)values[1]) != 0;
 
-            if(values.Length == 2 && values[0] is AxisFlags && values[1] is AxisFlags)
+            if(values.Count == 2 && values[0] is AxisFlags && values[1] is AxisFlags)
                 enabled = ((AxisFlags)values[0]).HasFlag((AxisFlags)values[1]);
 
             return enabled ? true : false;
@@ -538,10 +538,10 @@ namespace CNC.Controls
         {
             bool enabled = false;
 
-            if (values.Length == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
+            if (values.Count == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
                 enabled = ((int)values[0] & (int)values[1]) != 0;
 
-            if (values.Length == 2 && values[0] is EnumFlags<Signals> && values[1] is Signals)
+            if (values.Count == 2 && values[0] is EnumFlags<Signals> && values[1] is Signals)
                 enabled = ((EnumFlags<Signals>)values[0]).Value.HasFlag((Signals)values[1]);
 
             return enabled ? true : false;
@@ -557,7 +557,7 @@ namespace CNC.Controls
     {
         public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return values.Length == 2 ? values[0].ToString() + string.Format((string)parameter, values[1].ToString()) : string.Empty;
+            return values.Count == 2 ? values[0].ToString() + string.Format((string)parameter, values[1].ToString()) : string.Empty;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

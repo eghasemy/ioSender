@@ -338,7 +338,7 @@ namespace CNC.Controls
     public static class TextBoxUtilities
     {
         // TODO: Convert AlwaysScrollToEndProperty to Avalonia AttachedProperty
-        public static readonly StyledProperty<bool> AlwaysScrollToEndProperty = AvaloniaProperty.RegisterAttached<TextBoxUtilities, TextBox, bool>(nameof(AlwaysScrollToEnd), false);
+        public static readonly StyledProperty<bool> AlwaysScrollToEndProperty = AvaloniaProperty.RegisterAttached<TextBoxUtilities, TextBox, bool>("AlwaysScrollToEnd", false);
 
         private static void AlwaysScrollToEndChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
@@ -348,7 +348,9 @@ namespace CNC.Controls
                 bool alwaysScrollToEnd = (e.NewValue != null) && (bool)e.NewValue;
                 if (alwaysScrollToEnd)
                 {
-                    tb.ScrollToEnd();
+                    // Avalonia TODO: Implement scroll to end functionality
+                    // tb.ScrollToEnd();
+                    tb.CaretIndex = tb.Text?.Length ?? 0;
                     tb.TextChanged += TextChanged;
                 }
                 else
@@ -369,7 +371,9 @@ namespace CNC.Controls
                 throw new ArgumentNullException("textBox");
             }
 
-            // TODO: Convert to Avalonia property getter - return (bool)textBox.GetValue(AlwaysScrollToEndProperty);
+            // TODO: Convert to Avalonia property getter
+            // return (bool)textBox.GetValue(AlwaysScrollToEndProperty);
+            return false;
         }
 
         public static void SetAlwaysScrollToEnd(TextBox textBox, bool alwaysScrollToEnd)
@@ -384,7 +388,10 @@ namespace CNC.Controls
 
         private static void TextChanged(object sender, TextChangedEventArgs e)
         {
-            ((TextBox)sender).ScrollToEnd();
+            // Avalonia TODO: Implement scroll to end functionality
+            // ((TextBox)sender).ScrollToEnd();
+            var textBox = (TextBox)sender;
+            textBox.CaretIndex = textBox.Text?.Length ?? 0;
         }
     }
 }

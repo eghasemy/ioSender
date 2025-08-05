@@ -46,7 +46,7 @@ namespace CNC.Controls
 {
     public partial class DROBaseControl : UserControl
     {
-        private static Brush ScaledOn = Brushes.Yellow, ScaledOff;
+        private static Brush ScaledOn = (Brush)Brushes.Yellow, ScaledOff;
 
         public delegate void ZeroClickHandler(object sender, RoutedEventArgs e);
         public event ZeroClickHandler ZeroClick;

@@ -385,3 +385,58 @@ namespace RP.Math
 {
     using Vector3 = CNC.Core.Vector3;
 }
+
+/// <summary>
+/// ValidationError compatibility class for Avalonia migration
+/// </summary>
+namespace CNC.Core
+{
+    public class ValidationError
+    {
+        public object ErrorContent { get; set; }
+        
+        public ValidationError(object errorContent)
+        {
+            ErrorContent = errorContent;
+        }
+    }
+    
+    /// <summary>
+    /// WPF compatibility helper classes for tree navigation
+    /// </summary>
+    public static class VisualTreeHelper
+    {
+        public static object GetParent(object obj)
+        {
+            // TODO: Implement Avalonia visual tree navigation
+            return null;
+        }
+        
+        public static int GetChildrenCount(object obj)
+        {
+            // TODO: Implement Avalonia visual tree navigation
+            return 0;
+        }
+        
+        public static object GetChild(object obj, int index)
+        {
+            // TODO: Implement Avalonia visual tree navigation
+            return null;
+        }
+    }
+    
+    public static class LogicalTreeHelper
+    {
+        public static object GetParent(object obj)
+        {
+            // TODO: Implement Avalonia logical tree navigation
+            return null;
+        }
+        
+        public static System.Collections.IEnumerable GetChildren(object obj)
+        {
+            // TODO: Implement Avalonia logical tree navigation
+            return new object[0];
+        }
+    }
+}

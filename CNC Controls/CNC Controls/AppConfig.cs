@@ -50,25 +50,20 @@ using static CNC.GCode.GCodeParser;
 using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Styling;
 
 namespace CNC.Controls
 {
     public class LibStrings
     {
         // TODO: ResourceDictionary usage needs Avalonia equivalent
-        // static ResourceDictionary resource = new ResourceDictionary();
+        static Dictionary<object, object> resource = new Dictionary<object, object>();
 
         public static string FindResource(string key)
         {
-            if(resource.Source == null)
-            try {
-                resource.Source = new Uri("pack://application:,,,/CNC.Controls.WPF;Component/LibStrings.xaml", UriKind.Absolute);
-            }
-            catch
-            {
-            }
-
-            return resource.Source == null || !resource.Contains(key) ? string.Empty : (string)resource[key];
+            // TODO: Implement proper Avalonia resource lookup
+            // For now return empty string to allow compilation
+            return string.Empty;
         }
     }
 
