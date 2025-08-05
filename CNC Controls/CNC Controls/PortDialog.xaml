@@ -9,24 +9,8 @@
         Title="Sender connection" Height="198" Width="400" Icon="App.ico" CanResize="False">
     <Window.Resources>
         <Style x:Key="PortErrorStyle" Selector="local:NumericTextBox">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="BorderBrush" Value="Green" />
-                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                        Path=(Validation.Errors)[0].ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
         <Style x:Key="Ip4ErrorStyle" Selector="TextBox">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="TextBox.ToolTip">
-                        <Setter.Value>
-                            <Binding RelativeSource="{RelativeSource Self}" Path="(Validation.Errors)[0].ErrorContent" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -68,10 +52,7 @@
                         <Label Content="Port:" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Width="80"/>
                         <local:NumericTextBox Classes="PortErrorStyle" Format="####0">
                             <local:NumericTextBox.Value>
-                                <Binding Path="NetPort" Mode="TwoWay" ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <local:NumericRangeRule Min="0" Max="65535" ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
+                                <Binding Path="NetPort" Mode="TwoWay">
                                 </Binding>
                             </local:NumericTextBox.Value>
                         </local:NumericTextBox>
@@ -80,10 +61,7 @@
                         <Label Content="IP address:" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Width="80"/>
                         <TextBox Classes="Ip4ErrorStyle" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Height="24" Width="95" MaxLength="15">
                             <TextBox.Text>
-                                <Binding Path="IpAddress" Mode="TwoWay" ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <local:IP4ValueRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
+                                <Binding Path="IpAddress" Mode="TwoWay">
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>

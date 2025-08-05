@@ -48,13 +48,13 @@ namespace CNC.Controls
     /// </summary>
     public partial class LEDControl : UserControl
     {
-        static Brush LEDOn = (Brush)Brushes.Red, LEDOff = (Brush)Brushes.LightGray;
+        static Brush LEDOn = new SolidColorBrush(Colors.Red), LEDOff = new SolidColorBrush(Colors.LightGray);
 
         public LEDControl()
         {
             InitializeComponent();
 
-            LEDOff = btnLED.Background;
+            LEDOff = btnLED.Background as Brush ?? new SolidColorBrush(Colors.LightGray);
         }
 
                 public static readonly StyledProperty<bool> IsSetProperty = AvaloniaProperty.Register<LEDControl, bool>(nameof(IsSet), false);

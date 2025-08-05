@@ -16,7 +16,7 @@
                 <CheckBox Content="Enable" IsChecked="{Binding Path=Jog.KeyboardEnable, Mode=TwoWay}" Margin="160,3,0,3"/>
                 <Image HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Source="Resources/StatusAnnotations_Warning_16xLG_color.png"/>
             </StackPanel>
-            <local:NumericField Label="Fast feedrate:" Localization.Attributes = "$Content (Inherit)" ColonAt="160" Unit="mm/min" Format="###0" Value="{Binding Path=Jog.FastFeedrate, Mode=TwoWay}"/>
+            <local:NumericField Label="Fast feedrate:" ColonAt="160" Unit="mm/min" Format="###0" Value="{Binding Path=Jog.FastFeedrate, Mode=TwoWay}"/>
             <local:NumericField Label="Fast distance:" ColonAt="160" Value="{Binding Path=Jog.FastDistance, Mode=TwoWay}" />
             <local:NumericField Label="Slow feedrate:" ColonAt="160" Unit="mm/min" Format="###0" Value="{Binding Path=Jog.SlowFeedrate, Mode=TwoWay}"/>
             <local:NumericField Label="Slow distance:" ColonAt="160" Value="{Binding Path=Jog.SlowDistance, Mode=TwoWay}" />

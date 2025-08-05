@@ -11,9 +11,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
-                <ResourceDictionary>
-                    <FrameworkElement x:Key="ProxyElement" DataContext="{Binding}"/>
-                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

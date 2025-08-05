@@ -12,9 +12,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
-                <ResourceDictionary>
-                    <FrameworkElement x:Key="ProxyElement" DataContext="{Binding}"/>
-                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <system:String x:Key="AxisLabel">{0} axis:</system:String>
             <local:LogicalNotConverter x:Key="IsNotPredefined" />

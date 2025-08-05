@@ -51,6 +51,7 @@ using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Styling;
+using Avalonia.Controls.Primitives;
 
 namespace CNC.Controls
 {
@@ -607,9 +608,9 @@ namespace CNC.Controls
                 // ...if so show dialog for wait for it to stop polling and relinquish control.
                 if (MPGactive == true)
                 {
-                    MPGPending await = new MPGPending(model);
-                    await.ShowDialog();
-                    if (await.Cancelled)
+                    MPGPending mpgPending = new MPGPending(model);
+                    mpgPending.ShowDialog(TopLevel.GetTopLevel(this) as Window);
+                    if (mpgPending.Cancelled)
                     {
                         Comms.com.Close(); //!!
                         status = 2;

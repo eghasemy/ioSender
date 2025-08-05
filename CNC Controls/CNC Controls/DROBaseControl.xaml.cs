@@ -46,7 +46,7 @@ namespace CNC.Controls
 {
     public partial class DROBaseControl : UserControl
     {
-        private static Brush ScaledOn = (Brush)Brushes.Yellow, ScaledOff;
+        private static Brush ScaledOn = new SolidColorBrush(Colors.Yellow), ScaledOff;
 
         public delegate void ZeroClickHandler(object sender, RoutedEventArgs e);
         public event ZeroClickHandler ZeroClick;
@@ -55,7 +55,7 @@ namespace CNC.Controls
         {
             InitializeComponent();
 
-            ScaledOff = btnScaled.Background;
+            ScaledOff = btnScaled.Background as Brush ?? new SolidColorBrush(Colors.Transparent);
         }
 
                 public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<DROBaseControl, string>(nameof(Label), string.Empty);

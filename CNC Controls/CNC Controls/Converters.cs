@@ -299,7 +299,7 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Brush result = (Brush)Brushes.White;
+            Brush result = new SolidColorBrush(Colors.White);
 
             if (value is GrblState)
                 result = new SolidColorBrush(((GrblState)value).Color);
@@ -341,16 +341,16 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Brush result = Avalonia.Media.Brushes.LightGray;
+            Brush result = new SolidColorBrush(Colors.LightGray);
 
             if (value is HomedState) switch ((HomedState)value)
             {
                 case HomedState.NotHomed:
-                    result = Brushes.LightYellow;
+                    result = new SolidColorBrush(Colors.LightYellow);
                     break;
 
                 case HomedState.Homed:
-                    result = Brushes.LightGreen;
+                    result = new SolidColorBrush(Colors.LightGreen);
                     break;
             }
 
@@ -378,7 +378,7 @@ namespace CNC.Controls
 
     public class EncoderModeToColorConverter : IMultiValueConverter
     {
-        public static SolidColorBrush ReadOnlyBackGround { get; } = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFF8F8F8"));
+        public static SolidColorBrush ReadOnlyBackGround { get; } = new SolidColorBrush(Color.FromArgb(0xFF, 0xF8, 0xF8, 0xF8));
 
         public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -387,7 +387,7 @@ namespace CNC.Controls
             foreach (var value in values)
                 result &= value is bool && (bool)value;
 
-            return values.Count == 2 && values[0] is GrblEncoderMode && !values[0].Equals(GrblEncoderMode.Unknown) && values[1] is GrblEncoderMode && values[0].Equals(values[1]) ? Brushes.Salmon : ReadOnlyBackGround;
+            return values.Count == 2 && values[0] is GrblEncoderMode && !values[0].Equals(GrblEncoderMode.Unknown) && values[1] is GrblEncoderMode && values[0].Equals(values[1]) ? new SolidColorBrush(Colors.Salmon) : ReadOnlyBackGround;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

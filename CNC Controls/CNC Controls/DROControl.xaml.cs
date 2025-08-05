@@ -117,9 +117,9 @@ namespace CNC.Controls
 
                 orgpos = (DataContext as GrblViewModel).Position.Values[(int)((NumericTextBox)(sender)).Tag];
 
-                background = (sender as NumericTextBox).Background;
+                background = (sender as NumericTextBox).Background as Brush;
                 (sender as NumericTextBox).IsReadOnly = false;
-                (sender as NumericTextBox).Background = Brushes.White;
+                (sender as NumericTextBox).Background = new SolidColorBrush(Colors.White);
 
                 hasFocus = true;
 

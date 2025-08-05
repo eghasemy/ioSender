@@ -9,11 +9,6 @@
     <UserControl.Resources>
         <local:LogicalNotConverter x:Key="BooleanConverter" />
         <Style x:Key="ActionButtonStyle" Selector="Button">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5"/>
-                </Trigger>
-            </Style.Triggers>
             <Setter Property="Height" Value="36"/>
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Margin" Value="3,0"/>
@@ -21,7 +16,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate Selector="Button">
+                    <ControlTemplate>
                         <Border BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="Transparent">
@@ -30,6 +25,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style Selector="Button:disabled">
+            <Setter Property="Opacity" Value="0.5"/>
         </Style>
     </UserControl.Resources>
     <StackPanel IsEnabled="{Binding Path=IsJobRunning, Mode=OneWay, Converter={StaticResource BooleanConverter}}" Orientation="Horizontal" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top">

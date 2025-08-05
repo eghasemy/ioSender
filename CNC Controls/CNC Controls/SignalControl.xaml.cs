@@ -45,13 +45,13 @@ namespace CNC.Controls
 {
     public partial class SignalControl : UserControl
     {
-        static Brush LEDOn = Brushes.Red, LEDOff = Brushes.LightGray;
+        static Brush LEDOn = new SolidColorBrush(Colors.Red), LEDOff = new SolidColorBrush(Colors.LightGray);
 
         public SignalControl()
         {
             InitializeComponent();
 
-            LEDOff = btnLED.Background;
+            LEDOff = btnLED.Background as Brush ?? new SolidColorBrush(Colors.LightGray);
         }
 
                 public static readonly StyledProperty<bool> IsSetProperty = AvaloniaProperty.Register<SignalControl, bool>(nameof(IsSet), false);
