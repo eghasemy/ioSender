@@ -53,7 +53,7 @@ namespace CNC.Controls
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = false;
+            IsVisible = false;
         }
     }
 }

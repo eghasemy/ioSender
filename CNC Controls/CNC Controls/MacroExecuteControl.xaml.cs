@@ -37,6 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
@@ -67,21 +68,19 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        private void View_DataContextChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        private void View_DataContextChanged(object sender, EventArgs e)
         {
-            if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
-            if (e.NewValue != null && e.NewValue is INotifyPropertyChanged)
-                (e.NewValue as GrblViewModel).PropertyChanged += OnDataContextPropertyChanged;
+            if (DataContext != null && DataContext is INotifyPropertyChanged)
+                (DataContext as GrblViewModel).PropertyChanged += OnDataContextPropertyChanged;
         }
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is GrblViewModel && Visibility == true) switch (e.PropertyName)
+            if (sender is GrblViewModel && IsVisible) switch (e.PropertyName)
             {
                 case nameof(GrblViewModel.StreamingState):
                     if ((sender as GrblViewModel).IsJobRunning)
-                        Visibility = false;
+                        IsVisible = false;
                     break;
             }
         }
@@ -123,13 +122,13 @@ namespace CNC.Controls
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = false;
+            IsVisible = false;
         }
 
         private void button_Edit(object sender, RoutedEventArgs e)
         {
-            MacroEditor editor = new MacroEditor(Macros) {Owner = Application.Current.MainWindow};
-            editor.ShowDialog();
+            MacroEditor editor = new MacroEditor(Macros);
+            editor.ShowDialog<object>();
             AppConfig.Settings.Save();
         }
     }

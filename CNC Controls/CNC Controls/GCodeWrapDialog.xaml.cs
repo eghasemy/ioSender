@@ -123,7 +123,7 @@ namespace CNC.Controls
 
         public void Apply()
         {
-            if (new GCodeWrapDialog(this) { Owner = Application.Current.MainWindow }.ShowDialog() != true)
+            if (new GCodeWrapDialog(this).ShowDialog<bool>() != true)
                 return;
 
             if (Diameter == 0d)

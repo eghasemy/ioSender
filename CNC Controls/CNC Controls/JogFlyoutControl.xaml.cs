@@ -90,8 +90,8 @@ namespace CNC.Controls
             if (sender is GrblViewModel) switch (e.PropertyName)
             {
                 case nameof(GrblViewModel.StreamingState):
-                    if (Visibility == true && (sender as GrblViewModel).IsJobRunning)
-                        Visibility = false;
+                    if (IsVisible && (sender as GrblViewModel).IsJobRunning)
+                        IsVisible = false;
                     break;
             }
         }

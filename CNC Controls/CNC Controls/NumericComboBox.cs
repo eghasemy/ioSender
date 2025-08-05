@@ -54,7 +54,8 @@ namespace CNC.Controls
 
         public NumericComboBox()
         {
-            IsEditable = true;
+            // Avalonia ComboBox doesn't have IsEditable, need to use IsTextSearchEnabled
+            IsTextSearchEnabled = true;
         }
 
         public double Value
@@ -62,12 +63,13 @@ namespace CNC.Controls
             get
             {
                 double value = 0.0d;
-                double.TryParse(Text, np.Styles, CultureInfo.InvariantCulture, out value);
+                string text = SelectedItem?.ToString() ?? "";
+                double.TryParse(text, np.Styles, CultureInfo.InvariantCulture, out value);
                 return value;
             }
             set
             {
-                Text = Math.Round(value, np.Precision).ToString(np.DisplayFormat, CultureInfo.InvariantCulture);
+                SelectedItem = Math.Round(value, np.Precision).ToString(np.DisplayFormat, CultureInfo.InvariantCulture);
             }
         }
 
@@ -84,11 +86,17 @@ namespace CNC.Controls
 
         protected override void OnTextInput(TextInputEventArgs e)
         {
-            // Avalonia doesn't have direct TextComposition, we need to handle text input differently
+            // Avalonia doesn't have SelectionLength property, use alternative approach
             if (e.Source is TextBox textBox)
             {
-                string text = textBox.SelectionLength > 0 ? textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength) : textBox.Text;
-                text = text.Insert(textBox.CaretIndex, e.Text ?? "");
+                string text = textBox.Text ?? "";
+                int selectionStart = textBox.SelectionStart;
+                int selectionEnd = textBox.SelectionEnd;
+                if (selectionEnd > selectionStart)
+                {
+                    text = text.Remove(selectionStart, selectionEnd - selectionStart);
+                }
+                text = text.Insert(selectionStart, e.Text ?? "");
                 e.Handled = !NumericProperties.IsStringNumeric(text, np);
             }
             base.OnTextInput(e);

@@ -62,18 +62,18 @@ namespace CNC.Controls
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is GrblViewModel && Visibility == true) switch (e.PropertyName)
+            if (sender is GrblViewModel && IsVisible) switch (e.PropertyName)
                 {
                     case nameof(GrblViewModel.StreamingState):
                         if ((sender as GrblViewModel).IsJobRunning)
-                            Visibility = false;
+                            IsVisible = false;
                         break;
                 }
         }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = false;
+            IsVisible = false;
         }
     }
 }

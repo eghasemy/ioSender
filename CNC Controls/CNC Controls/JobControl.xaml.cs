@@ -195,13 +195,11 @@ namespace CNC.Controls
             useBuffering = AppConfig.Settings.Base.UseBuffering; // && GrblInfo.IsGrblHAL;
         }
 
-        private void JobControl_DataContextChanged(object sender, AvaloniaPropertyChangedEventArgs e)
+        private void JobControl_DataContextChanged(object sender, EventArgs e)
         {
-            if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
-            if (e.NewValue != null && e.NewValue is INotifyPropertyChanged)
+            if (DataContext != null && DataContext is INotifyPropertyChanged)
             {
-                model = (GrblViewModel)e.NewValue;
+                model = (GrblViewModel)DataContext;
                 model.PropertyChanged += OnDataContextPropertyChanged;
                 model.OnRealtimeStatusProcessed += RealtimeStatusProcessed;
                 model.OnCommandResponseReceived += ResponseReceived;

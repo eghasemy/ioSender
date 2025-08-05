@@ -68,12 +68,11 @@ namespace CNC.Controls
         public NumberStyles Styles { get { return np.Styles; } }
         public string DisplayFormat { get { return np.DisplayFormat; } }
 
-        // TODO: Convert ValueProperty to Avalonia StyledProperty
         public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<NumericTextBox, double>(nameof(Value), 0.0);
         public double Value
         {
-            // TODO: Convert to Avalonia property getter - get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { double v = GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
+            set { SetValue(ValueProperty, value); }
         }
         private static void OnValueChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
@@ -114,7 +113,9 @@ namespace CNC.Controls
 
             if (e.Key == Key.Delete || e.Key == Key.Back)
             {
-                string text = SelectionLength > 0 ? Text.Remove(SelectionStart, SelectionLength) : Text;
+                int selectionStart = SelectionStart;
+                int selectionEnd = SelectionEnd;
+                string text = selectionEnd > selectionStart ? Text.Remove(selectionStart, selectionEnd - selectionStart) : Text;
 
                 updateText = false;
                 Value = double.Parse(text == string.Empty || text == "." ? "0" : (text == "-" || text == "-." ? "-0" : text), np.Styles, CultureInfo.InvariantCulture);
@@ -125,8 +126,10 @@ namespace CNC.Controls
         protected override void OnTextInput(Avalonia.Input.TextInputEventArgs e)
         {
             TextBox textBox = this;
-            string text = textBox.SelectionLength > 0 ? textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength) : textBox.Text;
-            text = text.Insert(textBox.CaretIndex, e.Text);
+            int selectionStart = textBox.SelectionStart;
+            int selectionEnd = textBox.SelectionEnd;
+            string text = selectionEnd > selectionStart ? textBox.Text.Remove(selectionStart, selectionEnd - selectionStart) : textBox.Text;
+            text = text.Insert(selectionStart, e.Text);
             if (!(e.Handled = !NumericProperties.IsStringNumeric(text, np)))
             {
                 updateText = false;

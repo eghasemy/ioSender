@@ -46,6 +46,7 @@ using CNC.GCode;
 using Avalonia.Controls;
 
 using Avalonia.Interactivity;
+using RP = CNC.Core;
 namespace CNC.Controls
 {
     /// <summary>
@@ -95,7 +96,7 @@ namespace CNC.Controls
 
         public void Apply()
         {
-            if (new GCodeRotateDialog(this) { Owner = Application.Current.MainWindow }.ShowDialog() != true)
+            if (new GCodeRotateDialog(this).ShowDialog<bool>() != true)
                 return;
 
             if (Angle == 0d)

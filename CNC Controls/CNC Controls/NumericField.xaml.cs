@@ -63,8 +63,8 @@ namespace CNC.Controls
         public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<NumericField, double>(nameof(Value), 0.0);
         public double Value
         {
-            // TODO: Convert to Avalonia property getter - get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { double v = GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
+            set { SetValue(ValueProperty, value); }
         }
         private static void OnValueChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {

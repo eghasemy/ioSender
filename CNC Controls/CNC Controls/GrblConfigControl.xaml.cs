@@ -71,10 +71,10 @@ namespace CNC.Controls
 
             model = (DataContext as WidgetViewModel).Grbl;
 
-            dgrSettings.Visibility = GrblInfo.HasEnums ? false : true;
-            searchField.Visibility = !GrblInfo.HasEnums ? false : true;
-            treeView.Visibility = !GrblInfo.HasEnums ? false : true;
-            details.Visibility = GrblInfo.HasEnums && curSetting == null ? false : true;
+            dgrSettings.IsVisible = !GrblInfo.HasEnums;
+            searchField.IsVisible = GrblInfo.HasEnums;
+            treeView.IsVisible = GrblInfo.HasEnums;
+            details.IsVisible = GrblInfo.HasEnums && curSetting != null;
 
             if (GrblInfo.HasEnums)
             {

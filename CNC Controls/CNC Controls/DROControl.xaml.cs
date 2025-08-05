@@ -68,8 +68,8 @@ namespace CNC.Controls
             {
                 axis.txtReadout.GotFocus += txtReadout_GotFocus;
                 axis.txtReadout.LostFocus += txtReadout_LostFocus;
-                axis.txtReadout.PreviewKeyDown += txtReadout_PreviewKeyDown;
-                axis.txtReadout.PreviewKeyUp += txtReadout_PreviewKeyUp;
+                axis.txtReadout.KeyDown += txtReadout_PreviewKeyDown;
+                axis.txtReadout.KeyUp += txtReadout_PreviewKeyUp;
                 axis.btnZero.Click += btnZero_Click;
             }
         }
