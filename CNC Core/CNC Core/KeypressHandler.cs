@@ -42,7 +42,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
-using Avalonia.Input;
+using System.Windows.Input;
 using System.Xml.Serialization;
 using CNC.GCode;
 

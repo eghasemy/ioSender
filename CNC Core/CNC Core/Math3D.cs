@@ -206,5 +206,192 @@ namespace CNC.Core
             return $"{X},{Y},{Z}";
         }
     }
+    
+    /// <summary>
+    /// Cross-platform Vector3 implementation compatible with RP.Math.Vector3
+    /// </summary>
+    public struct Vector3 : IEquatable<Vector3>
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
+
+        public Vector3(double x, double y, double z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
+
+        public double Length => Math.Sqrt(X * X + Y * Y + Z * Z);
+
+        public double LengthSquared => X * X + Y * Y + Z * Z;
+
+        public void Normalize()
+        {
+            double length = Length;
+            if (length > 0)
+            {
+                X /= length;
+                Y /= length;
+                Z /= length;
+            }
+        }
+
+        public Vector3 RotateZ(double originX, double originY, double angleRadians)
+        {
+            double cos = Math.Cos(angleRadians);
+            double sin = Math.Sin(angleRadians);
+            
+            double translatedX = X - originX;
+            double translatedY = Y - originY;
+            
+            double rotatedX = translatedX * cos - translatedY * sin;
+            double rotatedY = translatedX * sin + translatedY * cos;
+            
+            return new Vector3(rotatedX + originX, rotatedY + originY, Z);
+        }
+
+        public Vector3 Round(int precision)
+        {
+            return new Vector3(
+                Math.Round(X, precision),
+                Math.Round(Y, precision),
+                Math.Round(Z, precision)
+            );
+        }
+
+        public static Vector3 operator +(Vector3 vector1, Vector3 vector2)
+        {
+            return new Vector3(vector1.X + vector2.X, vector1.Y + vector2.Y, vector1.Z + vector2.Z);
+        }
+
+        public static Vector3 operator -(Vector3 vector1, Vector3 vector2)
+        {
+            return new Vector3(vector1.X - vector2.X, vector1.Y - vector2.Y, vector1.Z - vector2.Z);
+        }
+
+        public static Vector3 operator *(Vector3 vector, double scalar)
+        {
+            return new Vector3(vector.X * scalar, vector.Y * scalar, vector.Z * scalar);
+        }
+
+        public static Vector3 operator *(double scalar, Vector3 vector)
+        {
+            return vector * scalar;
+        }
+
+        public static Vector3 operator /(Vector3 vector, double scalar)
+        {
+            return new Vector3(vector.X / scalar, vector.Y / scalar, vector.Z / scalar);
+        }
+
+        public static double DotProduct(Vector3 vector1, Vector3 vector2)
+        {
+            return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
+        }
+
+        public static Vector3 CrossProduct(Vector3 vector1, Vector3 vector2)
+        {
+            return new Vector3(
+                vector1.Y * vector2.Z - vector1.Z * vector2.Y,
+                vector1.Z * vector2.X - vector1.X * vector2.Z,
+                vector1.X * vector2.Y - vector1.Y * vector2.X
+            );
+        }
+
+        public static bool operator ==(Vector3 vector1, Vector3 vector2)
+        {
+            return vector1.Equals(vector2);
+        }
+
+        public static bool operator !=(Vector3 vector1, Vector3 vector2)
+        {
+            return !vector1.Equals(vector2);
+        }
+
+        public bool Equals(Vector3 other)
+        {
+            return X == other.X && Y == other.Y && Z == other.Z;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Vector3 vector && Equals(vector);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y, Z);
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y},{Z}";
+        }
+    }
+    
+    /// <summary>
+    /// Cross-platform Point implementation for 2D operations
+    /// </summary>
+    public struct Point : IEquatable<Point>
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+
+        public Point(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public static bool operator ==(Point point1, Point point2)
+        {
+            return point1.Equals(point2);
+        }
+
+        public static bool operator !=(Point point1, Point point2)
+        {
+            return !point1.Equals(point2);
+        }
+
+        public bool Equals(Point other)
+        {
+            return X == other.X && Y == other.Y;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Point point && Equals(point);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y}";
+        }
+    }
+    
+    /// <summary>
+    /// Placeholder enums for compatibility
+    /// </summary>
+    public enum CommandIgnoreState
+    {
+        None,
+        Ignore,
+        Strip
+    }
 #endif
+}
+
+/// <summary>
+/// Namespace alias for compatibility with RP.Math
+/// </summary>
+namespace RP.Math
+{
+    using Vector3 = CNC.Core.Vector3;
 }

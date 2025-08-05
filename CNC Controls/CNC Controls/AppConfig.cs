@@ -166,8 +166,8 @@ namespace CNC.Controls
         public int ViewMode { get; set; } = -1;
         public int ToolVisualizer { get; set; } = 1;
         public Point3D CameraPosition { get; set; }
-        public Vector3D CameraLookDirection { get; set; }
-        public Vector3D CameraUpDirection { get; set; }
+        public CNC.Core.Vector3D CameraLookDirection { get; set; }
+        public CNC.Core.Vector3D CameraUpDirection { get; set; }
     }
 
     [Serializable]

@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Globalization;
 using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Media;
 using System.Collections.ObjectModel;
 using System.Text;

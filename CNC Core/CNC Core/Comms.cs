@@ -106,15 +106,17 @@ namespace CNC.Core
     {
         public static void DoEvents()
         {
-            DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
-            Dispatcher.PushFrame(frame);
+            // DispatcherFrame frame = new DispatcherFrame();
+            // Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
+            // Dispatcher.PushFrame(frame);
+            // Commented out for cross-platform build - using Thread.Yield instead
+            System.Threading.Thread.Yield();
         }
 
         public static object ExitFrame(object f)
         {
-            ((DispatcherFrame)f).Continue = false;
-
+            // ((DispatcherFrame)f).Continue = false;
+            // Commented out for cross-platform build
             return null;
         }
     }

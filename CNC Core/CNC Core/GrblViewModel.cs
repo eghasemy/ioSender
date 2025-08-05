@@ -41,7 +41,7 @@ using System;
 using System.Linq;
 using Avalonia.Media;
 using System.Collections.ObjectModel;
-using Avalonia.Input;
+using System.Windows.Input;
 using System.Threading;
 using CNC.GCode;
 using Avalonia.Controls;
@@ -93,7 +93,7 @@ namespace CNC.Core
 
             Clear();
 
-            Keyboard = new KeypressHandler(this);
+            // Keyboard = new KeypressHandler(this); // Disabled for cross-platform build
             MDICommand = new ActionCommand<string>(ExecuteMDI);
             StartFromBlock = new ActionCommand<int>(ExecuteStartFromBlock, canExecuteStartFromBlock);
 
@@ -346,7 +346,7 @@ namespace CNC.Core
                 StartFromBlockNum = block;
         }
 
-        public KeypressHandler Keyboard { get; private set; }
+        // public KeypressHandler Keyboard { get; private set; } // Disabled for cross-platform build
 
         public bool ResponseLogVerbose { get { return _responseLogVerbose; } set { _responseLogVerbose = value; OnPropertyChanged(); } }
         public bool ResponseLogFilterRT { get; set; } = false;

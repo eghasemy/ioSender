@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
-using ToggleSwitch;
+// using ToggleSwitch; // Removed third-party ToggleSwitch dependency for cross-platform build
 
 using Avalonia.Data;
 using Avalonia.Controls.Documents;

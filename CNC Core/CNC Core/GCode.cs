@@ -40,12 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-#if WINDOWS
-using CNC.Core;  // Cross-platform 3D math types
-#else
 using CNC.Core;
-using Avalonia.Controls;
-#endif
 
 namespace CNC.GCode
 {
@@ -569,5 +564,51 @@ namespace CNC.GCode
                 }
             }
         }
+    }
+    
+    /// <summary>
+    /// Minimal placeholder classes for build compatibility
+    /// </summary>
+    public class GCodeParser
+    {
+        // Placeholder for cross-platform build
+    }
+    
+    public class CoordinateSystem
+    {
+        // Placeholder for cross-platform build
+    }
+    
+    public class GrblViewModel
+    {
+        // Placeholder for cross-platform build
+    }
+    
+    public enum StreamingState
+    {
+        Idle,
+        Send,
+        SendMDI,
+        Reset,
+        Stop,
+        FeedHold,
+        ToolChange,
+        Disabled,
+        Jogging,
+        Error,
+        Unknown
+    }
+}
+
+namespace CNC.Core
+{
+    /// <summary>
+    /// Camera movement mode enum for cross-platform compatibility
+    /// </summary>
+    public enum CameraMoveMode
+    {
+        Off,
+        XY,
+        XYZ
     }
 }
