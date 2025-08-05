@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>CNC.Controls</RootNamespace>
-    <AssemblyName>CNC.Controls.WPF</AssemblyName>
+    <AssemblyName>CNC.Controls.Avalonia</AssemblyName>
     <UICulture>en-US</UICulture>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
@@ -15,6 +15,14 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DefineConstants>TRACE;USEWEBSOCKET</DefineConstants>
   </PropertyGroup>
+
+  <!-- Avalonia packages -->
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+  </ItemGroup>
+
   <!-- Package references for all targets -->
   <ItemGroup>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
@@ -25,14 +33,20 @@
     <ProjectReference Include="..\..\CNC Core\CNC Core\CNC Core.csproj" />
   </ItemGroup>
 
-  <!-- Remove the default Compile items to avoid duplicates -->
+  <!-- Include all source files for Avalonia build -->
   <ItemGroup>
-    <Compile Remove="**/*.cs" />
-    <Page Remove="**/*.xaml" />
-    <Resource Remove="**/*" />
+    <Compile Include="**/*.cs" />
+    <AvaloniaResource Include="**/*.xaml" />
   </ItemGroup>
 
-  <!-- For cross-platform build, only include core interfaces -->
+  <!-- Exclude the previously isolated files -->
+  <ItemGroup>
+    <Compile Remove="IGCodeConverter.cs" />
+    <Compile Remove="IGCodeTransformer.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <!-- Re-include the interface files explicitly -->
   <ItemGroup>
     <Compile Include="IGCodeConverter.cs" />
     <Compile Include="IGCodeTransformer.cs" />

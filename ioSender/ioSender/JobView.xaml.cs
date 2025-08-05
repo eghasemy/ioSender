@@ -38,15 +38,28 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Windows.Threading;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using CNC.Core;
-using CNC.Controls;
+
+namespace GCode_Sender
+{
+    /// <summary>
+    /// Interaction logic for JobView.xaml
+    /// </summary>
+    public partial class JobView : UserControl
+    {
+        public JobView()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+    }
+}
 
 namespace GCode_Sender
 {
