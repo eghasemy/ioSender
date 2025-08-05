@@ -39,15 +39,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.Core;
 using CNC.GCode;
+#if WINDOWS
 using Microsoft.Win32;
+using System.Windows;
+using System.Windows.Controls;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace CNC.Controls
 {
@@ -228,6 +230,7 @@ namespace CNC.Controls
 
         public void Open()
         {
+#if WINDOWS
             string filename = string.Empty;
             OpenFileDialog file = new OpenFileDialog();
 
@@ -245,6 +248,10 @@ namespace CNC.Controls
 
             if(filename != string.Empty)
                 Load(filename);
+#else
+            // Cross-platform: File dialogs not available - use Load(filename) method directly
+            throw new NotSupportedException("File dialogs are not supported on this platform. Use Load(filename) method directly.");
+#endif
 
             Model.Blocks = Blocks;
         }
@@ -275,6 +282,7 @@ namespace CNC.Controls
 
         public void Save()
         {
+#if WINDOWS
             SaveFileDialog saveDialog = new SaveFileDialog()
             {
                 Filter = "GCode file (*.nc)|*.nc",
@@ -306,6 +314,10 @@ namespace CNC.Controls
 
                 Model.FileName = saveDialog.FileName;
             }
+#else
+            // Cross-platform: File dialogs not available - use Save(filename) method directly
+            throw new NotSupportedException("File dialogs are not supported on this platform. Use Save(filename) method directly.");
+#endif
         }
     }
 }

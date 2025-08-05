@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>CNC.Core</RootNamespace>
     <AssemblyName>CNC.Core</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -9,38 +9,17 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <DefineConstants>TRACE;DEBUG;RESPONSELOG;USEWEBSOCKET</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug' AND '$(TargetFramework)' == 'net8.0-windows'">
-    <DefineConstants>TRACE;DEBUG;RESPONSELOG;USEWEBSOCKET;WINDOWS</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DefineConstants>TRACE;USEWEBSOCKET</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release' AND '$(TargetFramework)' == 'net8.0-windows'">
-    <DefineConstants>TRACE;USEWEBSOCKET;WINDOWS</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
     <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
-    <PackageReference Include="System.Management" Version="8.0.0" />
-    <Page Include="LibStrings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
 
   <!-- Remove the default Compile items to avoid duplicates -->
@@ -49,14 +28,9 @@
   </ItemGroup>
 
   <!-- For cross-platform build, only include essential communication files -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+  <ItemGroup>
     <Compile Include="HelperClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <!-- For Windows builds, include all files -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
-    <Compile Include="**/*.cs" Exclude="bin/**;obj/**" />
   </ItemGroup>
 
 </Project>
