@@ -575,24 +575,4 @@ namespace CNC.GCode
             }
         }
     }
-    
-    /// <summary>
-    /// Minimal placeholder classes for build compatibility
-    /// </summary>
-    public class CoordinateSystem
-    {
-        // Placeholder for cross-platform build
-    }
-
-    public class GrblSettingDetails
-    {
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public object Value { get; set; } = new object();
-    }
-}
-
-namespace CNC.Core
-{
-    // Duplicate class definitions removed - using real implementations from dedicated files
 }

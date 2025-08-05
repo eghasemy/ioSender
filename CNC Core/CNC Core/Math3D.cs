@@ -375,16 +375,6 @@ namespace CNC.Core
             return $"{X},{Y}";
         }
     }
-    
-    /// <summary>
-    /// Placeholder enums for compatibility
-    /// </summary>
-    public enum CommandIgnoreState
-    {
-        None,
-        Ignore,
-        Strip
-    }
 #endif
 }
 
