@@ -10,8 +10,8 @@
         xmlns:cncprobingcontrols="clr-namespace:CNC.Controls.Probing;assembly=CNC.Controls.Probing"
         xmlns:local="clr-namespace:GCode_Sender"
         mc:Ignorable="d"
-        Background="#FFE5E5E5"
-        Title="Sender ({0})" Height="640" Width="925" MinHeight="685" MinWidth="1020"
+        Background="{StaticResource HeroUI.Background}"
+        Title="ioSender - Touch Friendly HeroUI ({0})" Height="768" Width="1200" MinHeight="685" MinWidth="1020"
         Loaded="Window_Load"
         SizeChanged="Window_SizeChanged"
         Closing="Window_Closing"
@@ -31,40 +31,58 @@
     </Window.DataContext>
 
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Menu IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" DockPanel.Dock="Top">
-            <MenuItem x:Uid="mnu_file" x:Name="menuFile" Header="_File">
-                <MenuItem x:Uid="mnu_load" Header="_Load" Click="fileOpenMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_save" x:Name="menuSaveFile" Header="_Save" IsEnabled="false" Click="fileSaveMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_close" x:Name="menuCloseFile" Header="_Close" IsEnabled="false" Click="fileCloseMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_transform" x:Name="menuTransform" Header="_Transform" IsEnabled="false" ItemsSource="{Binding Path=UIViewModel.TransformMenuItems, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <MenuItem x:Uid="mnu_openConsole" x:Name="menuOpenConsole" Header="_Open Console" Click="openConsoleMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_exit" Header="_Exit" Click="exitMenuItem_Click"/>
+        <!-- Touch-Friendly Menu Bar -->
+        <Menu IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" 
+              DockPanel.Dock="Top" 
+              Background="{StaticResource HeroUI.Surface}"
+              BorderBrush="{StaticResource HeroUI.Border}"
+              BorderThickness="0,0,0,1"
+              MinHeight="44">
+            <MenuItem x:Uid="mnu_file" x:Name="menuFile" Header="_File" Style="{StaticResource HeroUI.MenuItem}">
+                <MenuItem x:Uid="mnu_load" Header="_Load" Click="fileOpenMenuItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_save" x:Name="menuSaveFile" Header="_Save" IsEnabled="false" Click="fileSaveMenuItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_close" x:Name="menuCloseFile" Header="_Close" IsEnabled="false" Click="fileCloseMenuItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_transform" x:Name="menuTransform" Header="_Transform" IsEnabled="false" ItemsSource="{Binding Path=UIViewModel.TransformMenuItems, RelativeSource={RelativeSource AncestorType=Window}}" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_openConsole" x:Name="menuOpenConsole" Header="_Open Console" Click="openConsoleMenuItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_exit" Header="_Exit" Click="exitMenuItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
             </MenuItem>
-            <MenuItem x:Uid="mnu_camera" x:Name="menuCamera" Header="_Camera">
-                <MenuItem x:Uid="mnu_open" Header="_Open" Click="CameraOpen_Click"/>
+            <MenuItem x:Uid="mnu_camera" x:Name="menuCamera" Header="_Camera" Style="{StaticResource HeroUI.MenuItem}">
+                <MenuItem x:Uid="mnu_open" Header="_Open" Click="CameraOpen_Click" Style="{StaticResource HeroUI.MenuItem}"/>
             </MenuItem>
-            <MenuItem x:Uid="mnu_help" x:Name="menuHelp" Header="_Help">
-                <MenuItem x:Uid="mnu_wiki" Header="_Wiki" Click="aboutWikiItem_Click"/>
-                <MenuItem x:Uid="mnu_usageTips" Header="Usage _tips" Click="tipsWikiItem_Click"/>
-                <MenuItem x:Uid="mnu_briefTour" Header="A _brief tour" Click="briefTour_Click"/>
-                <MenuItem x:Uid="mnu_videoTutorials" Header="_Video tutorials" Click="videoTutorials_Click"/>
-                <MenuItem x:Uid="mnu_errorsAndAlarms" Header="_Error and alarm codes" Click="errorAndAlarms_Click"/>
-                <MenuItem x:Uid="mnu_about" Header="_About" Click="aboutMenuItem_Click"/>
+            <MenuItem x:Uid="mnu_help" x:Name="menuHelp" Header="_Help" Style="{StaticResource HeroUI.MenuItem}">
+                <MenuItem x:Uid="mnu_wiki" Header="_Wiki" Click="aboutWikiItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_usageTips" Header="Usage _tips" Click="tipsWikiItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_briefTour" Header="A _brief tour" Click="briefTour_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_videoTutorials" Header="_Video tutorials" Click="videoTutorials_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_errorsAndAlarms" Header="_Error and alarm codes" Click="errorAndAlarms_Click" Style="{StaticResource HeroUI.MenuItem}"/>
+                <MenuItem x:Uid="mnu_about" Header="_About" Click="aboutMenuItem_Click" Style="{StaticResource HeroUI.MenuItem}"/>
             </MenuItem>
         </Menu>
-        <ToolBarTray IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" DockPanel.Dock="Top" IsLocked="True">
-            <ToolBar IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" Height="42" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DockPanel}}}" >
-                <cnccontrols:FileActionControl IsEnabled="{Binding Path=IsToolChanging, Converter={StaticResource BooleanConverter}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Separator Margin="4,0"></Separator>
+        
+        <!-- Touch-Friendly Toolbar -->
+        <ToolBarTray IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" 
+                     DockPanel.Dock="Top" 
+                     IsLocked="True"
+                     Background="{StaticResource HeroUI.Surface}">
+            <ToolBar IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" 
+                     Style="{StaticResource HeroUI.ToolBar}"
+                     VerticalAlignment="Top" 
+                     Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DockPanel}}}" >
+                <cnccontrols:FileActionControl IsEnabled="{Binding Path=IsToolChanging, Converter={StaticResource BooleanConverter}}" 
+                                             HorizontalAlignment="Left" 
+                                             VerticalAlignment="Center"/>
+                <Separator Margin="8,0"/>
                 <cnccontrols:MacroToolbarControl x:Name="toolbarMacros"/>
             </ToolBar>
         </ToolBarTray>
-        <StatusBar DockPanel.Dock="Bottom">
+        
+        <!-- Touch-Friendly Status Bar -->
+        <StatusBar DockPanel.Dock="Bottom" Style="{StaticResource HeroUI.StatusBar}">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="120" />
+                            <ColumnDefinition Width="Auto" MinWidth="140" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -76,7 +94,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem>
-                <TextBlock TextWrapping="NoWrap">
+                <TextBlock TextWrapping="NoWrap" FontSize="14" Foreground="{StaticResource HeroUI.Text.Primary}">
                     <TextBlock.Text>
                         <MultiBinding Converter="{StaticResource BlocksToStringConverter}">
                             <Binding Path="Blocks" />
@@ -85,43 +103,84 @@
                     </TextBlock.Text>
                 </TextBlock>
             </StatusBarItem>
-            <Separator Grid.Column="1" />
+            <Separator Grid.Column="1" Margin="8,0" />
             <StatusBarItem Grid.Column="2">
-                <TextBlock x:Uid="lbl_message" Text="{Binding Path=Message}" TextWrapping="NoWrap"/>
+                <TextBlock x:Uid="lbl_message" 
+                          Text="{Binding Path=Message}" 
+                          TextWrapping="NoWrap" 
+                          FontSize="14" 
+                          Foreground="{StaticResource HeroUI.Text.Primary}"/>
             </StatusBarItem>
-            <Separator Grid.Column="3" />
+            <Separator Grid.Column="3" Margin="8,0" />
             <StatusBarItem Grid.Column="4">
-                <TextBlock x:Uid="lbl_runtime" Text="{Binding Path=RunTime, StringFormat={StaticResource RunTime}}" TextWrapping="NoWrap" Padding="2,0"/>
+                <TextBlock x:Uid="lbl_runtime" 
+                          Text="{Binding Path=RunTime, StringFormat={StaticResource RunTime}}" 
+                          TextWrapping="NoWrap" 
+                          Padding="8,0" 
+                          FontSize="14" 
+                          Foreground="{StaticResource HeroUI.Text.Primary}"/>
             </StatusBarItem>
-            <Separator Grid.Column="5" />
+            <Separator Grid.Column="5" Margin="8,0" />
             <StatusBarItem Grid.Column="6">
-                <TextBlock x:Uid="lbl_jogStep" ToolTip="Distance for keyboard step jog (with &lt;CTRL&gt; modifier)." Text="{Binding Path=JogStep, StringFormat={StaticResource JogStep}}" HorizontalAlignment="Right" TextWrapping="NoWrap" Margin="4,0"/>
+                <TextBlock x:Uid="lbl_jogStep" 
+                          ToolTip="Distance for keyboard step jog (with &lt;CTRL&gt; modifier)." 
+                          Text="{Binding Path=JogStep, StringFormat={StaticResource JogStep}}" 
+                          HorizontalAlignment="Right" 
+                          TextWrapping="NoWrap" 
+                          Margin="8,0"
+                          FontSize="14" 
+                          Foreground="{StaticResource HeroUI.Text.Primary}"/>
             </StatusBarItem>
         </StatusBar>
-        <Canvas IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" DockPanel.Dock="Right" Width="22" VerticalAlignment="Stretch" HorizontalAlignment="Right" ClipToBounds="False" Panel.ZIndex="1" Margin="0,34,0,0">
-            <ItemsControl x:Name="xx" Width="22" VerticalAlignment="Stretch">
+        
+        <!-- Touch-Friendly Side Controls -->
+        <Canvas IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" 
+                DockPanel.Dock="Right" 
+                Width="28" 
+                VerticalAlignment="Stretch" 
+                HorizontalAlignment="Right" 
+                ClipToBounds="False" 
+                Panel.ZIndex="1" 
+                Margin="0,34,0,0">
+            <ItemsControl x:Name="xx" Width="28" VerticalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22"/>
+                        <StackPanel IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" 
+                                   Orientation="Vertical" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="28"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <cnccontrols:JogFlyoutControl x:Name="jogControl" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:MacroExecuteControl x:Name="macroControl" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:GotoFlyoutControl x:Name="gotoControl" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:OutlineFlyout x:Name="outlineFlyout" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:MachinePositionFlyout x:Name="mposFlyout" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:THCMonitorControl x:Name="thcControl" Visibility="Hidden" Canvas.Right="22"/>
+            <cnccontrols:JogFlyoutControl x:Name="jogControl" Visibility="Hidden" Canvas.Right="28"/>
+            <cnccontrols:MacroExecuteControl x:Name="macroControl" Visibility="Hidden" Canvas.Right="28"/>
+            <cnccontrols:GotoFlyoutControl x:Name="gotoControl" Visibility="Hidden" Canvas.Right="28"/>
+            <cnccontrols:OutlineFlyout x:Name="outlineFlyout" Visibility="Hidden" Canvas.Right="28"/>
+            <cnccontrols:MachinePositionFlyout x:Name="mposFlyout" Visibility="Hidden" Canvas.Right="28"/>
+            <cnccontrols:THCMonitorControl x:Name="thcControl" Visibility="Hidden" Canvas.Right="28"/>
         </Canvas>
-        <TabControl IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" Background="Transparent" DockPanel.Dock="Left" x:Name="tabMode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Focusable="False" SelectionChanged="TabMode_SelectionChanged">
+        
+        <!-- Touch-Friendly Main Tab Control -->
+        <TabControl IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" 
+                    Background="{StaticResource HeroUI.Background}" 
+                    DockPanel.Dock="Left" 
+                    x:Name="tabMode" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    Focusable="False" 
+                    SelectionChanged="TabMode_SelectionChanged"
+                    Margin="16">
             <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Height" Value="32" />
-                    <Setter Property="MinWidth" Value="40" />
+                <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource HeroUI.TabItem}">
+                    <Setter Property="MinWidth" Value="120" />
+                    <Setter Property="Margin" Value="0,0,4,0" />
                 </Style>
             </TabControl.Resources>
             <TabItem x:Uid="tab_grbl" x:Name="tabGrbl" Header="Grbl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <local:JobView x:Name="Grbl"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <local:JobView x:Name="Grbl"/>
+                </Border>
             </TabItem>
             <!---
             <TabItem x:Uid="tab_3DView" x:Name="tabViewer" Header="3D View">
@@ -129,25 +188,39 @@
             </TabItem>
             -->
             <TabItem x:Uid="tab_probing" x:Name="tabProbing" Header="Probing">
-                <cncprobingcontrols:ProbingView x:Name="probingView"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cncprobingcontrols:ProbingView x:Name="probingView"/>
+                </Border>
             </TabItem>
             <TabItem x:Uid="tab_sdCard" x:Name="tabSDCard" Header="SD Card">
-                <cnccontrols:SDCardView x:Name="SDCardView" FileSelected="SDCardView_FileSelected"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cnccontrols:SDCardView x:Name="SDCardView" FileSelected="SDCardView_FileSelected"/>
+                </Border>
             </TabItem>
             <TabItem x:Uid="tab_latheWizards" x:Name="tabLatheWizards" Header="Lathe Wizards">
-                <cnclathecontrols:LatheWizardsView x:Name="latheWizards"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cnclathecontrols:LatheWizardsView x:Name="latheWizards"/>
+                </Border>
             </TabItem>
             <TabItem x:Uid="tab_offsets" x:Name="tabOffsets" Header="Offsets">
-                <cnccontrols:OffsetView x:Name="offsetControl"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cnccontrols:OffsetView x:Name="offsetControl"/>
+                </Border>
             </TabItem>
             <TabItem x:Uid="tab_tools" x:Name="tabTools" Header="Tools">
-                <cnccontrols:ToolView x:Name="toolControl"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cnccontrols:ToolView x:Name="toolControl"/>
+                </Border>
             </TabItem>
             <TabItem x:Uid="tab_grblConfig" x:Name="tabConfig" Header="Settings: Grbl">
-                <cnccontrols:GrblConfigView x:Name="configControl"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cnccontrols:GrblConfigView x:Name="configControl"/>
+                </Border>
             </TabItem>
             <TabItem x:Uid="tab_appConfig" x:Name="tabAppConfig" Header="Settings: App">
-                <cnccontrols:AppConfigView x:Name="appConfigControl"/>
+                <Border Style="{StaticResource HeroUI.Card}" Margin="0,8,0,0">
+                    <cnccontrols:AppConfigView x:Name="appConfigControl"/>
+                </Border>
             </TabItem>
         </TabControl>
     </DockPanel>
