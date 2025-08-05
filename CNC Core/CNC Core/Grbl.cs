@@ -3133,7 +3133,12 @@ namespace CNC.Core
         {
             if (Settings.Count > 0) try
             {
+#if WINDOWS
                 Clipboard.SetText(string.Join("\r\n", Export().ToArray()));
+#else
+                // TODO: Implement Avalonia clipboard functionality
+                Debug.WriteLine("Clipboard export not implemented for cross-platform builds");
+#endif
             }
             catch
             {
@@ -3229,7 +3234,11 @@ namespace CNC.Core
                     {
                         Action<GrblSettingDetails> addMethod = Settings.Add;
                         setting = new GrblSettingDetails(id.ToString() + "|0||||||");
+#if WINDOWS
                         Application.Current.Dispatcher.BeginInvoke(addMethod, setting);
+#else
+                        Dispatcher.UIThread.InvokeAsync(() => addMethod(setting));
+#endif
                     }
 
                     setting.Value = valuepair[1];

@@ -177,7 +177,11 @@ namespace CNC.Core
             bool isJogging = IsJogging, jogkeyPressed = false;
             double[] dist = new double[4] { 0d, 0d, 0d, 0d };
 
+#if WINDOWS
             if (e.IsUp && isJogging)
+#else
+            if (isJogging) // Avalonia KeyEventArgs doesn't have IsUp property - simplified implementation
+#endif
             {
                 bool cancel = !allowJog;
 
@@ -205,11 +209,21 @@ namespace CNC.Core
 
             this.allowJog = allowJog;
 
+#if WINDOWS
             if (IsJoggingEnabled && e.IsDown && CanJog)
+#else
+            if (IsJoggingEnabled && CanJog) // Avalonia KeyEventArgs doesn't have IsDown property
+#endif
             {
                 // Do not respond to autorepeats!
+#if WINDOWS
                 if (e.IsRepeat)
                     return true;
+#else
+                // Avalonia doesn't have IsRepeat property - simplified implementation
+                // if (false) // Effectively disable autorepeat handling for cross-platform
+                //     return true;
+#endif
 
                 N_AXIS = GrblInfo.AxisFlags.HasFlag(AxisFlags.A) ? 4 : 3;
 
@@ -262,7 +276,11 @@ namespace CNC.Core
                 }
             }
             else
+#if WINDOWS
                 jogkeyPressed = !(Keyboard.FocusedElement is System.Windows.Controls.TextBox) && (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.PageUp || e.Key == Key.PageDown);
+#else
+                jogkeyPressed = (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.PageUp || e.Key == Key.PageDown);
+#endif
 
             if (isJogging)
             {
@@ -338,7 +356,11 @@ namespace CNC.Core
 
                 if ((isJogging = command != string.Empty))
                 {
+#if WINDOWS
                     if ((Keyboard.Modifiers & KeyModifiers.Control) == KeyModifiers.Control)
+#else
+                    if ((e.KeyModifiers & KeyModifiers.Control) == KeyModifiers.Control)
+#endif
                     {
                         for (int i = 0; i < N_AXIS; i++)
                             axisjog[i] = Key.None;
@@ -349,7 +371,11 @@ namespace CNC.Core
                     else if (IsContinuousJoggingEnabled)
                     {
                         preCancel = true;
+#if WINDOWS
                         if ((Keyboard.Modifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
+#else
+                        if ((e.KeyModifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
+#endif
                             jogMode = JogMode.Fast;
                         else
                             jogMode = JogMode.Slow;
@@ -420,8 +446,13 @@ namespace CNC.Core
                 } 
             }
 
+#if WINDOWS
             IsRepeating = e.IsRepeat;
+#else
+            IsRepeating = false; // Avalonia doesn't have IsRepeat property - simplified implementation
+#endif
 
+#if WINDOWS // WPF-specific keyboard handling
             if (Keyboard.Modifiers == KeyModifiers.Alt)
             {
                 var handler = handlers.Where(k => k.Modifiers == Keyboard.Modifiers && k.Key == e.SystemKey && k.OnUp == e.IsUp && k.context == context).FirstOrDefault();
@@ -446,6 +477,33 @@ namespace CNC.Core
                         return handler.Call(e.Key);
                 }
             }
+#else // Avalonia cross-platform keyboard handling - simplified implementation
+            var keyModifiers = e.KeyModifiers; // Get modifiers from event args
+            if (keyModifiers == KeyModifiers.Alt)
+            {
+                var handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == context).FirstOrDefault();
+                if (handler != null)
+                    return handler.Call(e.Key);
+                else
+                {
+                    handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == null).FirstOrDefault();
+                    if (handler != null)
+                        return handler.Call(e.Key);
+                }
+            }
+            else if (keyModifiers == KeyModifiers.None || keyModifiers == KeyModifiers.Control || keyModifiers == (KeyModifiers.Control | KeyModifiers.Shift))
+            {
+                var handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == context).FirstOrDefault();
+                if (handler != null)
+                    return handler.Call(e.Key);
+                else
+                {
+                    handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == null).FirstOrDefault();
+                    if (handler != null)
+                        return handler.Call(e.Key);
+                }
+            }
+#endif
 
             return jogkeyPressed;
         }
