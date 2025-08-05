@@ -41,13 +41,12 @@ using System.Data;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using System.Threading;
 using System.Net;
 using Microsoft.Win32;
 using CNC.Core;
 using CNC.GCode;
-
-using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -158,7 +157,7 @@ namespace CNC.Controls
             currentFile = e.AddedItems.Count == 1 ? ((DataRowView)e.AddedItems[0]).Row : null;
         }
 
-        private void dgrSDCard_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void dgrSDCard_MouseDoubleClick(object sender, PointerPressedEventArgs e)
         {
             RunFile();
         }

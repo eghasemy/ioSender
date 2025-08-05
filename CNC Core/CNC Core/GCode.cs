@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.IO.Ports;
 using CNC.Core;
 
 namespace CNC.GCode
@@ -692,5 +693,43 @@ namespace CNC.Core
         Off,
         XY,
         XYZ
+    }
+
+    /// <summary>
+    /// Serial ports helper class for cross-platform compatibility
+    /// </summary>
+    public class SerialPorts
+    {
+        public static string[] GetPortNames()
+        {
+            return System.IO.Ports.SerialPort.GetPortNames();
+        }
+        
+        public string[] PortNames => GetPortNames();
+    }
+
+    /// <summary>
+    /// Position class for cross-platform compatibility
+    /// </summary>
+    public class Position
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
+        public double A { get; set; }
+        public double B { get; set; }
+        public double C { get; set; }
+    }
+
+    /// <summary>
+    /// Tool class for cross-platform compatibility
+    /// </summary>
+    public class Tool
+    {
+        public int Code { get; set; }
+        public string Description { get; set; } = "";
+        public double Radius { get; set; }
+        public double XOffset { get; set; }
+        public double ZOffset { get; set; }
     }
 }

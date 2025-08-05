@@ -82,13 +82,16 @@ namespace CNC.Controls
             NumericProperties.OnFormatChanged(d, ((NumericComboBox)d).np, (string)e.NewValue);
         }
 
-        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+        protected override void OnTextInput(TextInputEventArgs e)
         {
-            TextBox textBox = (TextBox)e.OriginalSource;
-            string text = textBox.SelectionLength > 0 ? textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength) : textBox.Text;
-            text = text.Insert(textBox.CaretIndex, e.Text);
-            e.Handled = !NumericProperties.IsStringNumeric(text, np);
-            base.OnPreviewTextInput(e);
+            // Avalonia doesn't have direct TextComposition, we need to handle text input differently
+            if (e.Source is TextBox textBox)
+            {
+                string text = textBox.SelectionLength > 0 ? textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength) : textBox.Text;
+                text = text.Insert(textBox.CaretIndex, e.Text ?? "");
+                e.Handled = !NumericProperties.IsStringNumeric(text, np);
+            }
+            base.OnTextInput(e);
         }
     }
 }

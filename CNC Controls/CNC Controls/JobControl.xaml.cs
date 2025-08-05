@@ -47,7 +47,6 @@ using Avalonia.Input;
 using System.Threading;
 using CNC.Core;
 using CNC.GCode;
-using CNC.GCode;
 using Avalonia.Data;
 
 using Avalonia.Interactivity;

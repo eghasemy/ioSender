@@ -107,7 +107,7 @@ namespace CNC.Controls
             IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? true : false;
         }
 
-                public static readonly StyledProperty<Visibility> IsMessageVisibleProperty = AvaloniaProperty.Register<MacroExecuteControl, Visibility>(nameof(IsMessageVisible), default);
+                public static readonly StyledProperty<bool> IsMessageVisibleProperty = AvaloniaProperty.Register<MacroExecuteControl, bool>(nameof(IsMessageVisible), false);
         public bool IsMessageVisible
         {
             get { return GetValue(IsMessageVisibleProperty); }

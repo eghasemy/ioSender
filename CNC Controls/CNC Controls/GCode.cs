@@ -39,7 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.Core;
 using CNC.GCode;
-using CNC.GCode;
 using Avalonia.Interactivity;
 #if WINDOWS
 using Microsoft.Win32;
@@ -77,7 +76,7 @@ namespace CNC.Controls
 
         private static readonly Lazy<GCode> file = new Lazy<GCode>(() => new GCode());
 
-        public event GCodeJob.ToolChangedHandler ToolChanged = null;
+        public event EventHandler ToolChanged = null;
 
         private GCode()
         {

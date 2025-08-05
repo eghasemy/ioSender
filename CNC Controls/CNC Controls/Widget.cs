@@ -43,7 +43,6 @@ using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
 using Avalonia.Data;
-using CNC.GCode;
 using Avalonia.Input;
 
 namespace CNC.Controls
@@ -78,7 +77,7 @@ namespace CNC.Controls
     public class WidgetProperties
     {
         public int Id { get; private set; }
-        public GrblSettingDetails.DataTypes DataType { get; private set; }
+        public int DataType { get; private set; }
         public string Label { get; private set; }
         public string Format { get; private set; }
         public string Unit { get; private set; }

@@ -69,7 +69,7 @@ namespace CNC.Controls
         //public ObservableCollection<CNCView> CNCViews { get;  }
         public ObservableCollection<SidebarItem> SidebarItems { get; }
         public ObservableCollection<UserControl> ConfigControls { get; }
-        public ObservableCollection<Avalonia.Controls.MenuItem> TransformAvalonia.Controls.MenuItems { get; } = new ObservableCollection<Avalonia.Controls.MenuItem>();
+        public ObservableCollection<Avalonia.Controls.MenuItem> MenuItems { get; } = new ObservableCollection<Avalonia.Controls.MenuItem>();
 
         public bool IsConfigControlInstantiated<T>()
         {

@@ -1,4 +1,6 @@
-﻿namespace CNC.Controls.Properties {
+using System.Configuration;
+
+namespace CNC.Controls.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

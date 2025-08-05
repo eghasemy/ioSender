@@ -24,7 +24,7 @@ namespace CNC.Controls
     public partial class ToggleControl : UserControl
     {
 
-        public event RoutedEventHandler Click;
+        public event EventHandler<RoutedEventArgs>? Click;
 
         public ToggleControl()
         {

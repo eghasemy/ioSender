@@ -41,7 +41,6 @@ using System;
 using System.Collections.Generic;
 using CNC.Core;
 using CNC.GCode;
-using CNC.GCode;
 // using RP.Math; // Replaced with CNC.Core.Vector3 for cross-platform compatibility
 using Avalonia.Controls;
 
