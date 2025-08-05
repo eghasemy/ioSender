@@ -8,7 +8,7 @@
        
         Title="Sender connection" Height="198" Width="400" Icon="App.ico" CanResize="False">
     <Window.Resources>
-        <Style x:Key="x:Key="PortErrorStyle"" Selector="TargetType="local:NumericTextBox"">
+        <Style x:Key="PortErrorStyle" Selector="local:NumericTextBox">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="BorderBrush" Value="Green" />
@@ -17,7 +17,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="x:Key="Ip4ErrorStyle"" Selector="TargetType="TextBox"">
+        <Style x:Key="Ip4ErrorStyle" Selector="TextBox">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="TextBox.ToolTip">

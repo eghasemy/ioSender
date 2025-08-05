@@ -33,24 +33,9 @@
     <ProjectReference Include="..\..\CNC Core\CNC Core\CNC Core.csproj" />
   </ItemGroup>
 
-  <!-- Include all source files for Avalonia build -->
+  <!-- Avalonia XAML files -->
   <ItemGroup>
-    <Compile Include="**/*.cs" />
     <AvaloniaResource Include="**/*.xaml" />
-  </ItemGroup>
-
-  <!-- Exclude the previously isolated files -->
-  <ItemGroup>
-    <Compile Remove="IGCodeConverter.cs" />
-    <Compile Remove="IGCodeTransformer.cs" />
-    <Compile Remove="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <!-- Re-include the interface files explicitly -->
-  <ItemGroup>
-    <Compile Include="IGCodeConverter.cs" />
-    <Compile Include="IGCodeTransformer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
 </Project>

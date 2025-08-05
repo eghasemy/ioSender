@@ -9,12 +9,12 @@
              d:DesignHeight="120" d:DesignWidth="300" MaxWidth="300"
             >
     <UserControl.Resources>
-        <system:String x:Key="x:Key="MenuLabel"">_Outline</system:String>
-        <Style x:Key="x:Key="SmallXButtonStyle"" Selector="TargetType="Button"">
+        <system:String x:Key="MenuLabel">_Outline</system:String>
+        <Style x:Key="SmallXButtonStyle" Selector="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate Selector="TargetType="Button"">
+                    <ControlTemplate Selector="Button">
                         <Grid Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center"/>
                         </Grid>

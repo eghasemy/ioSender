@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="33" d:DesignWidth="193">
     <UserControl.Resources>
-        <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
+        <local:LogicalNotConverter x:Key="BooleanConverter" />
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="193" RenderTransformOrigin="0.425,0">
         <Label x:Name="lblAxis" Content="{Binding Label, RelativeSource={RelativeSource AncestorType=UserControl}}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="3,0,3,0" Width="30" FontSize="20"/>

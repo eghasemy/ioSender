@@ -12,9 +12,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <local:LatheModeToStringConverter x:Key="x:Key="LatheModeConverter"" />
-            <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
-            <local:BoolToVisibleConverter x:Key="x:Key="IsVisibleConverter"" />
+            <local:LatheModeToStringConverter x:Key="LatheModeConverter" />
+            <local:LogicalNotConverter x:Key="BooleanConverter" />
+            <local:BoolToVisibleConverter x:Key="IsVisibleConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <HeaderedContentControl x:Name="grpDRO" Header="DRO" HorizontalAlignment="Center" VerticalAlignment="Top" Width="216">

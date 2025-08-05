@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="84" d:DesignWidth="250">
     <UserControl.Resources>
-        <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
-        <local:BoolToVisibleConverter x:Key="x:Key="IsVisibleConverter"" />
+        <local:LogicalNotConverter x:Key="BooleanConverter" />
+        <local:BoolToVisibleConverter x:Key="IsVisibleConverter" />
     </UserControl.Resources>
     <HeaderedContentControl x:Name="grpWorkParams" Header="Work Parameters" IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" Width="250">
         <Grid HorizontalAlignment="Left" Height="Auto" Margin="-2,4,0,0" VerticalAlignment="Top" Width="242">

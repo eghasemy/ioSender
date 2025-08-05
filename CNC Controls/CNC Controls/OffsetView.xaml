@@ -13,11 +13,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
                 <ResourceDictionary>
-                    <FrameworkElement x:Key="x:Key="ProxyElement"" DataContext="{Binding}"/>
+                    <FrameworkElement x:Key="ProxyElement" DataContext="{Binding}"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <system:String x:Key="x:Key="AxisLabel"">{0} axis:</system:String>
-            <local:LogicalNotConverter x:Key="x:Key="IsNotPredefined"" />
+            <system:String x:Key="AxisLabel">{0} axis:</system:String>
+            <local:LogicalNotConverter x:Key="IsNotPredefined" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="Transparent">

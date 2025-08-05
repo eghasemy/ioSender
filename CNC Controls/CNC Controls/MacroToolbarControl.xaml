@@ -9,8 +9,8 @@
              d:DesignHeight="36" d:DesignWidth="300"
             >
     <UserControl.Resources>
-        <system:String x:Key="x:Key="RunMacro"">Run {0} macro?</system:String>
-        <local:StringAddToConverter x:Key="x:Key="addFnKey""/>
+        <system:String x:Key="RunMacro">Run {0} macro?</system:String>
+        <local:StringAddToConverter x:Key="addFnKey"/>
     </UserControl.Resources>
     <ItemsControl x:Name="xy" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Macros, RelativeSource={RelativeSource AncestorType=UserControl}}">
         <ItemsControl.ItemsPanel>

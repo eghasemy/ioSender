@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="331" d:DesignWidth="400">
     <UserControl.Resources>
-        <local:StringCollectionToTextConverter x:Key="x:Key="OcToString"" />
+        <local:StringCollectionToTextConverter x:Key="OcToString" />
     </UserControl.Resources>
     <!--> <HeaderedContentControl Header="Console" HorizontalAlignment="Center" VerticalAlignment="Top" Width="394" Height="328"> <\!-->
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

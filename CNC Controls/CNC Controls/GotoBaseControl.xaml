@@ -10,8 +10,8 @@
              d:DesignHeight="70" d:DesignWidth="140">
     <UserControl.Resources>
         <ResourceDictionary>
-            <local:HomedStateToBooleanConverter x:Key="x:Key="IsHomed"" />
-            <local:LogicalNotConverter x:Key="x:Key="LogicalNotConverter"" />
+            <local:HomedStateToBooleanConverter x:Key="IsHomed" />
+            <local:LogicalNotConverter x:Key="LogicalNotConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource LogicalNotConverter}}">

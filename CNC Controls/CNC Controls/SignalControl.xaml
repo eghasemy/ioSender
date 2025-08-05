@@ -8,10 +8,10 @@
              d:DesignHeight="30" d:DesignWidth="16"
              MaxHeight="30" MaxWidth="16">
     <UserControl.Resources>
-        <Style x:Key="x:Key="ButtonStyleNoHighlighting"" Selector="TargetType="Button"" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+        <Style x:Key="ButtonStyleNoHighlighting" Selector="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate Selector="TargetType="Button"">
+                    <ControlTemplate Selector="Button">
                         <Grid Background="{TemplateBinding Background}">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="250">
     <UserControl.Resources>
-        <local:BoolToVisibleConverter x:Key="x:Key="IsVisibleConverter"" />
+        <local:BoolToVisibleConverter x:Key="IsVisibleConverter" />
     </UserControl.Resources>
     <HeaderedContentControl x:Name="grpCoolant" Header="Coolant" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250">
         <StackPanel HorizontalAlignment="Left" Margin="3,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="184">

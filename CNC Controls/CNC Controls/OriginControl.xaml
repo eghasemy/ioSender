@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="42" d:DesignWidth="42">
     <UserControl.Resources>
-        <local:EnumValueToBooleanConverter x:Key="x:Key="EnumToEdgeConverter"" />
+        <local:EnumValueToBooleanConverter x:Key="EnumToEdgeConverter" />
     </UserControl.Resources>
     <Grid Width="42" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid.RowDefinitions>

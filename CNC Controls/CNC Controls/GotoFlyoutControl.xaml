@@ -10,7 +10,7 @@
              d:DesignHeight="100" d:DesignWidth="200" MinHeight="100" MinWidth="200">
     <UserControl.Resources>
         <ResourceDictionary>
-            <system:String x:Key="x:Key="MenuLabel"">_Goto</system:String>
+            <system:String x:Key="MenuLabel">_Goto</system:String>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

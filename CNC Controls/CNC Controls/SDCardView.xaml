@@ -9,18 +9,18 @@
              d:DesignHeight="515" d:DesignWidth="875"
             >
     <UserControl.Resources>
-        <local:LogicalNotConverter x:Key="x:Key="NotConverter"" />
-        <system:String x:Key="x:Key="NoConnection"">No connection.</system:String>
-        <system:String x:Key="x:Key="Uploading"">Uploading...</system:String>
-        <system:String x:Key="x:Key="Downloading"">Downloading {0}...</system:String>
-        <system:String x:Key="x:Key="DownloandRun"">Download and run {0}?</system:String>
-        <system:String x:Key="x:Key="RunMacro"">Run macro {0} with no parameters?</system:String>
-        <system:String x:Key="x:Key="TransferDone"">Transfer done.</system:String>
-        <system:String x:Key="x:Key="TransferAborted"">Transfer aborted.</system:String>
-        <system:String x:Key="x:Key="Transferring"">Transferred {0} of {1} bytes...</system:String>
-        <system:String x:Key="x:Key="DeleteFile"">Delete {0}?</system:String>
-        <system:String x:Key="x:Key="IllegalName"">File: {0}\n!,?,~ and SPACE is not supported in filenames, please rename.</system:String>
-        <system:String x:Key="x:Key="NoCard"">No card mounted.</system:String>
+        <local:LogicalNotConverter x:Key="NotConverter" />
+        <system:String x:Key="NoConnection">No connection.</system:String>
+        <system:String x:Key="Uploading">Uploading...</system:String>
+        <system:String x:Key="Downloading">Downloading {0}...</system:String>
+        <system:String x:Key="DownloandRun">Download and run {0}?</system:String>
+        <system:String x:Key="RunMacro">Run macro {0} with no parameters?</system:String>
+        <system:String x:Key="TransferDone">Transfer done.</system:String>
+        <system:String x:Key="TransferAborted">Transfer aborted.</system:String>
+        <system:String x:Key="Transferring">Transferred {0} of {1} bytes...</system:String>
+        <system:String x:Key="DeleteFile">Delete {0}?</system:String>
+        <system:String x:Key="IllegalName">File: {0}\n!,?,~ and SPACE is not supported in filenames, please rename.</system:String>
+        <system:String x:Key="NoCard">No card mounted.</system:String>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

@@ -9,13 +9,13 @@
              d:DesignHeight="220" d:DesignWidth="315"
             >
     <UserControl.Resources>
-        <system:String x:Key="x:Key="MenuLabel"">_Macros</system:String>
-        <system:String x:Key="x:Key="RunMacro"">Run {0} macro?</system:String>
-        <Style x:Key="x:Key="SmallXButtonStyle"" Selector="TargetType="Button"">
+        <system:String x:Key="MenuLabel">_Macros</system:String>
+        <system:String x:Key="RunMacro">Run {0} macro?</system:String>
+        <Style x:Key="SmallXButtonStyle" Selector="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate Selector="TargetType="Button"">
+                    <ControlTemplate Selector="Button">
                         <Grid Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center"/>
                         </Grid>

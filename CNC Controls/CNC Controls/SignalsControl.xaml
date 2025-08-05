@@ -12,14 +12,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
                 <ResourceDictionary>
-                    <Style Selector="TargetType="local:SignalControl"">
+                    <Style Selector="local:SignalControl">
                         <Setter Property="Width" Value="18"/>
                         <Setter Property="Height" Value="35"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="Padding" Value="0"/>
                     </Style>
-                    <local:IsSignalVisibleConverter x:Key="x:Key="IsSignalVisibleConverter"" />
-                    <Style x:Key="x:Key="DoorOpenVisibleStyle"">
+                    <local:IsSignalVisibleConverter x:Key="IsSignalVisibleConverter" />
+                    <Style x:Key="DoorOpenVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">
@@ -33,7 +33,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <Style x:Key="x:Key="ResetVisibleStyle"">
+                    <Style x:Key="ResetVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">
@@ -47,7 +47,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <Style x:Key="x:Key="EStopVisibleStyle"">
+                    <Style x:Key="EStopVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">
@@ -61,7 +61,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <Style x:Key="x:Key="MotorWarningVisibleStyle"">
+                    <Style x:Key="MotorWarningVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">
@@ -75,7 +75,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <Style x:Key="x:Key="MotorFaultVisibleStyle"">
+                    <Style x:Key="MotorFaultVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">
@@ -89,7 +89,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <Style x:Key="x:Key="BlockDeleteVisibleStyle"">
+                    <Style x:Key="BlockDeleteVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">
@@ -103,7 +103,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <Style x:Key="x:Key="OptionalStopVisibleStyle"">
+                    <Style x:Key="OptionalStopVisibleStyle">
                         <Setter Property="Control.Visibility">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource IsSignalVisibleConverter}">

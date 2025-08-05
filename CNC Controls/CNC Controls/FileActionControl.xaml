@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="36" d:DesignWidth="145">
     <UserControl.Resources>
-        <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
-        <Style x:Key="x:Key="ActionButtonStyle"" Selector="TargetType="Button"">
+        <local:LogicalNotConverter x:Key="BooleanConverter" />
+        <Style x:Key="ActionButtonStyle" Selector="Button">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value="0.5"/>
@@ -21,7 +21,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate Selector="TargetType="Button"">
+                    <ControlTemplate Selector="Button">
                         <Border BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="Transparent">

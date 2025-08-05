@@ -10,8 +10,8 @@
              x:Name="root"
              d:DesignHeight="115" d:DesignWidth="250">
     <UserControl.Resources>
-        <local:LogicalNotConverter x:Key="x:Key="LogicalNotConverter"" />
-        <local:BoolToVisibleConverter x:Key="x:Key="IsVisibleConverter"" />
+        <local:LogicalNotConverter x:Key="LogicalNotConverter" />
+        <local:BoolToVisibleConverter x:Key="IsVisibleConverter" />
     </UserControl.Resources>
     <Grid>
         <HeaderedContentControl x:Name="grpSpindle" Header="Spindle" HorizontalAlignment="Left" VerticalAlignment="Top" Height="115" Width="250">

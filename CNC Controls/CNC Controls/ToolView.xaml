@@ -12,7 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
                 <ResourceDictionary>
-                    <FrameworkElement x:Key="x:Key="ProxyElement"" DataContext="{Binding}"/>
+                    <FrameworkElement x:Key="ProxyElement" DataContext="{Binding}"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -10,17 +10,17 @@
              d:DesignHeight="480" d:DesignWidth="980"
             >
     <UserControl.Resources>
-        <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
-        <local:PositionToStringConverter x:Key="x:Key="PositionConverter"" />
-        <local:GrblStateToBooleanConverter x:Key="x:Key="StateToBooleanConverter"" />
-        <system:String x:Key="x:Key="Instructions1"">1. Select the axis to calibrate, Resolution is set from the underlying setting.</system:String>
-        <system:String x:Key="x:Key="Instructions2"">2. Jog to the starting positition in the same direction as the first "Go" move and mark it.</system:String>
-        <system:String x:Key="x:Key="Instructions3"">3. Enter the Distance to measure, Measured distance is linked to Distance so will be equal.</system:String>
-        <system:String x:Key="x:Key="Instructions4"">4. Press the appropriate "Go" button to move the entered distance, measure and enter the value in the Measured field.</system:String>
-        <system:String x:Key="x:Key="Instructions5"">5. Press the opposite "Go" button to move back to the origin.\nThis step can be skipped but avoids repositioning manually to the marked start position if multiple measurements are to be performed.</system:String>
-        <system:String x:Key="x:Key="Instructions6"">6. Press the "Save" button to update the setting.</system:String>
-        <system:String x:Key="x:Key="Instructions7"">7. Repeat from step 4 (or 3). until the measured distance matches the commanded distance with the required accuracy.</system:String>
-        <system:String x:Key="x:Key="Warnings"">Make sure there is room for the axis to move and avoid collision. Return move will add 0.5mm overshoot to remove any backlash from subsequent measurements.</system:String>
+        <local:LogicalNotConverter x:Key="BooleanConverter" />
+        <local:PositionToStringConverter x:Key="PositionConverter" />
+        <local:GrblStateToBooleanConverter x:Key="StateToBooleanConverter" />
+        <system:String x:Key="Instructions1">1. Select the axis to calibrate, Resolution is set from the underlying setting.</system:String>
+        <system:String x:Key="Instructions2">2. Jog to the starting positition in the same direction as the first "Go" move and mark it.</system:String>
+        <system:String x:Key="Instructions3">3. Enter the Distance to measure, Measured distance is linked to Distance so will be equal.</system:String>
+        <system:String x:Key="Instructions4">4. Press the appropriate "Go" button to move the entered distance, measure and enter the value in the Measured field.</system:String>
+        <system:String x:Key="Instructions5">5. Press the opposite "Go" button to move back to the origin.\nThis step can be skipped but avoids repositioning manually to the marked start position if multiple measurements are to be performed.</system:String>
+        <system:String x:Key="Instructions6">6. Press the "Save" button to update the setting.</system:String>
+        <system:String x:Key="Instructions7">7. Repeat from step 4 (or 3). until the measured distance matches the commanded distance with the required accuracy.</system:String>
+        <system:String x:Key="Warnings">Make sure there is room for the axis to move and avoid collision. Return move will add 0.5mm overshoot to remove any backlash from subsequent measurements.</system:String>
     </UserControl.Resources>
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>

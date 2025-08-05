@@ -10,11 +10,11 @@
              d:DesignHeight="150" Width="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
-            <system:String x:Key="x:Key="MenuLabel"">_THC monitor</system:String>
+            <system:String x:Key="MenuLabel">_THC monitor</system:String>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
                 <ResourceDictionary>
-                    <Style Selector="TargetType="local:SignalControl"">
+                    <Style Selector="local:SignalControl">
                         <Setter Property="Width" Value="18"/>
                         <Setter Property="Height" Value="35"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>

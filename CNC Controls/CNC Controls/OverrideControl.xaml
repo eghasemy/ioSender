@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="240">
     <UserControl.Resources>
-        <local:EncoderModeToColorConverter x:Key="x:Key="EncoderModeConverter"" />
-        <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
-            <Style x:Key="x:Key="ResetButtonStyle"" Selector="TargetType="Button"">
+        <local:EncoderModeToColorConverter x:Key="EncoderModeConverter" />
+        <local:LogicalNotConverter x:Key="BooleanConverter" />
+            <Style x:Key="ResetButtonStyle" Selector="Button">
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value="0.5"/>
@@ -22,7 +22,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate Selector="TargetType="Button"">
+                    <ControlTemplate Selector="Button">
                         <Border BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             Background="Transparent">

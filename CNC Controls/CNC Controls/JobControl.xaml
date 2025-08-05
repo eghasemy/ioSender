@@ -8,14 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="36" d:DesignWidth="400">
     <UserControl.Resources>
-        <system:String x:Key="x:Key="JobToolChanges"">Job has {0} tool change(s) using M6, only a few Grbl ports supports that.</system:String>
-        <system:String x:Key="x:Key="JobToolReference"">Job has {0} tool change(s), tool length reference should be established before start.</system:String>
-        <system:String x:Key="x:Key="JobG28G30"">Job has G28/G30 moves and machine is not homed.</system:String>
-        <system:String x:Key="x:Key="JobStop"">Stop</system:String>
-        <system:String x:Key="x:Key="JobPause"">Pause</system:String>
-        <system:String x:Key="x:Key="Checking"">Checking...</system:String>
-        <system:String x:Key="x:Key="TransferComplete"">Transfer complete</system:String>
-        <Style x:Key="x:Key="JobButtonStyle"" Selector="TargetType="Button"">
+        <system:String x:Key="JobToolChanges">Job has {0} tool change(s) using M6, only a few Grbl ports supports that.</system:String>
+        <system:String x:Key="JobToolReference">Job has {0} tool change(s), tool length reference should be established before start.</system:String>
+        <system:String x:Key="JobG28G30">Job has G28/G30 moves and machine is not homed.</system:String>
+        <system:String x:Key="JobStop">Stop</system:String>
+        <system:String x:Key="JobPause">Pause</system:String>
+        <system:String x:Key="Checking">Checking...</system:String>
+        <system:String x:Key="TransferComplete">Transfer complete</system:String>
+        <Style x:Key="JobButtonStyle" Selector="Button">
             <Setter Property="MinWidth" Value="95" />
             <Setter Property="MaxWidth" Value="120" />
             <Setter Property="Padding" Value="5,0" />

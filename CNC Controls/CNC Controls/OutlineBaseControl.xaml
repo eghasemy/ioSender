@@ -9,7 +9,7 @@
              d:DesignHeight="100" d:DesignWidth="250">
     <UserControl.Resources>
         <ResourceDictionary>
-            <local:LogicalNotConverter x:Key="x:Key="LogicalNotConverter"" />
+            <local:LogicalNotConverter x:Key="LogicalNotConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Height="100" IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource LogicalNotConverter}}">

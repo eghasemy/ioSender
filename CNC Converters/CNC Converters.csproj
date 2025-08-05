@@ -34,9 +34,8 @@
     <ProjectReference Include="..\CNC Core\CNC Core\CNC Core.csproj" />
   </ItemGroup>
 
-  <!-- Include all source files for Avalonia build -->
+  <!-- Avalonia XAML files -->
   <ItemGroup>
-    <Compile Include="**/*.cs" />
     <AvaloniaResource Include="**/*.xaml" />
   </ItemGroup>
 

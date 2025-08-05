@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:gcode="using:CNC.GCode"
                     xmlns:local="using:CNC.Controls">
-    <local:IsAxisVisibleConverter x:Key="x:Key="IsAxisVisibleConverter"" />
-    <Style x:Key="x:Key="SmallXButtonStyle"" Selector="TargetType="Button"">
+    <local:IsAxisVisibleConverter x:Key="IsAxisVisibleConverter" />
+    <Style x:Key="SmallXButtonStyle" Selector="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate Selector="TargetType="Button"">
+                <ControlTemplate Selector="Button">
                     <Grid Background="{TemplateBinding Background}">
                         <ContentPresenter HorizontalAlignment="Center"/>
                     </Grid>
@@ -15,7 +15,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="YAxisVisibleStyle"">
+    <Style x:Key="YAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -29,7 +29,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="ZAxisVisibleStyle"">
+    <Style x:Key="ZAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -43,7 +43,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="AAxisVisibleStyle"">
+    <Style x:Key="AAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -57,7 +57,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="BAxisVisibleStyle"">
+    <Style x:Key="BAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -71,7 +71,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="CAxisVisibleStyle"">
+    <Style x:Key="CAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -85,7 +85,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="UAxisVisibleStyle"">
+    <Style x:Key="UAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -99,7 +99,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="VAxisVisibleStyle"">
+    <Style x:Key="VAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">
@@ -113,7 +113,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="x:Key="WAxisVisibleStyle"">
+    <Style x:Key="WAxisVisibleStyle">
         <Setter Property="Control.Visibility">
             <Setter.Value>
                 <MultiBinding Converter="{StaticResource IsAxisVisibleConverter}">

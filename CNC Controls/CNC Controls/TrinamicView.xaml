@@ -13,9 +13,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
                 <ResourceDictionary>
-                    <local:LogicalNotConverter x:Key="x:Key="BooleanConverter"" />
-                    <local:BoolToVisibleConverter x:Key="x:Key="IsVisibleConverter"" />
-                    <local:PositionToStringConverter x:Key="x:Key="PositionConverter"" />
+                    <local:LogicalNotConverter x:Key="BooleanConverter" />
+                    <local:BoolToVisibleConverter x:Key="IsVisibleConverter" />
+                    <local:PositionToStringConverter x:Key="PositionConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

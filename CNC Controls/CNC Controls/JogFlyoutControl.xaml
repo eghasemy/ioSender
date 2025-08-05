@@ -10,7 +10,7 @@
              d:DesignHeight="238" Width="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
-            <system:String x:Key="x:Key="MenuLabel"">_Jog</system:String>
+            <system:String x:Key="MenuLabel">_Jog</system:String>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

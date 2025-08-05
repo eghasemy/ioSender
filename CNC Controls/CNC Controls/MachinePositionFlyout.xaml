@@ -10,7 +10,7 @@
              d:DesignHeight="90" Width="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
-            <system:String x:Key="x:Key="MenuLabel"">M_Pos</system:String>
+            <system:String x:Key="MenuLabel">M_Pos</system:String>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
