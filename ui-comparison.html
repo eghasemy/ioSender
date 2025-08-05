@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ioSender UI Modernization - Before vs After</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 40px;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .before, .after {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .before h2 {
+            color: #ef4444;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 10px;
+        }
+        .after h2 {
+            color: #10b981;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 10px;
+        }
+        .mockup {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .old-style {
+            background: #ffe5e5;
+            border: 1px solid #ccc;
+        }
+        .new-style {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .menu-bar {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-bottom: 1px solid #ccc;
+            font-size: 12px;
+        }
+        .menu-bar.new {
+            background: #ffffff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+        .toolbar {
+            background: #e8e8e8;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+            height: 30px;
+        }
+        .toolbar.new {
+            background: #ffffff;
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            min-height: 60px;
+        }
+        .content-area {
+            display: flex;
+            height: 400px;
+        }
+        .sidebar {
+            width: 200px;
+            background: #f5f5f5;
+            padding: 10px;
+            border-right: 1px solid #ccc;
+        }
+        .sidebar.new {
+            width: 280px;
+            background: #ffffff;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            flex: 1;
+            background: #ffffff;
+            padding: 10px;
+        }
+        .main-content.new {
+            background: #ffffff;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .control-group {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 11px;
+        }
+        .control-group.new {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .control-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .control-title.new {
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+        .button {
+            background: #e0e0e0;
+            border: 1px solid #999;
+            padding: 2px 8px;
+            margin: 2px;
+            font-size: 11px;
+        }
+        .button.new {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 4px;
+            font-size: 14px;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        .status-bar {
+            background: #f0f0f0;
+            padding: 3px 10px;
+            border-top: 1px solid #ccc;
+            font-size: 11px;
+        }
+        .status-bar.new {
+            background: #ffffff;
+            padding: 16px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 14px;
+            min-height: 44px;
+        }
+        .features {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        .feature h4 {
+            color: #2563eb;
+            margin-top: 0;
+        }
+        .metrics {
+            background: #e1f5fe;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ioSender Touch-Friendly HeroUI Implementation</h1>
+        
+        <div class="comparison">
+            <div class="before">
+                <h2>Before: Traditional WPF UI</h2>
+                <div class="mockup old-style">
+                    <div class="menu-bar">File Edit View Help</div>
+                    <div class="toolbar">🔧 📁 ▶️ ⏸️ ⏹️</div>
+                    <div class="content-area">
+                        <div class="sidebar">
+                            <div class="control-group">
+                                <div class="control-title">DRO</div>
+                                <div>X: 0.000</div>
+                                <div>Y: 0.000</div>
+                                <div>Z: 0.000</div>
+                            </div>
+                            <div class="control-group">
+                                <div class="control-title">Status</div>
+                                <div>State: Idle</div>
+                            </div>
+                        </div>
+                        <div class="main-content">
+                            <div style="border: 1px solid #ccc; height: 200px; background: #fafafa; display: flex; align-items: center; justify-content: center;">
+                                G-Code Viewer
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <button class="button">Start</button>
+                                <button class="button">Stop</button>
+                                <button class="button">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="status-bar">Ready | Blocks: 0/0 | Runtime: 00:00:00</div>
+                </div>
+                <ul>
+                    <li>Small touch targets (< 30px)</li>
+                    <li>Cramped layout</li>
+                    <li>Outdated visual design</li>
+                    <li>Poor touch accessibility</li>
+                    <li>Limited visual hierarchy</li>
+                </ul>
+            </div>
+            
+            <div class="after">
+                <h2>After: Touch-Friendly HeroUI</h2>
+                <div class="mockup new-style">
+                    <div class="menu-bar new">File | Camera | Help</div>
+                    <div class="toolbar new">🔧 📁 ▶️ ⏸️ ⏹️ | Macros</div>
+                    <div class="content-area">
+                        <div class="sidebar new">
+                            <div class="control-group new">
+                                <div class="control-title new">Digital Readout</div>
+                                <div>X: 0.000</div>
+                                <div>Y: 0.000</div>
+                                <div>Z: 0.000</div>
+                            </div>
+                            <div class="control-group new">
+                                <div class="control-title new">Machine Status</div>
+                                <div>State: Idle</div>
+                            </div>
+                        </div>
+                        <div class="main-content new">
+                            <div style="border: 1px solid #e2e8f0; height: 200px; background: #ffffff; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                                G-Code Viewer
+                            </div>
+                            <div style="margin-top: 16px; display: flex; gap: 8px;">
+                                <button class="button new">Start</button>
+                                <button class="button new">Stop</button>
+                                <button class="button new">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="status-bar new">Ready | Blocks: 0/0 | Runtime: 00:00:00 | Jog step: 1.0</div>
+                </div>
+                <ul>
+                    <li>44px minimum touch targets</li>
+                    <li>Card-based layout system</li>
+                    <li>Modern HeroUI design</li>
+                    <li>Touch-friendly accessibility</li>
+                    <li>Clear visual hierarchy</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>Key Improvements</h2>
+            
+            <div class="metrics">
+                <strong>Touch Accessibility:</strong> Minimum 44px touch targets ensure easy interaction on touch devices and tablets.
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature">
+                    <h4>🎨 Modern Design System</h4>
+                    <p>Comprehensive HeroUI theme with consistent colors, typography, and spacing. Professional appearance suitable for industrial applications.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>📱 Touch-Friendly</h4>
+                    <p>44px minimum touch targets, enhanced spacing, and gesture-friendly interactions. Optimized for tablets and touch displays.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>🗂️ Card-Based Layout</h4>
+                    <p>Organized content in visual cards with proper shadows and spacing. Better information architecture and visual hierarchy.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>🎯 Enhanced Usability</h4>
+                    <p>Improved contrast, larger text, and better visual feedback. Enhanced user experience for CNC operators.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>🔧 Feature Complete</h4>
+                    <p>All existing functionality preserved including DRO, job control, 3D viewer, probing, and configuration panels.</p>
+                </div>
+                
+                <div class="feature">
+                    <h4>📏 Responsive Design</h4>
+                    <p>Three-column grid layout that adapts to different screen sizes. Better space utilization and content organization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,307 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Touch-Friendly HeroUI Color Scheme -->
+    <SolidColorBrush x:Key="HeroUI.Primary" Color="#2563EB"/>
+    <SolidColorBrush x:Key="HeroUI.Secondary" Color="#64748B"/>
+    <SolidColorBrush x:Key="HeroUI.Success" Color="#10B981"/>
+    <SolidColorBrush x:Key="HeroUI.Warning" Color="#F59E0B"/>
+    <SolidColorBrush x:Key="HeroUI.Danger" Color="#EF4444"/>
+    <SolidColorBrush x:Key="HeroUI.Background" Color="#F8FAFC"/>
+    <SolidColorBrush x:Key="HeroUI.Surface" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="HeroUI.Border" Color="#E2E8F0"/>
+    <SolidColorBrush x:Key="HeroUI.Text.Primary" Color="#0F172A"/>
+    <SolidColorBrush x:Key="HeroUI.Text.Secondary" Color="#64748B"/>
+    <SolidColorBrush x:Key="HeroUI.Text.OnPrimary" Color="#FFFFFF"/>
+    
+    <!-- Touch-Friendly Dimensions -->
+    <sys:Double x:Key="HeroUI.TouchTarget.MinSize" xmlns:sys="clr-namespace:System;assembly=mscorlib">44</sys:Double>
+    <sys:Double x:Key="HeroUI.Spacing.Small" xmlns:sys="clr-namespace:System;assembly=mscorlib">8</sys:Double>
+    <sys:Double x:Key="HeroUI.Spacing.Medium" xmlns:sys="clr-namespace:System;assembly=mscorlib">16</sys:Double>
+    <sys:Double x:Key="HeroUI.Spacing.Large" xmlns:sys="clr-namespace:System;assembly=mscorlib">24</sys:Double>
+    <sys:Double x:Key="HeroUI.Radius.Small" xmlns:sys="clr-namespace:System;assembly=mscorlib">4</sys:Double>
+    <sys:Double x:Key="HeroUI.Radius.Medium" xmlns:sys="clr-namespace:System;assembly=mscorlib">8</sys:Double>
+    <sys:Double x:Key="HeroUI.Radius.Large" xmlns:sys="clr-namespace:System;assembly=mscorlib">12</sys:Double>
+    
+    <!-- Touch-Friendly Button Style -->
+    <Style x:Key="HeroUI.Button" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Primary}"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.OnPrimary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="MinWidth" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="{StaticResource HeroUI.Radius.Medium}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#1D4ED8"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#1E40AF"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#CBD5E1"/>
+                            <Setter Property="Foreground" Value="#94A3B8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Secondary Button Style -->
+    <Style x:Key="HeroUI.Button.Secondary" TargetType="Button" BasedOn="{StaticResource HeroUI.Button}">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F1F5F9"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#E2E8F0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- Touch-Friendly Card Style -->
+    <Style x:Key="HeroUI.Card" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="{StaticResource HeroUI.Radius.Large}"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Large}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" Opacity="0.1" ShadowDepth="2" BlurRadius="8"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Touch-Friendly Tab Item Style -->
+    <Style x:Key="HeroUI.TabItem" TargetType="TabItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Secondary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="8,8,0,0"
+                            Margin="0,0,4,0">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+                            <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#F1F5F9"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Touch-Friendly Menu Item Style -->
+    <Style x:Key="HeroUI.MenuItem" TargetType="MenuItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="MenuItem">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="{StaticResource HeroUI.Radius.Small}">
+                        <ContentPresenter HorizontalAlignment="Left" 
+                                        VerticalAlignment="Center"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter Property="Background" Value="{StaticResource HeroUI.Primary}"/>
+                            <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.OnPrimary}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Touch-Friendly TextBox Style -->
+    <Style x:Key="HeroUI.TextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{StaticResource HeroUI.Radius.Medium}">
+                        <ScrollViewer x:Name="PART_ContentHost" 
+                                    Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Primary}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Touch-Friendly StatusBar Style -->
+    <Style x:Key="HeroUI.StatusBar" TargetType="StatusBar">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+    </Style>
+    
+    <!-- Touch-Friendly ToolBar Style -->
+    <Style x:Key="HeroUI.ToolBar" TargetType="ToolBar">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="MinHeight" Value="60"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+    </Style>
+    
+    <!-- Global Button Style Override for Touch-Friendly Defaults -->
+    <Style TargetType="Button" BasedOn="{StaticResource HeroUI.Button}"/>
+    
+    <!-- Global TabItem Style Override -->
+    <Style TargetType="TabItem" BasedOn="{StaticResource HeroUI.TabItem}"/>
+    
+    <!-- Global TextBox Style Override -->
+    <Style TargetType="TextBox" BasedOn="{StaticResource HeroUI.TextBox}"/>
+    
+    <!-- Global MenuItem Style Override -->
+    <Style TargetType="MenuItem" BasedOn="{StaticResource HeroUI.MenuItem}"/>
+    
+    <!-- Touch-Friendly CheckBox Style -->
+    <Style x:Key="HeroUI.CheckBox" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Small}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+    
+    <!-- Touch-Friendly ComboBox Style -->
+    <Style x:Key="HeroUI.ComboBox" TargetType="ComboBox">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
+    <!-- Touch-Friendly Slider Style -->
+    <Style x:Key="HeroUI.Slider" TargetType="Slider">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Primary}"/>
+        <Setter Property="MinHeight" Value="{StaticResource HeroUI.TouchTarget.MinSize}"/>
+        <Setter Property="Thumb.Height" Value="24"/>
+        <Setter Property="Thumb.Width" Value="24"/>
+    </Style>
+    
+    <!-- Touch-Friendly GroupBox Style -->
+    <Style x:Key="HeroUI.GroupBox" TargetType="GroupBox">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Surface}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="{StaticResource HeroUI.Spacing.Medium}"/>
+        <Setter Property="Margin" Value="0,0,0,16"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Text.Primary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" 
+                               Background="{StaticResource HeroUI.Background}" 
+                               Padding="8,4"
+                               CornerRadius="4,4,0,0">
+                            <ContentPresenter ContentSource="Header" 
+                                           TextElement.FontWeight="SemiBold"/>
+                        </Border>
+                        <Border Grid.Row="1" 
+                               Background="{TemplateBinding Background}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="0,0,4,4"
+                               Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Touch-Friendly ProgressBar Style -->
+    <Style x:Key="HeroUI.ProgressBar" TargetType="ProgressBar">
+        <Setter Property="Background" Value="{StaticResource HeroUI.Border}"/>
+        <Setter Property="Foreground" Value="{StaticResource HeroUI.Primary}"/>
+        <Setter Property="MinHeight" Value="8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Border Background="{TemplateBinding Background}" 
+                           CornerRadius="4">
+                        <Grid>
+                            <Border Name="PART_Track" 
+                                   Background="{TemplateBinding Background}" 
+                                   CornerRadius="4"/>
+                            <Border Name="PART_Indicator" 
+                                   Background="{TemplateBinding Foreground}" 
+                                   HorizontalAlignment="Left" 
+                                   CornerRadius="4"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>
