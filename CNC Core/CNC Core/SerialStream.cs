@@ -40,12 +40,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.IO;
 using System.IO.Ports;
+using System.Collections.ObjectModel;
+#if WINDOWS
 using System.Management;
 using System.Windows.Threading;
-using System.Collections.ObjectModel;
+#endif
 
 namespace CNC.Core
 {
@@ -55,17 +56,25 @@ namespace CNC.Core
         private byte[] buffer = new byte[Comms.RXBUFFERSIZE];
         private StringBuilder input = new StringBuilder(Comms.RXBUFFERSIZE);
         private volatile Comms.State state = Comms.State.ACK;
+#if WINDOWS
         private Dispatcher Dispatcher { get; set; }
+#endif
 
         public event DataReceivedHandler DataReceived;
 
 #if RESPONSELOG
         StreamWriter log = null;
 #endif
-        public SerialStream(string PortParams, int ResetDelay, Dispatcher dispatcher)
+        public SerialStream(string PortParams, int ResetDelay
+#if WINDOWS
+            , Dispatcher dispatcher
+#endif
+            )
         {
             Comms.com = this;
+#if WINDOWS
             Dispatcher = dispatcher;
+#endif
             Reply = string.Empty;
 
             if (PortParams.IndexOf(":") < 0)
@@ -75,7 +84,11 @@ namespace CNC.Core
 
             if (parameter.Count() < 4)
             {
-                MessageBox.Show(string.Format(LibStrings.FindResource("SerialPortError"), PortParams), "ioSender");
+#if WINDOWS
+                System.Windows.MessageBox.Show(string.Format(LibStrings.FindResource("SerialPortError"), PortParams), "ioSender");
+#else
+                Console.WriteLine($"Serial port error: {PortParams}");
+#endif
                 System.Environment.Exit(2);
             }
 
@@ -149,7 +162,11 @@ namespace CNC.Core
                 }
                 catch
                 {
-                    MessageBox.Show("Unable to open log file: " + Resources.DebugFile, "ioSender");
+#if WINDOWS
+                    System.Windows.MessageBox.Show("Unable to open log file: " + Resources.DebugFile, "ioSender");
+#else
+                    Console.WriteLine("Unable to open log file: " + Resources.DebugFile);
+#endif
                 }
 #endif
             }
@@ -373,7 +390,11 @@ namespace CNC.Core
                         }
 #endif
                         if (Reply.Length != 0 && DataReceived != null)
+#if WINDOWS
                             Dispatcher.BeginInvoke(DataReceived, Reply);
+#else
+                            DataReceived?.Invoke(Reply);
+#endif
                         //                            Dispatcher.Invoke(addEdge, Reply);
 
                         state = Reply == "ok" ? Comms.State.ACK : (Reply.StartsWith("error") ? Comms.State.NAK : Comms.State.DataReceived);
@@ -486,6 +507,7 @@ namespace CNC.Core
                     _portnames = pn.ToArray();
                 }
 
+#if WINDOWS
                 using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE Caption like '%(COM%'")) try
                 {
                     var ports = searcher.Get().Cast<ManagementBaseObject>().ToList().Select(p => p["Caption"].ToString());
@@ -503,6 +525,7 @@ namespace CNC.Core
                 catch
                 {
                 }
+#endif
 
                 if (Ports.Count != _portnames.Length)
                 {

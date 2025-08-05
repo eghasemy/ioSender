@@ -9,10 +9,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Globalization;
-using System.Windows.Markup;
 using System.Collections;
 using System.Collections.Generic;
-using System.Windows;
 using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Collections.Concurrent;
@@ -20,15 +18,53 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using CNC.GCode;
 using System.IO;
+#if WINDOWS
+using System.Windows.Markup;
+using System.Windows;
+#endif
 
 namespace CNC.Core
 {
     public class LibStrings
     {
+#if WINDOWS
         static ResourceDictionary resource = new ResourceDictionary();
+#else
+        static Dictionary<string, string> fallbackStrings = new Dictionary<string, string>
+        {
+            {"LoadError", "{0}\nLine: {1}\nBlock: {2}\n\nContinue loading?"},
+            {"ParserStrip", "{0} command found, strip?"},
+            {"ParserStripHdr", "Strip command"},
+            {"ParserBadExpr", "Bad expression"},
+            {"ParserUnsupportedCmd", "Unsupported command"},
+            {"ParserAxisError", "Axis command conflict"},
+            {"ParserModalGrpError", "Modal group violation"},
+            {"ParserCmdUnknown", "Command word not recognized"},
+            {"ParserCMDInvalid", "Invalid GCode"},
+            {"ParserWordRepeated", "Command word repeated"},
+            {"ParserToolProfile", "Tool {0} not associated with a profile"},
+            {"ParserM66PandE", "Cannot use both P- and E-word with M66"},
+            {"ParserM66NoPorE", "P- or E-word missing for M66"},
+            {"ParserM66BadParams", "Illegal M66 parameters"},
+            {"ParserG6NoP", "G4 - missing P word"},
+            {"ParserNoG0orG1", "G0 or G1 not active"},
+            {"SerialPortError", "Serial port error: {0}"},
+            {"JoggingOnly", "Jogging mode only"},
+            {"SdStreamComplete", "SD stream complete: {0}"},
+            {"ContUnlock", "Continue to unlock"},
+            {"ContHomeUnlock", "Continue to home and unlock"},
+            {"ContClearResetUnlock", "Continue to clear, reset and unlock"},
+            {"ContHome", "Continue to home"},
+            {"ContResetUnlock", "Continue to reset and unlock"},
+            {"ProbePrimary", "Primary Probe"},
+            {"ProbeToolSetter", "Tool Setter"},
+            {"ProbeSecondary", "Secondary Probe"}
+        };
+#endif
 
         public static string FindResource(string key)
         {
+#if WINDOWS
             if (resource.Source == null)
                 try
                 {
@@ -39,6 +75,9 @@ namespace CNC.Core
                 }
 
             return resource.Source == null || !resource.Contains(key) ? string.Empty : (string)resource[key];
+#else
+            return fallbackStrings.ContainsKey(key) ? fallbackStrings[key] : key;
+#endif
         }
     }
     public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo

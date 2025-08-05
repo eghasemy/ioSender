@@ -41,11 +41,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Windows;
-using System.Windows.Media.Media3D;
 using System.Xml.Serialization;
 using CNC.Core;
 using System.Text;
+#if WINDOWS
+using System.Windows;
+using System.Windows.Media.Media3D;
+#endif
 
 namespace CNC.GCode
 {
@@ -379,7 +381,11 @@ namespace CNC.GCode
             bool strip = state == CommandIgnoreState.Strip;
 
             if (!strip && state != CommandIgnoreState.No)
+#if WINDOWS
                 strip = MessageBox.Show(string.Format(LibStrings.FindResource("ParserStrip"), code), LibStrings.FindResource("ParserStripHdr"), MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+#else
+                strip = true; // Default to strip for cross-platform
+#endif
 
             return strip;
         }
@@ -1191,7 +1197,11 @@ namespace CNC.GCode
                 Tokens.Add(new GCToolSelect(Commands.ToolSelect, gcValues.N, gcValues.T, blockDelete));
 
                 if (!quiet && ToolChanged != null && !ToolChanged(gcValues.T))
+#if WINDOWS
                     MessageBox.Show(string.Format(LibStrings.FindResource("ParserToolProfile"), gcValues.T.ToString()), "GCode parser", MessageBoxButton.OK, MessageBoxImage.Warning);
+#else
+                    Console.WriteLine(string.Format(LibStrings.FindResource("ParserToolProfile"), gcValues.T.ToString()));
+#endif
             }
 
             if (modalGroups != ModalGroups.G1)
