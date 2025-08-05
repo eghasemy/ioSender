@@ -70,69 +70,69 @@
         <StackPanel Orientation="Horizontal" Margin="90,10,5,0" Width="Auto" Height="Auto">
             <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" IsVisible="{Binding Path=LatheModeEnabled, Converter={StaticResource IsNotVisibleConverter}}">
                 <StackPanel VerticalAlignment="Center">
-                    <Button Content="X-" Classes=" JogButtonStyle}"/>
+                    <Button Content="X-" Classes="JogButtonStyle"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Margin="5,0">
-                    <Button Content="Y+" Classes=" JogButtonStyle}"/>
-                    <Button Tag="stop" Classes=" JogButtonStyle}" Margin="0,5">
+                    <Button Content="Y+" Classes="JogButtonStyle"/>
+                    <Button Tag="stop" Classes="JogButtonStyle" Margin="0,5">
                         <Button.Content>
                             <Image Source="Resources/Symbols_Stop_32xLG.png"/>
                         </Button.Content>
                     </Button>
-                    <Button Content="Y-" Classes=" JogButtonStyle}"/>
+                    <Button Content="Y-" Classes="JogButtonStyle"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center">
-                    <Button Content="X+" Classes=" JogButtonStyle}"/>
+                    <Button Content="X+" Classes="JogButtonStyle"/>
                 </StackPanel>
-                <StackPanel Classes=" ZAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                    <Button Content="Z+" Classes=" JogButtonStyle}"/>
-                    <Button Content="Z-" Classes=" JogButtonStyle}" Margin="0,70,0,0" VerticalAlignment="Top"/>
+                <StackPanel Classes="ZAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Button Content="Z+" Classes="JogButtonStyle"/>
+                    <Button Content="Z-" Classes="JogButtonStyle" Margin="0,70,0,0" VerticalAlignment="Top"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto" IsVisible="{Binding Path=LatheModeEnabled, Converter={StaticResource IsVisibleConverter}}">
                 <StackPanel VerticalAlignment="Center">
-                    <Button Content="Z-" Classes=" JogButtonStyle}"/>
+                    <Button Content="Z-" Classes="JogButtonStyle"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Margin="5,0">
-                    <Button Content="X-" Classes=" JogButtonStyle}"/>
-                    <Button Tag="stop" Classes=" JogButtonStyle}" Margin="0,5">
+                    <Button Content="X-" Classes="JogButtonStyle"/>
+                    <Button Tag="stop" Classes="JogButtonStyle" Margin="0,5">
                         <Button.Content>
                             <Image Source="Resources/Symbols_Stop_32xLG.png"/>
                         </Button.Content>
                     </Button>
-                    <Button Content="X+" Classes=" JogButtonStyle}"/>
+                    <Button Content="X+" Classes="JogButtonStyle"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center">
-                    <Button Content="Z+" Classes=" JogButtonStyle}"/>
+                    <Button Content="Z+" Classes="JogButtonStyle"/>
                 </StackPanel>
-                <StackPanel Classes=" YAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                    <Button Content="Y+" Classes=" JogButtonStyle}"/>
-                    <Button Content="Y-" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+                <StackPanel Classes="YAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Button Content="Y+" Classes="JogButtonStyle"/>
+                    <Button Content="Y-" Classes="JogButtonStyle" Margin="0,70,0,0"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Classes=" AAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Button Content="{Binding Path=AxisLetter.A, Converter={StaticResource JogPlusConverter}, Mode=OneWay}" Classes=" JogButtonStyle}"/>
-                <Button Content="{Binding Path=AxisLetter.A, Converter={StaticResource JogMinusConverter}, Mode=OneWay}" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+            <StackPanel Classes="AAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Content="{Binding Path=AxisLetter.A, Converter={StaticResource JogPlusConverter}, Mode=OneWay}" Classes="JogButtonStyle"/>
+                <Button Content="{Binding Path=AxisLetter.A, Converter={StaticResource JogMinusConverter}, Mode=OneWay}" Classes="JogButtonStyle" Margin="0,70,0,0"/>
             </StackPanel>
-            <StackPanel Classes=" BAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Button Content="{Binding Path=AxisLetter.B, Converter={StaticResource JogPlusConverter}, Mode=OneWay}" Classes=" JogButtonStyle}"/>
-                <Button Content="{Binding Path=AxisLetter.B, Converter={StaticResource JogMinusConverter}, Mode=OneWay}" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+            <StackPanel Classes="BAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Content="{Binding Path=AxisLetter.B, Converter={StaticResource JogPlusConverter}, Mode=OneWay}" Classes="JogButtonStyle"/>
+                <Button Content="{Binding Path=AxisLetter.B, Converter={StaticResource JogMinusConverter}, Mode=OneWay}" Classes="JogButtonStyle" Margin="0,70,0,0"/>
             </StackPanel>
-            <StackPanel Classes=" CAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Button Content="{Binding Path=AxisLetter.C, Converter={StaticResource JogPlusConverter}, Mode=OneWay}" Classes=" JogButtonStyle}"/>
-                <Button Content="{Binding Path=AxisLetter.C, Converter={StaticResource JogMinusConverter}, Mode=OneWay}" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+            <StackPanel Classes="CAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Content="{Binding Path=AxisLetter.C, Converter={StaticResource JogPlusConverter}, Mode=OneWay}" Classes="JogButtonStyle"/>
+                <Button Content="{Binding Path=AxisLetter.C, Converter={StaticResource JogMinusConverter}, Mode=OneWay}" Classes="JogButtonStyle" Margin="0,70,0,0"/>
             </StackPanel>
-            <StackPanel Classes=" UAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Button Content="U+" Classes=" JogButtonStyle}"/>
-                <Button Content="U-" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+            <StackPanel Classes="UAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Content="U+" Classes="JogButtonStyle"/>
+                <Button Content="U-" Classes="JogButtonStyle" Margin="0,70,0,0"/>
             </StackPanel>
-            <StackPanel Classes=" VAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Button Content="V+" Classes=" JogButtonStyle}"/>
-                <Button Content="V-" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+            <StackPanel Classes="VAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Content="V+" Classes="JogButtonStyle"/>
+                <Button Content="V-" Classes="JogButtonStyle" Margin="0,70,0,0"/>
             </StackPanel>
-            <StackPanel Classes=" WAxisVisibleStyle}" VerticalAlignment="Center" Margin="5,0,0,0">
-                <Button Content="W+" Classes=" JogButtonStyle}"/>
-                <Button Content="W-" Classes=" JogButtonStyle}" Margin="0,70,0,0"/>
+            <StackPanel Classes="WAxisVisibleStyle" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Button Content="W+" Classes="JogButtonStyle"/>
+                <Button Content="W-" Classes="JogButtonStyle" Margin="0,70,0,0"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -66,7 +66,7 @@
                     <CheckBox Content="WebSocket" IsChecked="{Binding Path=IsWebSocket, Mode=TwoWay}" Margin="80,5,0,0"/>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Label Content="Port:" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Width="80"/>
-                        <local:NumericTextBox Classes=" PortErrorStyle}" Format="####0">
+                        <local:NumericTextBox Classes="PortErrorStyle" Format="####0">
                             <local:NumericTextBox.Value>
                                 <Binding Path="NetPort" Mode="TwoWay" ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -78,7 +78,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                         <Label Content="IP address:" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Width="80"/>
-                        <TextBox Classes=" Ip4ErrorStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Height="24" Width="95" MaxLength="15">
+                        <TextBox Classes="Ip4ErrorStyle" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Bottom" Height="24" Width="95" MaxLength="15">
                             <TextBox.Text>
                                 <Binding Path="IpAddress" Mode="TwoWay" ValidatesOnNotifyDataErrors="True" ValidatesOnDataErrors="True" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>

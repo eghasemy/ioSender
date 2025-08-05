@@ -33,9 +33,9 @@
         </Style>
     </UserControl.Resources>
     <StackPanel IsEnabled="{Binding Path=IsJobRunning, Mode=OneWay, Converter={StaticResource BooleanConverter}}" Orientation="Horizontal" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top">
-        <Button Content="Resources\open.png" ToolTip.Tip="Open file" Width="37" Classes=" ActionButtonStyle}"/>
-        <Button Content="Resources\reload.png" ToolTip.Tip="Reload file" Width="23" IsEnabled="{Binding Path=IsPhysicalFileLoaded}"  Classes=" ActionButtonStyle}"/>
-        <Button Content="Resources\edit.png" ToolTip.Tip="Edit file" Width="31" IsEnabled="{Binding Path=IsPhysicalFileLoaded}" Classes=" ActionButtonStyle}"/>
-        <Button Content="Resources\close.png" ToolTip.Tip="Close file" Width="26" IsEnabled="{Binding Path=IsFileLoaded}"  Classes=" ActionButtonStyle}"/>
+        <Button Content="Resources\open.png" ToolTip.Tip="Open file" Width="37" Classes="ActionButtonStyle"/>
+        <Button Content="Resources\reload.png" ToolTip.Tip="Reload file" Width="23" IsEnabled="{Binding Path=IsPhysicalFileLoaded}"  Classes="ActionButtonStyle"/>
+        <Button Content="Resources\edit.png" ToolTip.Tip="Edit file" Width="31" IsEnabled="{Binding Path=IsPhysicalFileLoaded}" Classes="ActionButtonStyle"/>
+        <Button Content="Resources\close.png" ToolTip.Tip="Close file" Width="26" IsEnabled="{Binding Path=IsFileLoaded}"  Classes="ActionButtonStyle"/>
     </StackPanel>
 </UserControl>

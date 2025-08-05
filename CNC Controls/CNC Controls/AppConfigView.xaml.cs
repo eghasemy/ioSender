@@ -75,7 +75,7 @@ namespace CNC.Controls
                 } else if (control is ICameraConfig && model.Camera != null && !model.Camera.HasCamera)
                     control.IsVisible = false;
             }
-            grblmodel.Message = activate ? (string)FindResource("RestartMessage") : string.Empty;
+            grblmodel.Message = activate ? (string)this.FindResource("RestartMessage") : string.Empty;
         }
 
         public void CloseFile()

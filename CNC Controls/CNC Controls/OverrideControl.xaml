@@ -49,6 +49,6 @@
                 </MultiBinding>
             </TextBox.Background>
         </TextBox>
-        <Button x:Name="btnOvReset" Content="Resources\reset.png" Focusable="False" Classes=" ResetButtonStyle}" Margin="2,0,0,0" Height="22" Width="22"/>
+        <Button x:Name="btnOvReset" Content="Resources\reset.png" Focusable="False" Classes="ResetButtonStyle" Margin="2,0,0,0" Height="22" Width="22"/>
     </StackPanel>
 </UserControl>

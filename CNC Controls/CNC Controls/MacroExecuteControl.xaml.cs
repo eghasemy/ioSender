@@ -60,7 +60,7 @@ namespace CNC.Controls
             InitializeComponent();
             DataContextChanged += View_DataContextChanged;
         }
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
         private void macroExecuteControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -117,7 +117,7 @@ namespace CNC.Controls
         private void button_Click(object sender, RoutedEventArgs e)
         {
             CNC.GCode.Macro macro = Macros.FirstOrDefault(o => o.Id == (int)(sender as Button).Tag);
-            if (macro != null && (!macro.ConfirmOnExecute || MessageBox.Show(string.Format((string)FindResource("RunMacro"), macro.Name), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+            if (macro != null && (!macro.ConfirmOnExecute || MessageBox.Show(string.Format((string)this.FindResource("RunMacro"), macro.Name), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
                 (DataContext as GrblViewModel).ExecuteMacro(macro.Code);
         }
 

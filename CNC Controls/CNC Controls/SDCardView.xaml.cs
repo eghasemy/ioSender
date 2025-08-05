@@ -82,7 +82,7 @@ namespace CNC.Controls
                 if (GrblInfo.HasSDCard && (DataContext as GrblViewModel).SDCardMountStatus == SDState.Undetected)
                 {
                     GrblSDCard.Clear();
-                    (DataContext as GrblViewModel).Message = (string)FindResource("NoCard");
+                    (DataContext as GrblViewModel).Message = (string)this.FindResource("NoCard");
                 } else
                     GrblSDCard.Load(DataContext as GrblViewModel, ViewAll);
             }
@@ -174,7 +174,7 @@ namespace CNC.Controls
 
         private void DownloadRun_Click(object sender, RoutedEventArgs e)
         {
-            if (currentFile != null && !isMacro((string)currentFile["Name"]) && MessageBox.Show(string.Format((string)FindResource("DownloandRun"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (currentFile != null && !isMacro((string)currentFile["Name"]) && MessageBox.Show(string.Format((string)this.FindResource("DownloandRun"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
                 var model = DataContext as GrblViewModel;
 
@@ -186,7 +186,7 @@ namespace CNC.Controls
                     Comms.com.PurgeQueue();
 
                     model.SuspendProcessing = true;
-                    model.Message = string.Format((string)FindResource("Downloading"), (string)currentFile["Name"]);
+                    model.Message = string.Format((string)this.FindResource("Downloading"), (string)currentFile["Name"]);
 
                     GCode.File.AddBlock((string)currentFile["Name"], CNC.Core.Action.New);
 
@@ -237,15 +237,15 @@ namespace CNC.Controls
             {
                 GrblViewModel model = DataContext as GrblViewModel;
 
-                model.Message = (string)FindResource("Uploading");
+                model.Message = (string)this.FindResource("Uploading");
 
                 if (GrblInfo.UploadProtocol == "FTP")
                 {
                     if (GrblInfo.IpAddress == string.Empty)
-                        model.Message = (string)FindResource("NoConnection");
+                        model.Message = (string)this.FindResource("NoConnection");
                     else using(new UIUtils.WaitCursor())
                     {
-                        model.Message = (string)FindResource("Uploading");
+                        model.Message = (string)this.FindResource("Uploading");
                         try
                         {
                             using (WebClient client = new WebClient())
@@ -272,14 +272,14 @@ namespace CNC.Controls
                 }
                 else
                 {
-                    model.Message = (string)FindResource("Uploading");
+                    model.Message = (string)this.FindResource("Uploading");
                     YModem ymodem = new YModem();
                     ymodem.DataTransferred += Ymodem_DataTransferred;
                     ok = ymodem.Upload(filename);
                 }
 
                 if(!(GrblInfo.UploadProtocol == "FTP" && !ok))
-                    model.Message = (string)FindResource(ok ? "TransferDone" : "TransferAborted");
+                    model.Message = (string)this.FindResource(ok ? "TransferDone" : "TransferAborted");
 
                 GrblSDCard.Load(model, ViewAll);
             }
@@ -288,7 +288,7 @@ namespace CNC.Controls
         private void Ymodem_DataTransferred(long size, long transferred)
         {
             GrblViewModel model = DataContext as GrblViewModel;
-            model.Message = string.Format((string)FindResource("Transferring"), transferred, size);
+            model.Message = string.Format((string)this.FindResource("Transferring"), transferred, size);
         }
 
         private void Run_Click(object sender, RoutedEventArgs e)
@@ -302,7 +302,7 @@ namespace CNC.Controls
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(string.Format((string)FindResource("DeleteFile"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (MessageBox.Show(string.Format((string)this.FindResource("DeleteFile"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
                 Comms.com.WriteCommand(GrblConstants.CMD_SDCARD_UNLINK + (string)currentFile["Name"]);
                 GrblSDCard.Load(DataContext as GrblViewModel, ViewAll);
@@ -317,7 +317,7 @@ namespace CNC.Controls
 
                 if ((bool)currentFile["Invalid"])
                 {
-                    MessageBox.Show(string.Format(((string)FindResource("IllegalName")).Replace("\\n", "\r\r"), (string)currentFile["Name"]), "ioSender",
+                    MessageBox.Show(string.Format(((string)this.FindResource("IllegalName")).Replace("\\n", "\r\r"), (string)currentFile["Name"]), "ioSender",
                                      MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
@@ -331,7 +331,7 @@ namespace CNC.Controls
                             int macro;
                             if(int.TryParse(filename.Substring(pos + 1), out macro) && macro >= 100)
                             {
-                                if(MessageBox.Show(string.Format((string)FindResource("RunMacro"), macro), "ioSender",
+                                if(MessageBox.Show(string.Format((string)this.FindResource("RunMacro"), macro), "ioSender",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                                 {
                                     Comms.com.WriteCommand("G65P" + macro.ToString());

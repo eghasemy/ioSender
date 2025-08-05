@@ -24,9 +24,9 @@
         </Style>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal">
-        <Button x:Name="btnStart" Content="Cycle Start" ToolTip.Tip="Alt+R" Classes=" JobButtonStyle}"/>
-        <Button x:Name="btnHold" Content="Feed Hold" ToolTip.Tip="Space" Classes=" JobButtonStyle}" Margin="5,0,0,0"/>
-        <Button x:Name="btnStop" Content="Stop" ToolTip.Tip="Alt+S" Classes=" JobButtonStyle}" Margin="5,0,0,0"/>
-        <Button x:Name="btnRewind" Content="Rewind" Classes=" JobButtonStyle}" Margin="5,0,0,0"/>
+        <Button x:Name="btnStart" Content="Cycle Start" ToolTip.Tip="Alt+R" Classes="JobButtonStyle"/>
+        <Button x:Name="btnHold" Content="Feed Hold" ToolTip.Tip="Space" Classes="JobButtonStyle" Margin="5,0,0,0"/>
+        <Button x:Name="btnStop" Content="Stop" ToolTip.Tip="Alt+S" Classes="JobButtonStyle" Margin="5,0,0,0"/>
+        <Button x:Name="btnRewind" Content="Rewind" Classes="JobButtonStyle" Margin="5,0,0,0"/>
     </StackPanel>
 </UserControl>

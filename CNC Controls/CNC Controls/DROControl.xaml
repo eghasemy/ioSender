@@ -28,31 +28,31 @@
                 Value="{Binding Path=Position.Y, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)Y], Mode=OneWay}"
              />
-            <local:DROBaseControl x:Name="axisZ" Label="Z" Classes=" ZAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisZ" Label="Z" Classes="ZAxisVisibleStyle"
                 Value="{Binding Path=Position.Z, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)Z], Mode=OneWay}"
             />
-            <local:DROBaseControl x:Name="axisA" Label="{Binding Path=AxisLetter.A, Mode=OneWay}" Classes=" AAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisA" Label="{Binding Path=AxisLetter.A, Mode=OneWay}" Classes="AAxisVisibleStyle"
                 Value="{Binding Path=Position.A, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)A], Mode=OneWay}"
             />
-            <local:DROBaseControl x:Name="axisB" Label="{Binding Path=AxisLetter.B, Mode=OneWay}" Classes=" BAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisB" Label="{Binding Path=AxisLetter.B, Mode=OneWay}" Classes="BAxisVisibleStyle"
                 Value="{Binding Path=Position.B, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)B], Mode=OneWay}"
             />
-            <local:DROBaseControl x:Name="axisC" Label="{Binding Path=AxisLetter.C, Mode=OneWay}" Classes=" CAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisC" Label="{Binding Path=AxisLetter.C, Mode=OneWay}" Classes="CAxisVisibleStyle"
                 Value="{Binding Path=Position.C, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)C], Mode=OneWay}"
             />
-            <local:DROBaseControl x:Name="axisU" Label="U" Classes=" UAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisU" Label="U" Classes="UAxisVisibleStyle"
                 Value="{Binding Path=Position.U, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)U], Mode=OneWay}"
             />
-            <local:DROBaseControl x:Name="axisV" Label="V" Classes=" VAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisV" Label="V" Classes="VAxisVisibleStyle"
                 Value="{Binding Path=Position.V, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)V], Mode=OneWay}"
             />
-            <local:DROBaseControl x:Name="axisW" Label="W" Classes=" WAxisVisibleStyle}"
+            <local:DROBaseControl x:Name="axisW" Label="W" Classes="WAxisVisibleStyle"
                 Value="{Binding Path=Position.W, Mode=TwoWay}"
                 IsScaled="{Binding Path=AxisScaled[(gcode:AxisFlags)W], Mode=OneWay}"
             />

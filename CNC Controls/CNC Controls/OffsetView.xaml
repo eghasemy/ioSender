@@ -153,7 +153,7 @@
                 Value="{Binding Path=Offset.X, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvYOffset" Label="{Binding Path=AxisLetter.Y, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="Y" Classes=" YAxisVisibleStyle}"
+            <local:CoordValueSetControl x:Name="cvYOffset" Label="{Binding Path=AxisLetter.Y, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="Y" Classes="YAxisVisibleStyle"
                 Value="{Binding Path=Offset.Y, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
@@ -161,27 +161,27 @@
                 Value="{Binding Path=Offset.Z, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvAOffset" Label="{Binding Path=AxisLetter.A, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.A, Mode=OneWay}" Classes=" AAxisVisibleStyle}" 
+            <local:CoordValueSetControl x:Name="cvAOffset" Label="{Binding Path=AxisLetter.A, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.A, Mode=OneWay}" Classes="AAxisVisibleStyle" 
                 Value="{Binding Path=Offset.A, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvBOffset" Label="{Binding Path=AxisLetter.B, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.B, Mode=OneWay}" Classes=" BAxisVisibleStyle}" 
+            <local:CoordValueSetControl x:Name="cvBOffset" Label="{Binding Path=AxisLetter.B, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.B, Mode=OneWay}" Classes="BAxisVisibleStyle" 
                 Value="{Binding Path=Offset.B, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvCOffset" Label="{Binding Path=AxisLetter.C, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.C, Mode=OneWay}" Classes=" CAxisVisibleStyle}" 
+            <local:CoordValueSetControl x:Name="cvCOffset" Label="{Binding Path=AxisLetter.C, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.C, Mode=OneWay}" Classes="CAxisVisibleStyle" 
                 Value="{Binding Path=Offset.C, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvUOffset" Label="{Binding Path=AxisLetter.U, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.U, Mode=OneWay}" Classes=" UAxisVisibleStyle}" 
+            <local:CoordValueSetControl x:Name="cvUOffset" Label="{Binding Path=AxisLetter.U, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.U, Mode=OneWay}" Classes="UAxisVisibleStyle" 
                 Value="{Binding Path=Offset.U, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvVOffset" Label="{Binding Path=AxisLetter.V, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.V, Mode=OneWay}" Classes=" VAxisVisibleStyle}" 
+            <local:CoordValueSetControl x:Name="cvVOffset" Label="{Binding Path=AxisLetter.V, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.V, Mode=OneWay}" Classes="VAxisVisibleStyle" 
                 Value="{Binding Path=Offset.U, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />
-            <local:CoordValueSetControl x:Name="cvWOffset" Label="{Binding Path=AxisLetter.V, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.W, Mode=OneWay}" Classes=" WAxisVisibleStyle}" 
+            <local:CoordValueSetControl x:Name="cvWOffset" Label="{Binding Path=AxisLetter.V, StringFormat={StaticResource AxisLabel}, Mode=OneWay}" Tag="{Binding Path=AxisLetter.W, Mode=OneWay}" Classes="WAxisVisibleStyle" 
                 Value="{Binding Path=Offset.W, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"
                 IsEnabled="{Binding Path=CanEdit, RelativeSource={RelativeSource AncestorType=UserControl}}"
             />

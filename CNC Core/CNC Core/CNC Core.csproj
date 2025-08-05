@@ -44,6 +44,7 @@
     <Compile Include="Machine.cs" />
     <Compile Include="Math3D.cs" />
     <Compile Include="MeasureViewModel.cs" />
+    <Compile Include="MessageBoxCompat.cs" />
     <Compile Include="NGCExpr.cs" />
     <Compile Include="SerialStream.cs" />
     <Compile Include="TelnetStream.cs" />

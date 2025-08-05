@@ -77,7 +77,7 @@ namespace CNC.Controls
                 case StatusButton.Reset:
                     var model = (DataContext as GrblViewModel);
                     if (model.GrblState.State == GrblStates.Alarm && model.GrblState.Substate == 10 && model.Signals.Value.HasFlag(Signals.EStop))
-                        MessageBox.Show((string)FindResource("ClearEStop"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        MessageBox.Show((string)this.FindResource("ClearEStop"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     else
                         Grbl.Reset();
                     break;

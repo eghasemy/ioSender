@@ -15,23 +15,23 @@
                 MinValue="{Binding Path=ProgramLimits.MinX, Mode=OneWay}"
                 MaxValue="{Binding Path=ProgramLimits.MaxX, Mode=OneWay}"
             />
-            <local:LimitsBaseControl x:Name="axisY" Label="Y" Classes=" YAxisVisibleStyle}"
+            <local:LimitsBaseControl x:Name="axisY" Label="Y" Classes="YAxisVisibleStyle"
                 MinValue="{Binding Path=ProgramLimits.MinY, Mode=OneWay}"
                 MaxValue="{Binding Path=ProgramLimits.MaxY, Mode=OneWay}"
             />
-            <local:LimitsBaseControl x:Name="axisZ" Label="Z" Classes=" ZAxisVisibleStyle}"
+            <local:LimitsBaseControl x:Name="axisZ" Label="Z" Classes="ZAxisVisibleStyle"
                 MinValue="{Binding Path=ProgramLimits.MinZ, Mode=OneWay}"
                 MaxValue="{Binding Path=ProgramLimits.MaxZ, Mode=OneWay}"
             />
-            <local:LimitsBaseControl x:Name="axisA" Label="{Binding Path=AxisLetter.A, Mode=OneWay}" Classes=" AAxisVisibleStyle}"
+            <local:LimitsBaseControl x:Name="axisA" Label="{Binding Path=AxisLetter.A, Mode=OneWay}" Classes="AAxisVisibleStyle"
                 MinValue="{Binding Path=ProgramLimits.MinA, Mode=OneWay}"
                 MaxValue="{Binding Path=ProgramLimits.MaxA, Mode=OneWay}"
             />
-            <local:LimitsBaseControl x:Name="axisB" Label="{Binding Path=AxisLetter.B, Mode=OneWay}" Classes=" BAxisVisibleStyle}"
+            <local:LimitsBaseControl x:Name="axisB" Label="{Binding Path=AxisLetter.B, Mode=OneWay}" Classes="BAxisVisibleStyle"
                 MinValue="{Binding Path=ProgramLimits.MinB, Mode=OneWay}"
                 MaxValue="{Binding Path=ProgramLimits.MaxB, Mode=OneWay}"
             />
-            <local:LimitsBaseControl x:Name="axisC" Label="{Binding Path=AxisLetter.C, Mode=OneWay}" Classes=" CAxisVisibleStyle}"
+            <local:LimitsBaseControl x:Name="axisC" Label="{Binding Path=AxisLetter.C, Mode=OneWay}" Classes="CAxisVisibleStyle"
                 MinValue="{Binding Path=ProgramLimits.MinC, Mode=OneWay}"
                 MaxValue="{Binding Path=ProgramLimits.MaxC, Mode=OneWay}"
             />

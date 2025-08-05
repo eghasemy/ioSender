@@ -70,7 +70,7 @@ namespace CNC.Controls
             };
         }
 
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {

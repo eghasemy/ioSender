@@ -49,7 +49,7 @@
                 <TextBox x:Name="txtTool" HorizontalAlignment="Left" Height="23" TextWrapping="NoWrap" VerticalAlignment="Top" Width="25" IsReadOnly="True"/>
             </StackPanel>
             <local:CoordValueSetControl x:Name="cvXOffset" Label="X axis:" Tag="X" Value="{Binding Path=offset.X, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"/>
-            <local:CoordValueSetControl x:Name="cvYOffset" Label="Y axis:" Tag="Y" Value="{Binding Path=offset.Y, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" Classes=" YAxisVisibleStyle}"/>
+            <local:CoordValueSetControl x:Name="cvYOffset" Label="Y axis:" Tag="Y" Value="{Binding Path=offset.Y, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}" Classes="YAxisVisibleStyle"/>
             <local:CoordValueSetControl x:Name="cvZOffset" Label="Z axis:" Tag="Z" Value="{Binding Path=offset.Z, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay}"/>
             <local:CoordValueSetControl x:Name="cvTipRadius" Label="Tip radius:" Tag="R" IsEnabled="False"/>
             <StackPanel Orientation="Horizontal" Margin="5,5">

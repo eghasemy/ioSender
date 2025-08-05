@@ -234,14 +234,14 @@ namespace CNC.Controls
             if (model == null)
             {
                 model = DataContext as GrblViewModel;
-                txtWarnings.Text = ((string)FindResource("Warnings")).Replace("\\n", "\n");
-                txtInstructions.Text = ((string)FindResource("Instructions1")).Replace("\\n", "\n") + "\n" +
-                                        ((string)FindResource("Instructions2")).Replace("\\n", "\n") + "\n" +
-                                         ((string)FindResource("Instructions3")).Replace("\\n", "\n") + "\n" +
-                                          ((string)FindResource("Instructions4")).Replace("\\n", "\n") + "\n" +
-                                           ((string)FindResource("Instructions5")).Replace("\\n", "\n") + "\n" +
-                                            ((string)FindResource("Instructions6")).Replace("\\n", "\n") + "\n" +
-                                             ((string)FindResource("Instructions7")).Replace("\\n", "\n");
+                txtWarnings.Text = ((string)this.FindResource("Warnings")).Replace("\\n", "\n");
+                txtInstructions.Text = ((string)this.FindResource("Instructions1")).Replace("\\n", "\n") + "\n" +
+                                        ((string)this.FindResource("Instructions2")).Replace("\\n", "\n") + "\n" +
+                                         ((string)this.FindResource("Instructions3")).Replace("\\n", "\n") + "\n" +
+                                          ((string)this.FindResource("Instructions4")).Replace("\\n", "\n") + "\n" +
+                                           ((string)this.FindResource("Instructions5")).Replace("\\n", "\n") + "\n" +
+                                            ((string)this.FindResource("Instructions6")).Replace("\\n", "\n") + "\n" +
+                                             ((string)this.FindResource("Instructions7")).Replace("\\n", "\n");
             }
         }
     }

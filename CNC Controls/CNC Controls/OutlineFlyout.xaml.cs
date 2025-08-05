@@ -52,7 +52,7 @@ namespace CNC.Controls
         {
             InitializeComponent();
         }
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
 
         private void OutlineFlyout_Loaded(object sender, RoutedEventArgs e)

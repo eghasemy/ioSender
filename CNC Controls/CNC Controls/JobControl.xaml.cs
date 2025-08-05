@@ -279,12 +279,12 @@ namespace CNC.Controls
                                 if (GCode.File.ToolChanges > 0)
                                 {
                                     if (!GrblSettings.HasSetting(grblHALSetting.ToolChangeMode))
-                                        MessageBox.Show(string.Format((string)FindResource("JobToolChanges"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                        MessageBox.Show(string.Format((string)this.FindResource("JobToolChanges"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
                                     else if (GrblSettings.GetInteger(grblHALSetting.ToolChangeMode) > 0 && !model.IsTloReferenceSet)
-                                        MessageBox.Show(string.Format((string)FindResource("JobToolReference"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                        MessageBox.Show(string.Format((string)this.FindResource("JobToolReference"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 }
                                 if (GCode.File.HasGoPredefinedPosition && (sender as GrblViewModel).IsGrblHAL && (sender as GrblViewModel).HomedState != HomedState.Homed)
-                                    MessageBox.Show((string)FindResource("JobG28G30"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MessageBox.Show((string)this.FindResource("JobG28G30"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 streamingHandler.Call(GCode.File.IsLoaded ? StreamingState.Idle : StreamingState.NoFile, false);
                             }
                         }
@@ -489,7 +489,7 @@ namespace CNC.Controls
                     JobTimer.Start();
                     streamingHandler.Call(StreamingState.Send, false);
                     if ((job.IsChecking = model.GrblState.State == GrblStates.Check))
-                        model.Message = (string)FindResource("Checking");
+                        model.Message = (string)this.FindResource("Checking");
 
                     bool? res = null;
                     CancellationToken cancellationToken = new CancellationToken();
@@ -673,7 +673,7 @@ namespace CNC.Controls
                         btnStart.IsEnabled = true;
                         btnHold.IsEnabled = false;
                         if ((btnStop.IsEnabled = model.IsJobRunning || model.IsSDCardJob) && !GrblInfo.IsGrblHAL)
-                            btnStop.Content = (string)FindResource("JobStop");
+                            btnStop.Content = (string)this.FindResource("JobStop");
                         streamingHandler.Count = job.CurrentRow != null;
                         break;
 
@@ -810,7 +810,7 @@ namespace CNC.Controls
                         btnHold.IsEnabled = false;
                         btnStart.IsEnabled = true;
                         btnStop.IsEnabled = true;
-                        btnStop.Content = (string)FindResource("JobStop");
+                        btnStop.Content = (string)this.FindResource("JobStop");
                         if (job.ACKPending == 0)
                             streamingHandler.Count = false;
                         break;
@@ -1026,7 +1026,7 @@ namespace CNC.Controls
                         btnHold.IsEnabled = !grblState.MPG;
                     }
                     if (!GrblInfo.IsGrblHAL)
-                        btnStop.Content = (string)FindResource("JobPause");
+                        btnStop.Content = (string)this.FindResource("JobPause");
                     break;
 
                 case GrblStates.Tool:
@@ -1127,7 +1127,7 @@ namespace CNC.Controls
                 {
                     job.Transferred = false;
                     model.BlockExecuting = 0;
-                    model.Message = (string)FindResource("TransferComplete");
+                    model.Message = (string)this.FindResource("TransferComplete");
                 }
                 else if(job.PendingLine != job.PgmEndLine )
                 {

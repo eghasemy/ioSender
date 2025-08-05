@@ -72,7 +72,7 @@ namespace CNC.Controls
         }
 
         public static JogViewModel JogData { get; private set; }
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
         private void JogData_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
