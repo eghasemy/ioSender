@@ -28,12 +28,13 @@
     <Compile Remove="**/*.cs" />
   </ItemGroup>
 
-  <!-- For cross-platform build, include minimal essential files with cross-platform 3D math -->
+  <!-- For cross-platform build, include essential files -->
   <ItemGroup>
     <Compile Include="HelperClasses.cs" />
     <Compile Include="Math3D.cs" />
     <Compile Include="GCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MeasureViewModel.cs" />
   </ItemGroup>
 
 </Project>

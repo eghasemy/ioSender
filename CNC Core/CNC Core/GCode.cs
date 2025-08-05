@@ -43,6 +43,137 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using CNC.Core;
 
+namespace CNC.Core
+{
+    /// <summary>
+    /// Constants for GRBL compatibility
+    /// </summary>
+    public class GrblConstants
+    {
+        public const string
+            FORMAT_METRIC = "###0.000",
+            FORMAT_IMPERIAL = "##0.0000";
+    }
+
+    /// <summary>
+    /// Streaming state enumeration
+    /// </summary>
+    public enum StreamingState
+    {
+        NoFile = 0,
+        Idle,
+        Send,
+        SendMDI,
+        Home,
+        Check,
+        Jog,
+        Error,
+        Disconnect,
+        AwaitResetStop,
+        FeedHold,
+        ToolChange,
+        Stop,
+        Halted,
+        JobFinished
+    }
+
+    /// <summary>
+    /// Grbl states enumeration
+    /// </summary>
+    public enum GrblStates
+    {
+        Unknown = 0,
+        Idle,
+        Run,
+        Jog,
+        Hold,
+        Alarm,
+        Check,
+        Tool,
+        Home,
+        Sleep,
+        Door
+    }
+
+    /// <summary>
+    /// Single Grbl state enumeration alias
+    /// </summary>
+    public enum GrblState
+    {
+        Unknown = 0,
+        Idle,
+        Run,
+        Jog,
+        Hold,
+        Alarm,
+        Check,
+        Tool,
+        Home,
+        Sleep,
+        Door
+    }
+
+    /// <summary>
+    /// Grbl encoder mode enumeration
+    /// </summary>
+    public enum GrblEncoderMode
+    {
+        Unknown = 0,
+        FeedRate,
+        SpindleRPM,
+        SingleAxis,
+        RapidRate
+    }
+
+    /// <summary>
+    /// GCode block for cross-platform compatibility
+    /// </summary>
+    public class GCodeBlock : ViewModelBase
+    {
+        private string _data, _sent;
+
+        public GCodeBlock(uint lineNum, string block, int length, bool isComment, bool programEnd)
+        {
+            LineNum = lineNum;
+            Data = block;
+            Length = length;
+            IsComment = isComment;
+            ProgramEnd = programEnd;
+        }
+
+        public uint LineNum { get; set; }
+        public int Length { get; set; }
+        public string Data { get { return _data; } set { _data = value; OnPropertyChanged(); } }
+        public string Sent { get { return _sent; } set { _sent = value; OnPropertyChanged(); } }
+        public bool File { get; set; }
+        public bool IsComment { get; set; }
+        public bool ProgramEnd { get; set; }
+        public bool Ok { get; set; }
+    }
+
+    /// <summary>
+    /// GCode job for cross-platform compatibility
+    /// </summary>
+    public class GCodeJob
+    {
+        public GCodeJob()
+        {
+            // Basic constructor
+        }
+    }
+
+    /// <summary>
+    /// GrblViewModel stub for cross-platform compatibility
+    /// </summary>
+    public class GrblViewModel : MeasureViewModel
+    {
+        public GrblViewModel()
+        {
+            // Basic constructor
+        }
+    }
+}
+
 namespace CNC.GCode
 {
 
