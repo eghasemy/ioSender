@@ -16,9 +16,9 @@ using System.Threading;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using CNC.GCode;
 using System.IO;
 #if WINDOWS
+using CNC.GCode;
 using System.Windows.Markup;
 using System.Windows;
 #endif
@@ -295,6 +295,7 @@ namespace CNC.Core
         }
     }
 
+#if WINDOWS
     [ContentProperty("Parameters")]
     public class PathConstructor : MarkupExtension
     {
@@ -340,6 +341,7 @@ namespace CNC.Core
             //}
         }
     }
+#endif
     public static class WaitFor
     {
         // https://stackoverflow.com/questions/17635440/how-to-wait-for-a-single-event-in-c-with-timeout-and-cancellation

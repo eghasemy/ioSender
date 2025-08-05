@@ -50,6 +50,36 @@ using System.Windows.Threading;
 
 namespace CNC.Core
 {
+#if !WINDOWS
+    // Simple fallback constants for cross-platform builds
+    public static class GrblConstants
+    {
+        public const string CMD_PROGRAM_DEMARCATION = "%";
+    }
+
+    // Minimal delegate for cross-platform
+    public delegate void DataReceivedHandler(string data);
+
+    // Minimal Comms classes for cross-platform
+    public class Comms
+    {
+        public enum State { ACK, NAK, DataReceived, AwaitAck }
+        public enum StreamType { Serial, Telnet, Websocket }
+        public enum ResetMode { None, DTR, RTS }
+        public static StreamComms com;
+        public const int RXBUFFERSIZE = 1024;
+        public const int TXBUFFERSIZE = 1024;
+    }
+
+    public abstract class StreamComms
+    {
+        public virtual string Reply { get; protected set; } = string.Empty;
+        public abstract void WriteCommand(string command);
+        public abstract void WriteByte(byte data);
+        public abstract int ReadByte();
+    }
+#endif
+
     public class SerialStream : StreamComms
     {
         private SerialPort serialPort = null;
@@ -155,7 +185,7 @@ namespace CNC.Core
                         break;
                 }
 
-#if RESPONSELOG
+#if RESPONSELOG && WINDOWS
                 if (Resources.DebugFile != string.Empty) try
                 {
                     log = new StreamWriter(Resources.DebugFile);
@@ -254,7 +284,7 @@ namespace CNC.Core
             }
         }
 
-        public int ReadByte()
+        public override int ReadByte()
         {
             int c = input.Length == 0 ? -1 : input[0];
 
@@ -264,7 +294,7 @@ namespace CNC.Core
             return c;
         }
 
-        public void WriteByte(byte data)
+        public override void WriteByte(byte data)
         {
             if(serialPort != null)
                 serialPort.BaseStream.Write(new byte[1] { data }, 0, 1);
@@ -288,7 +318,7 @@ namespace CNC.Core
 #endif
         }
 
-        public void WriteCommand(string command)
+        public override void WriteCommand(string command)
         {
             state = Comms.State.AwaitAck;
 
