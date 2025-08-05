@@ -49,7 +49,7 @@ using System.ComponentModel;
 using CNC.Core;
 using CNC.GCode;
 using Avalonia.Input;
-
+using Avalonia.Collections;
 using Avalonia.Interactivity;
 namespace CNC.Controls
 {
@@ -282,13 +282,11 @@ namespace CNC.Controls
             SGPlot.Children.Clear();
             SGPlot.Children.Add(new Line()
             {
-                X1 = 0d,
-                X2 = SGPlot.Width,
-                Y1 = SGPlot.Height / 2d,
-                Y2 = SGPlot.Height / 2d,
-                Stroke = Brushes.Black,
+                StartPoint = new Avalonia.Point(0d, SGPlot.Height / 2d),
+                EndPoint = new Avalonia.Point(SGPlot.Width, SGPlot.Height / 2d),
+                Stroke = new SolidColorBrush(Colors.Black),
                 StrokeThickness = 0.5d,
-                StrokeDashArray = new DoubleCollection() { 2d }
+                StrokeDashArray = new AvaloniaList<double>() { 2d }
             });
 
             double ydelta = SGPlot.Height / 10;
@@ -298,13 +296,11 @@ namespace CNC.Controls
             {
                 SGPlot.Children.Add(new Line()
                 {
-                    X1 = 0d,
-                    X2 = SGPlot.Width,
-                    Y1 = ypos,
-                    Y2 = ypos,
-                    Stroke = Brushes.DarkGray,
+                    StartPoint = new Avalonia.Point(0d, ypos),
+                    EndPoint = new Avalonia.Point(SGPlot.Width, ypos),
+                    Stroke = new SolidColorBrush(Colors.DarkGray),
                     StrokeThickness = 0.5d,
-                    StrokeDashArray = new DoubleCollection() { 2d }
+                    StrokeDashArray = new AvaloniaList<double>() { 2d }
                 });
 
                 ypos -= ydelta;

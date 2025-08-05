@@ -43,12 +43,12 @@
             <local:NumericField x:Name="searchField" Label="Setting:" Unit="" ToolTip.Tip="Search for setting" Format="###0" ColonAt="60" Margin="10,5,0,0" VerticalAlignment="Bottom" KeyDown="searchField_KeyDown" />
             <TreeView x:Name="treeView" Grid.Row="1" HorizontalAlignment="Left" Margin="10,5,0,10" VerticalAlignment="Stretch" Width="390" SelectedItemChanged="treeView_SelectedItemChanged" Grid.RowSpan="2">
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type cnccore:GrblSettingGroup}" ItemsSource="{Binding Settings}" >
+                    <TreeDataTemplate DataType="cnccore:GrblSettingGroup" ItemsSource="{Binding Settings}" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Name}" />
                         </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <DataTemplate DataType="{x:Type cnccore:GrblSettingDetails}" >
+                    </TreeDataTemplate>
+                    <DataTemplate DataType="cnccore:GrblSettingDetails" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Id}" Margin="0,0,5,0" />
                             <TextBlock Text="{Binding Name, StringFormat=\{0\}:}" />

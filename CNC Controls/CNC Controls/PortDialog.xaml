@@ -13,7 +13,7 @@
         <Style x:Key="Ip4ErrorStyle" Selector="TextBox">
         </Style>
     </Window.Resources>
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid Background="LightGray">
         <TabControl x:Name="tab" Width="Auto" Height="125" Margin="5,0" VerticalAlignment="Top">
             <TabItem Header="Serial">
                 <StackPanel>
