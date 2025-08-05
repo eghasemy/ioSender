@@ -60,13 +60,13 @@ namespace CNC.Controls
 
         public new bool IsFocused { get { return cbxTool.IsFocused || cbxOffset.IsFocused; } }
 
-        public static readonly StyledProperty IsToolChangingProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsToolChangingProperty = AvaloniaProperty.Register<WorkParametersControl, bool>(nameof(IsToolChanging), false);
         public bool IsToolChanging
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsToolChangingProperty); }
+            set { SetValue(IsToolChangingProperty, value); }
         }
-        private static void IsToolChangingChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void IsToolChangingChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as WorkParametersControl).bgTool.Background = ((bool)e.NewValue ? Brushes.Salmon : ((WorkParametersControl)d).Background);
             (d as WorkParametersControl).cbxTool.IsEnabled = !(bool)e.NewValue;

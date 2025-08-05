@@ -47,6 +47,7 @@ using System.Threading;
 using CNC.Core;
 using Avalonia.Input;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class GrblConfigControl : UserControl, IGrblConfigTab
@@ -69,10 +70,10 @@ namespace CNC.Controls
 
             model = (DataContext as WidgetViewModel).Grbl;
 
-            dgrSettings.Visibility = GrblInfo.HasEnums ? Visibility.Collapsed : Visibility.Visible;
-            searchField.Visibility = !GrblInfo.HasEnums ? Visibility.Collapsed : Visibility.Visible;
-            treeView.Visibility = !GrblInfo.HasEnums ? Visibility.Collapsed : Visibility.Visible;
-            details.Visibility = GrblInfo.HasEnums && curSetting == null ? Visibility.Hidden : Visibility.Visible;
+            dgrSettings.Visibility = GrblInfo.HasEnums ? false : true;
+            searchField.Visibility = !GrblInfo.HasEnums ? false : true;
+            treeView.Visibility = !GrblInfo.HasEnums ? false : true;
+            details.Visibility = GrblInfo.HasEnums && curSetting == null ? false : true;
 
             if (GrblInfo.HasEnums)
             {

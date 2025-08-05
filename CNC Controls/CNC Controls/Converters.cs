@@ -502,11 +502,11 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is bool && (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            return value is bool && (bool)value ? true : false;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Visibility && (Visibility)value == Visibility.Visible;
+            return value is Visibility && (Visibility)value == true;
         }
     }
 
@@ -522,7 +522,7 @@ namespace CNC.Controls
             if(values.Length == 2 && values[0] is AxisFlags && values[1] is AxisFlags)
                 enabled = ((AxisFlags)values[0]).HasFlag((AxisFlags)values[1]);
 
-            return enabled ? Visibility.Visible : Visibility.Collapsed;
+            return enabled ? true : false;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -543,7 +543,7 @@ namespace CNC.Controls
             if (values.Length == 2 && values[0] is EnumFlags<Signals> && values[1] is Signals)
                 enabled = ((EnumFlags<Signals>)values[0]).Value.HasFlag((Signals)values[1]);
 
-            return enabled ? Visibility.Visible : Visibility.Collapsed;
+            return enabled ? true : false;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

@@ -47,6 +47,7 @@ using Avalonia.Threading;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
+using Avalonia.Interactivity;
 #if ADD_CAMERA
 using CNC.Controls.Camera;
 #endif

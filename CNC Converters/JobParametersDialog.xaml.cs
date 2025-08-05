@@ -45,6 +45,7 @@ using Avalonia.Input;
 using CNC.Core;
 using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Converters
 {
     public partial class JobParametersDialog : Window

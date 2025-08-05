@@ -45,6 +45,7 @@ using Avalonia.Media;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class DROControl : UserControl

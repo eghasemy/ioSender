@@ -41,6 +41,7 @@ using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Viewer
 {
     /// <summary>
@@ -60,11 +61,11 @@ namespace CNC.Controls.Viewer
             if(DataContext is GrblViewModel)
                 model = DataContext as GrblViewModel;
 
-            if (Visibility != Visibility.Visible)
+            if (Visibility != true)
                 DataContext = null;
         }
 
-        private void OnVisibleChanged(object sender, StyledPropertyChangedEventArgs e)
+        private void OnVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             DataContext = (bool)e.NewValue ? model : null;
         }

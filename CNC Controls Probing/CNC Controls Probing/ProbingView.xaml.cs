@@ -46,6 +46,7 @@ using System.Threading.Tasks;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Probing
 {
 
@@ -443,7 +444,7 @@ namespace CNC.Controls.Probing
             else
                 height = probeProperties.ActualHeight;
 
-            probeProperties.Visibility = (t1.ActualHeight - (Clearances.TranslatePoint(new Point(0, Clearances.ActualHeight), dp).Y + Jog.ActualHeight + Position.ActualHeight) + probeProperties.ActualHeight) > height ? Visibility.Visible : Visibility.Collapsed;
+            probeProperties.Visibility = (t1.ActualHeight - (Clearances.TranslatePoint(new Point(0, Clearances.ActualHeight), dp).Y + Jog.ActualHeight + Position.ActualHeight) + probeProperties.ActualHeight) > height ? true : false;
         }
 
         private void showDRO()
@@ -460,7 +461,7 @@ namespace CNC.Controls.Probing
             else
                 width = droPanel.ActualWidth;
 
-            droPanel.Visibility = (tab.ActualWidth + width + t1.ActualWidth + 20) < ActualWidth ? Visibility.Visible : Visibility.Collapsed;
+            droPanel.Visibility = (tab.ActualWidth + width + t1.ActualWidth + 20) < ActualWidth ? true : false;
             dp.Width = droPanel.IsVisible  ? 460 : 240;
         }
     }

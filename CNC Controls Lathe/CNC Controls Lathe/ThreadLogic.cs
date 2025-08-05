@@ -232,7 +232,7 @@ namespace CNC.Controls.Lathe
                     EnableMetricInput(false);
                     model.Thread.Sides = Thread.Side.Both;
                     model.Thread.RetractDegrees = 360;
-                    model.Thread.TaperControlsVisibility = Visibility.Hidden;
+                    model.Thread.TaperControlsVisibility = false;
                     model.Tool.Angle = 60;
 
                     Thread.Type ttype = (Thread.Type)(selection["type"]);
@@ -251,7 +251,7 @@ namespace CNC.Controls.Lathe
                             OnlyOutside(true);
                             model.Thread.FixedLength = true;
                             EnableMetricInput(true);
-                            model.Thread.TaperControlsVisibility = Visibility.Visible;
+                            model.Thread.TaperControlsVisibility = true;
                             model.Thread.Taper = 1.7899d;
                             CombotextToMetric((string)selection["Name"]);
                             break;
@@ -296,7 +296,7 @@ namespace CNC.Controls.Lathe
                                     model.Thread.FixedLength = true;
                                     model.Thread.Taper = 1.7899d;
                                 }
-                                model.Thread.TaperControlsVisibility = ttype == Thread.Type.R ? Visibility.Visible : Visibility.Hidden;
+                                model.Thread.TaperControlsVisibility = ttype == Thread.Type.R ? true : false;
                                 CombotextToInches((string)selection["Name"]);
                             }
                             break;
@@ -305,7 +305,7 @@ namespace CNC.Controls.Lathe
                         case Thread.Type.NPTF:
                             model.Thread.OneLead = true;
                             model.Thread.FixedLength = true;
-                            model.Thread.TaperControlsVisibility = Visibility.Visible;
+                            model.Thread.TaperControlsVisibility = true;
                             model.Thread.Taper = 1.7899d;
                             model.Thread.RetractDegrees = ttype == Thread.Type.NPT ? 1260 : 720;
                             CombotextToInches((string)selection["Name"]);

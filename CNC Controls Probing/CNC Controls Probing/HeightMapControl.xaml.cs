@@ -45,6 +45,7 @@ using CNC.Core;
 using CNC.GCode;
 using HelixToolkit.Wpf;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Probing
 {
     /// <summary>

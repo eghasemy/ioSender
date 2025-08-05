@@ -43,6 +43,7 @@ using CNC.Core;
 using Avalonia.Input;
 using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class JogFlyoutControl : ISidebarControl
@@ -56,7 +57,7 @@ namespace CNC.Controls
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            Visibility = false;
         }
 
         private void JogControl_Loaded(object sender, RoutedEventArgs e)
@@ -72,8 +73,8 @@ namespace CNC.Controls
             if (sender is GrblViewModel) switch (e.PropertyName)
             {
                 case nameof(GrblViewModel.StreamingState):
-                    if (Visibility == Visibility.Visible && (sender as GrblViewModel).IsJobRunning)
-                        Visibility = Visibility.Hidden;
+                    if (Visibility == true && (sender as GrblViewModel).IsJobRunning)
+                        Visibility = false;
                     break;
             }
         }

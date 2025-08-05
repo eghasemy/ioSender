@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using Avalonia;
 using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class GotoFlyoutControl : UserControl, ISidebarControl
@@ -52,7 +53,7 @@ namespace CNC.Controls
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            Visibility = false;
         }
     }
 }

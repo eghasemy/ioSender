@@ -44,6 +44,7 @@ using Avalonia.Threading;
 using CNC.Core;
 using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>

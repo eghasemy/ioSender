@@ -43,6 +43,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Controls.Primitives;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Viewer
 {
     /// <summary>
@@ -57,22 +58,27 @@ namespace CNC.Controls.Viewer
             InitializeComponent();
         }
 
-        public static readonly StyledProperty SelectedColorProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<Color> SelectedColorProperty = AvaloniaProperty.Register<ColorPicker, Color>(nameof(SelectedColor), Colors.AliceBlue);
+        
+        static ColorPicker()
+        {
+            SelectedColorProperty.Changed.AddClassHandler<ColorPicker>((x, e) => x.OnIsSelectedColorChanged(e));
+        }
         public Color SelectedColor
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SelectedColorProperty); }
+            set { SetValue(SelectedColorProperty, value); }
         }
-        private static void OnIsSelectedColorChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private void OnIsSelectedColorChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            ((ColorPicker)d).cbut.Background = new SolidColorBrush((Color)e.NewValue);
+            cbut.Background = new SolidColorBrush((Color)e.NewValue);
         }
 
-        public static readonly StyledProperty IsPickerOpenProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<bool> IsPickerOpenProperty = AvaloniaProperty.Register<ColorPicker, bool>(nameof(IsPickerOpen), false);
         public bool IsPickerOpen
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsPickerOpenProperty); }
+            set { SetValue(IsPickerOpenProperty, value); }
         }
 
         private void Popup_Open(object sender, RoutedEventArgs e)

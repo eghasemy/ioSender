@@ -42,6 +42,7 @@ using Avalonia;
 using Avalonia.Controls;
 using System.Collections;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
     /// <summary>
@@ -71,18 +72,18 @@ namespace CNC.Controls.Lathe
             cbxProfile.SelectedValue = options.Profiles.First().Id;
         }
 
-        public static readonly StyledProperty SelectedItemProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> SelectedItemProperty = AvaloniaProperty.Register<ProfileControl, string>(nameof(SelectedItem), string.Empty);
         public string SelectedItem
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
         }
 
-        public static readonly StyledProperty ItemsSourceProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<IEnumerable> ItemsSourceProperty = AvaloniaProperty.Register<ProfileControl, IEnumerable>(nameof(ItemsSource), default);
         public IEnumerable ItemsSource
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ItemsSourceProperty); }
+            set { SetValue(ItemsSourceProperty, value); }
         }
 
         private void cbxProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)

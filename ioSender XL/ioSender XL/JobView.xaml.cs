@@ -289,7 +289,7 @@ namespace GCode_Sender
         {
             double height;
 
-            if (limitsControl.Visibility == Visibility.Collapsed)
+            if (limitsControl.Visibility == false)
             {
                 limitsControl.IsVisible = false;
                 limitsControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
@@ -299,9 +299,9 @@ namespace GCode_Sender
             else
                 height = limitsControl.ActualHeight;
 
-            limitsControl.Visibility = (dp.ActualHeight - t1.ActualHeight - t2.ActualHeight + limitsControl.ActualHeight) > height ? Visibility.Visible : Visibility.Collapsed;
-            coolantControl.Visibility = rhGrid.ActualHeight > 600 ? Visibility.Visible : Visibility.Collapsed;
-            gotoControl.Visibility = rhGrid.ActualHeight > 575 ? Visibility.Visible : Visibility.Collapsed;
+            limitsControl.Visibility = (dp.ActualHeight - t1.ActualHeight - t2.ActualHeight + limitsControl.ActualHeight) > height ? true : false;
+            coolantControl.Visibility = rhGrid.ActualHeight > 600 ? true : false;
+            gotoControl.Visibility = rhGrid.ActualHeight > 575 ? true : false;
         }
 
 #if ADD_CAMERA

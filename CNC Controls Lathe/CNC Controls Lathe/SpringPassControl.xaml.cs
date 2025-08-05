@@ -52,18 +52,18 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly StyledProperty IsPassesEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsPassesEnabledProperty = AvaloniaProperty.Register<SpringPassControl, bool>(nameof(IsPassesEnabled), false);
         public bool IsPassesEnabled
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsPassesEnabledProperty); }
+            set { SetValue(IsPassesEnabledProperty, value); }
         }
 
-        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<SpringPassControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
     }
 }

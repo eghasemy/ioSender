@@ -45,6 +45,7 @@ using CNC.Core;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>

@@ -47,6 +47,7 @@ using System.Globalization;
 using CNC.Core;
 using Avalonia.Input;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>

@@ -41,6 +41,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public class SidebarItem : Button
@@ -49,7 +50,7 @@ namespace CNC.Controls
         private UserControl view { get; }
         private static UserControl last = null;
 
-        public new Visibility Visibility { get { return view.Visibility; } set { view.Visibility = value; } }
+        public new bool Visibility { get { return view.Visibility; } set { view.Visibility = value; } }
         public new bool IsEnabled { get { return base.IsEnabled; } set { base.IsEnabled = value; } }
 
         public SidebarItem(ISidebarControl view) : base()
@@ -92,7 +93,7 @@ namespace CNC.Controls
             if (last != null && last != view && last.IsVisible)
                 last.IsVisible = false;
 
-            view.Visibility = view.IsVisible ? Visibility.Hidden : Visibility.Visible;
+            view.Visibility = view.IsVisible ? false : true;
             last = view;
         }
     }

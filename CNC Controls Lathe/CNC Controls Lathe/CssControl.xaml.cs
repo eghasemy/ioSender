@@ -54,40 +54,40 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly StyledProperty IsCssEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<bool> IsCssEnabledProperty = AvaloniaProperty.Register<CssControl, bool>(nameof(IsCssEnabled), false);
         public bool? IsCssEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        private static void OnCssEnabledChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnCssEnabledChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as CssControl).data.Label = ((CssControl)d).IsCssEnabled == true ? "Speed:" : "Spindle:";
             (d as CssControl).data.Unit = ((CssControl)d).IsCssEnabled == true ? (d as CssControl).Unit : "RPM";
         }
 
-        public static readonly StyledProperty SpindleDirProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<SpindleState> SpindleDirProperty = AvaloniaProperty.Register<CssControl, SpindleState>(nameof(SpindleDir), default);
         public SpindleState SpindleDir
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SpindleDirProperty); }
+            set { SetValue(SpindleDirProperty, value); }
         }
 
-        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<CssControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
 
-        public static readonly StyledProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> UnitProperty = AvaloniaProperty.Register<CssControl, string>(nameof(Unit), string.Empty);
         public string Unit
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(UnitProperty); }
+            set { SetValue(UnitProperty, value); }
         }
-        private static void OnUnitChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnUnitChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as CssControl).OnUnitChanged();
         }

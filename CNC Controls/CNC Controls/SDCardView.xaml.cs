@@ -46,6 +46,7 @@ using System.Net;
 using Microsoft.Win32;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -101,46 +102,46 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly StyledProperty RewindProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> RewindProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(Rewind), false);
         public bool Rewind
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(RewindProperty); }
+            set { SetValue(RewindProperty, value); }
         }
 
-        public static readonly StyledProperty CanRewindProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> CanRewindProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanRewind), false);
         public bool CanRewind
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CanRewindProperty); }
+            set { SetValue(CanRewindProperty, value); }
         }
 
-        public static readonly StyledProperty ViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> ViewAllProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(ViewAll), false);
         public bool ViewAll
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ViewAllProperty); }
+            set { SetValue(ViewAllProperty, value); }
         }
 
-        public static readonly StyledProperty CanViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> CanViewAllProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanViewAll), false);
         public bool CanViewAll
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CanViewAllProperty); }
+            set { SetValue(CanViewAllProperty, value); }
         }
 
-        public static readonly StyledProperty CanUploadProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> CanUploadProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanUpload), false);
         public bool CanUpload
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CanUploadProperty); }
+            set { SetValue(CanUploadProperty, value); }
         }
 
-        public static readonly StyledProperty CanDeleteProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> CanDeleteProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanDelete), false);
         public bool CanDelete
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CanDeleteProperty); }
+            set { SetValue(CanDeleteProperty, value); }
         }
 
         #endregion

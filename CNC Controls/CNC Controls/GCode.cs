@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Interactivity;
 #if WINDOWS
 using Microsoft.Win32;
 using Avalonia;

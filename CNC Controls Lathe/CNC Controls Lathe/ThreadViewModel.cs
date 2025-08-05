@@ -484,9 +484,9 @@ namespace CNC.Controls.Lathe
             }
         }
 
-        private Visibility _showTaperControls = Visibility.Hidden;
+        private bool _showTaperControls = false;
 
-        public Visibility TaperControlsVisibility
+        public bool TaperControlsVisibility
         {
             get { return _showTaperControls; }
             set

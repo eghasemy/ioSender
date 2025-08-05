@@ -44,6 +44,7 @@ using CNC.Core;
 using CNC.GCode;
 using System.Threading;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -68,18 +69,18 @@ namespace CNC.Controls
         public AxisFlags AxisEnabledFlags { get { return GrblInfo.AxisFlags; } }
         public CoordinateSystem Offset { get; private set; } = new CoordinateSystem();
 
-        public static readonly StyledProperty CanEditProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> CanEditProperty = AvaloniaProperty.Register<OffsetView, bool>(nameof(CanEdit), false);
         public bool CanEdit
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CanEditProperty); }
+            set { SetValue(CanEditProperty, value); }
         }
 
-        public static readonly StyledProperty IsPredefinedProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsPredefinedProperty = AvaloniaProperty.Register<OffsetView, bool>(nameof(IsPredefined), false);
         public bool IsPredefined
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsPredefinedProperty); }
+            set { SetValue(IsPredefinedProperty, value); }
         }
 
         #region Methods and properties required by CNCView interface

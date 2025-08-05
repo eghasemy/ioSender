@@ -42,6 +42,7 @@ using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class OutlineFlyout : UserControl, ISidebarControl
@@ -60,18 +61,18 @@ namespace CNC.Controls
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is GrblViewModel && Visibility == Visibility.Visible) switch (e.PropertyName)
+            if (sender is GrblViewModel && Visibility == true) switch (e.PropertyName)
                 {
                     case nameof(GrblViewModel.StreamingState):
                         if ((sender as GrblViewModel).IsJobRunning)
-                            Visibility = Visibility.Hidden;
+                            Visibility = false;
                         break;
                 }
         }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            Visibility = false;
         }
     }
 }

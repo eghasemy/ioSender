@@ -43,6 +43,7 @@ using Avalonia.Controls;
 using CNC.Core;
 using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
     /// <summary>
@@ -122,7 +123,7 @@ namespace CNC.Controls.Lathe
         {
         }
 
-        private void btnCalculate_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void btnCalculate_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             logic.Calculate();
         }

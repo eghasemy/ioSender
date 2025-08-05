@@ -43,6 +43,7 @@ using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -60,11 +61,11 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        public static readonly StyledProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<ObservableCollection<CNC.GCode.Macro>> MacrosProperty = AvaloniaProperty.Register<MacroToolbarControl, ObservableCollection<CNC.GCode.Macro>>(nameof(Macros));
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(MacrosProperty); }
+            set { SetValue(MacrosProperty, value); }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

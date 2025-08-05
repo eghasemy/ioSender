@@ -45,6 +45,7 @@ using System.ComponentModel;
 using CNC.Core;
 using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -65,7 +66,7 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        private void View_DataContextChanged(object sender, StyledPropertyChangedEventArgs e)
+        private void View_DataContextChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
                 ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
@@ -75,23 +76,23 @@ namespace CNC.Controls
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is GrblViewModel && Visibility == Visibility.Visible) switch (e.PropertyName)
+            if (sender is GrblViewModel && Visibility == true) switch (e.PropertyName)
             {
                 case nameof(GrblViewModel.StreamingState):
                     if ((sender as GrblViewModel).IsJobRunning)
-                        Visibility = Visibility.Hidden;
+                        Visibility = false;
                     break;
             }
         }
 
-        public static readonly StyledProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<ObservableCollection<CNC.GCode.Macro>> MacrosProperty = AvaloniaProperty.Register<MacroExecuteControl, ObservableCollection<CNC.GCode.Macro>>(nameof(Macros));
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(MacrosProperty); }
+            set { SetValue(MacrosProperty, value); }
         }
 
-        private static void OnMacrosChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnMacrosChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as MacroExecuteControl).OnMacrosChanged();
         }
@@ -102,14 +103,14 @@ namespace CNC.Controls
         }
         private void Macros_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? Visibility.Visible : Visibility.Hidden;
+            IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? true : false;
         }
 
-        public static readonly StyledProperty IsMessageVisibleProperty = null; // TODO: Convert to Avalonia StyledProperty
-        public Visibility IsMessageVisible
+                public static readonly StyledProperty<Visibility> IsMessageVisibleProperty = AvaloniaProperty.Register<MacroExecuteControl, Visibility>(nameof(IsMessageVisible), default);
+        public bool IsMessageVisible
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsMessageVisibleProperty); }
+            set { SetValue(IsMessageVisibleProperty, value); }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -121,7 +122,7 @@ namespace CNC.Controls
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            Visibility = false;
         }
 
         private void button_Edit(object sender, RoutedEventArgs e)

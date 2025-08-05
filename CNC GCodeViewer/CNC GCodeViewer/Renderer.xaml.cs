@@ -54,7 +54,8 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using CNC.Core; // Cross-platform 3D math types
+using CNC.Core; using Avalonia.Interactivity;
+// Cross-platform 3D math types
 using CNC.Core;
 using CNC.GCode;
 using Avalonia.Input;
@@ -321,7 +322,7 @@ namespace CNC.Controls.Viewer
             }
         }
 
-        private void Renderer_IsVisibleChanged(object sender, StyledPropertyChangedEventArgs e)
+        private void Renderer_IsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             if (Machine.ToolMode != ToolVisualizerType.None)
             {

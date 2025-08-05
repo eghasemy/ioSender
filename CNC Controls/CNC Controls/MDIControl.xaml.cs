@@ -44,6 +44,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class MDIControl : UserControl
@@ -57,18 +58,18 @@ namespace CNC.Controls
 
         public new bool IsFocused { get { return txtMDI.IsKeyboardFocusWithin; } }
 
-        public static readonly StyledProperty CommandProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> CommandProperty = AvaloniaProperty.Register<MDIControl, string>(nameof(Command), string.Empty);
         public string Command
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
-        public static readonly StyledProperty CommandsProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<ObservableCollection<string>> CommandsProperty = AvaloniaProperty.Register<MDIControl, ObservableCollection<string>>(nameof(Commands), default);
         public ObservableCollection<string> Commands
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(CommandsProperty); }
+            set { SetValue(CommandsProperty, value); }
         }
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)

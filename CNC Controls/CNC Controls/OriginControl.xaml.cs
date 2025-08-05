@@ -67,11 +67,11 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<Origin> ValueProperty = AvaloniaProperty.Register<OriginControl, Origin>(nameof(Value), default);
         public Origin Value
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
     }
 }

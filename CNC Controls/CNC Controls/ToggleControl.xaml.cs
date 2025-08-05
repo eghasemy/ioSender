@@ -12,6 +12,7 @@ using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Interactivity;
 // using System.Windows.Navigation;  // Platform-specific in Avalonia
 using Avalonia.Controls.Shapes;
 
@@ -37,18 +38,18 @@ namespace CNC.Controls
             Click?.Invoke(this, e);
         }
 
-        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<ToggleControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly StyledProperty IsCheckedProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsCheckedProperty = AvaloniaProperty.Register<ToggleControl, bool>(nameof(IsChecked), false);
         public bool IsChecked
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsCheckedProperty); }
+            set { SetValue(IsCheckedProperty, value); }
         }
     }
 }

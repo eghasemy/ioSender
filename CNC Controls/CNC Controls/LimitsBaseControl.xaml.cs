@@ -54,32 +54,32 @@ namespace CNC.Controls
             //UnitProperty.OverrideMetadata(typeof(string), new PropertyMetadata("mm"));
         }
 
-        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<LimitsBaseControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly StyledProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> UnitProperty = AvaloniaProperty.Register<LimitsBaseControl, string>(nameof(Unit), string.Empty);
         public string Unit
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(UnitProperty); }
+            set { SetValue(UnitProperty, value); }
         }
 
-        public static readonly StyledProperty MinValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<double> MinValueProperty = AvaloniaProperty.Register<LimitsBaseControl, double>(nameof(MinValue), 0.0);
         public double MinValue
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(MinValueProperty); }
+            set { SetValue(MinValueProperty, value); }
         }
 
-        public static readonly StyledProperty MaxValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<double> MaxValueProperty = AvaloniaProperty.Register<LimitsBaseControl, double>(nameof(MaxValue), 0.0);
         public double MaxValue
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(MaxValueProperty); }
+            set { SetValue(MaxValueProperty, value); }
         }
     }
 }

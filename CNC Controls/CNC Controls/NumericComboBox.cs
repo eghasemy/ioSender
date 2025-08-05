@@ -70,13 +70,13 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly StyledProperty FormatProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> FormatProperty = AvaloniaProperty.Register<NumericComboBox, string>(nameof(Format), string.Empty);
         public string Format
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(FormatProperty); }
+            set { SetValue(FormatProperty, value); }
         }
-        private static void OnFormatChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnFormatChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             NumericProperties.OnFormatChanged(d, ((NumericComboBox)d).np, (string)e.NewValue);
         }

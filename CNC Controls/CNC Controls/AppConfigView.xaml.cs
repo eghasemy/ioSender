@@ -42,6 +42,7 @@ using Avalonia.Controls;
 using CNC.Core;
 using Avalonia.Input;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class AppConfigView : UserControl, ICNCView

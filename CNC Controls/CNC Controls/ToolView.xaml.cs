@@ -46,6 +46,7 @@ using CNC.Core;
 using CNC.GCode;
 using System.Threading;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class ToolView : UserControl, ICNCView

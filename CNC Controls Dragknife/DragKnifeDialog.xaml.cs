@@ -42,6 +42,7 @@ using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.DragKnife
 {
     public partial class DragKnifeDialog : Window

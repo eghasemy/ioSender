@@ -45,6 +45,7 @@ using System.Globalization;
 using System.Collections.ObjectModel;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
 
@@ -61,8 +62,8 @@ namespace CNC.Controls.Lathe
 
         }
         public bool xmodeenabled { get; set; }
-        public Visibility threadVisibility { get; set; }
-        public Visibility rpmVisibility { get; set; }
+        public bool threadVisibility { get; set; }
+        public bool rpmVisibility { get; set; }
         public ObservableCollection<ProfileData> Profiles { get; set; }
 
         ProfileData _profile;
@@ -96,8 +97,8 @@ namespace CNC.Controls.Lathe
 
             profile.xmode = options.ActiveProfile.xmode;
             profile.xmodeenabled = !options.ActiveProfile.xmodelock;
-            profile.threadVisibility = options.ProfileName == "Threading" ? Visibility.Hidden : Visibility.Visible;
-            profile.rpmVisibility = options.ProfileName != "Threading" ? Visibility.Hidden : Visibility.Visible;
+            profile.threadVisibility = options.ProfileName == "Threading" ? false : true;
+            profile.rpmVisibility = options.ProfileName != "Threading" ? false : true;
             profile.Profiles = options.Profiles;
 
             DataContext = profile;

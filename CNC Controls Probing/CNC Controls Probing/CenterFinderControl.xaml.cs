@@ -43,6 +43,7 @@ using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Probing
 {
     public enum Center

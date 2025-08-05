@@ -45,6 +45,7 @@ using Avalonia.Input;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>

@@ -119,6 +119,8 @@ namespace CNC.Controls
         }
     }
 
+    // Avalonia TODO: Implement proper validation
+    /*
     public class StringRangeRule : ValidationRule
     {
         public double Min { get; set; } = double.NaN;
@@ -184,6 +186,7 @@ namespace CNC.Controls
             return ValidationResult.ValidResult;
         }
     }
+    */
 
     public class UIUtils
     {
@@ -334,9 +337,9 @@ namespace CNC.Controls
     public static class TextBoxUtilities
     {
         // TODO: Convert AlwaysScrollToEndProperty to Avalonia AttachedProperty
-        public static readonly StyledProperty AlwaysScrollToEndProperty = null;
+        public static readonly StyledProperty<bool> AlwaysScrollToEndProperty = AvaloniaProperty.RegisterAttached<TextBoxUtilities, TextBox, bool>(nameof(AlwaysScrollToEnd), false);
 
-        private static void AlwaysScrollToEndChanged(object sender, StyledPropertyChangedEventArgs e)
+        private static void AlwaysScrollToEndChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
             if (tb != null)

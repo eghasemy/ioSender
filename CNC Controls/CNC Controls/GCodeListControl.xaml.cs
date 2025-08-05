@@ -43,6 +43,7 @@ using Avalonia.Controls;
 using System.Collections.Generic;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -61,18 +62,18 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly StyledProperty SingleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<bool> SingleSelectedProperty = AvaloniaProperty.Register<GCodeListControl, bool>(nameof(SingleSelected), false);
         public bool SingleSelected
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            private set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SingleSelectedProperty); }
+            private set { SetValue(SingleSelectedProperty, value); }
         }
 
-        public static readonly StyledProperty MultipleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<bool> MultipleSelectedProperty = AvaloniaProperty.Register<GCodeListControl, bool>(nameof(MultipleSelected), false);
         public bool MultipleSelected
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            private set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(MultipleSelectedProperty); }
+            private set { SetValue(MultipleSelectedProperty, value); }
         }
         #endregion
 

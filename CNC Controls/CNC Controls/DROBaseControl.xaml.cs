@@ -41,6 +41,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class DROBaseControl : UserControl
@@ -57,18 +58,18 @@ namespace CNC.Controls
             ScaledOff = btnScaled.Background;
         }
 
-        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<DROBaseControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<DROBaseControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
 
         public bool IsReadOnly
@@ -77,13 +78,13 @@ namespace CNC.Controls
             set { txtReadout.IsReadOnly = value; }
         }
 
-        public static readonly StyledProperty IsScaledProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsScaledProperty = AvaloniaProperty.Register<DROBaseControl, bool>(nameof(IsScaled), false);
         public bool IsScaled
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsScaledProperty); }
+            set { SetValue(IsScaledProperty, value); }
         }
-        private static void OnIsScaledChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnIsScaledChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             ((DROBaseControl)d).btnScaled.Background = (bool)e.NewValue ? ScaledOn : ScaledOff;
         }

@@ -59,10 +59,10 @@ namespace CNC.Controls.Probing
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values[0] == null || parameter == null)
-                return Visibility.Hidden;
+                return false;
 
             return values[0].ToString().Equals(parameter.ToString(), StringComparison.InvariantCultureIgnoreCase) &&
-                   (values.Length == 2 ? values[1] is bool && (bool)values[1] : true) ? Visibility.Visible : Visibility.Hidden;
+                   (values.Length == 2 ? values[1] is bool && (bool)values[1] : true) ? true : false;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

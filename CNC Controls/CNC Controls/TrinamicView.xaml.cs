@@ -50,6 +50,7 @@ using CNC.Core;
 using CNC.GCode;
 using Avalonia.Input;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -136,50 +137,50 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly StyledProperty SFiltEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<bool> SFiltEnabledProperty = AvaloniaProperty.Register<TrinamicView, bool>(nameof(SFiltEnabled), false);
         public bool SFiltEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             private set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnSFiltEnabledChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnSFiltEnabledChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             Comms.com.WriteCommand(string.Format("M122H{0}", (bool)e.NewValue == true ? 1 : 0));
         }
 
-        public static readonly StyledProperty AxisEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<EnumFlags<AxisFlags>> AxisEnabledProperty = AvaloniaProperty.Register<TrinamicView, EnumFlags<AxisFlags>>(nameof(AxisEnabled));
         public EnumFlags<AxisFlags> AxisEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             private set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly StyledProperty DriverStatusProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> DriverStatusProperty = AvaloniaProperty.Register<TrinamicView, string>(nameof(DriverStatus), string.Empty);
         public string DriverStatus
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(DriverStatusProperty); }
+            set { SetValue(DriverStatusProperty, value); }
         }
 
-        public static readonly StyledProperty SGValueMinProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<int> SGValueMinProperty = AvaloniaProperty.Register<TrinamicView, int>(nameof(SGValueMin), 0);
         public int SGValueMin
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SGValueMinProperty); }
+            set { SetValue(SGValueMinProperty, value); }
         }
 
-        public static readonly StyledProperty SGValueMaxProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<int> SGValueMaxProperty = AvaloniaProperty.Register<TrinamicView, int>(nameof(SGValueMax), 0);
         public int SGValueMax
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SGValueMaxProperty); }
+            set { SetValue(SGValueMaxProperty, value); }
         }
 
-        public static readonly StyledProperty SGValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<int> SGValueProperty = AvaloniaProperty.Register<TrinamicView, int>(nameof(SGValue), 0);
         public int SGValue
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(SGValueProperty); }
+            set { SetValue(SGValueProperty, value); }
         }
         #endregion
 

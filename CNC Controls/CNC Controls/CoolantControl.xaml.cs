@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using Avalonia.Controls;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class CoolantControl : UserControl
@@ -50,7 +51,7 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        private void chkCoolant_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void chkCoolant_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if ((string)(sender as ToggleControl).Tag == "Flood")
                 (DataContext as GrblViewModel).ExecuteCommand(GrblCommand.Flood);

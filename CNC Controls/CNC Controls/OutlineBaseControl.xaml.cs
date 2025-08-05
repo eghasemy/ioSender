@@ -41,6 +41,7 @@ using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class OutlineBaseControl : UserControl
@@ -50,11 +51,11 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly StyledProperty FeedRateProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<int> FeedRateProperty = AvaloniaProperty.Register<OutlineBaseControl, int>(nameof(FeedRate), 0);
         public int FeedRate
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(FeedRateProperty); }
+            set { SetValue(FeedRateProperty, value); }
         }
 
         private void button_Go(object sender, RoutedEventArgs e)

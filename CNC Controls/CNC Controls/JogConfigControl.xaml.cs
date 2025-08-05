@@ -52,11 +52,11 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly StyledProperty IsGrblProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsGrblProperty = AvaloniaProperty.Register<JogConfigControl, bool>(nameof(IsGrbl), false);
         public bool IsGrbl
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsGrblProperty); }
+            set { SetValue(IsGrblProperty, value); }
         }
     }
 }

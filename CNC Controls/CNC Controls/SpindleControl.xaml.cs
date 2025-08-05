@@ -44,6 +44,7 @@ using CNC.Core;
 using Avalonia.Input;
 using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class SpindleControl : UserControl
@@ -67,7 +68,7 @@ namespace CNC.Controls
             cvRPM.PreviewKeyUp += txtPos_KeyPress;
         }
 
-        private void SpindleControl_DataContextChanged(object sender, System.Windows.StyledPropertyChangedEventArgs e)
+        private void SpindleControl_DataContextChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
                 ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
@@ -87,11 +88,11 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly StyledProperty IsSpindleStateEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsSpindleStateEnabledProperty = AvaloniaProperty.Register<SpindleControl, bool>(nameof(IsSpindleStateEnabled), false);
         public bool IsSpindleStateEnabled
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsSpindleStateEnabledProperty); }
+            set { SetValue(IsSpindleStateEnabledProperty, value); }
         }
 
         public string SpindleOffCommand { get { return (string)rbSpindleOff.Tag; } set { rbSpindleOff.Tag = value; } }

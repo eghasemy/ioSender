@@ -66,13 +66,13 @@ namespace CNC.Controls
         public string DisplayFormat { get { return np.DisplayFormat; } }
 
         // TODO: Convert ValueProperty to Avalonia StyledProperty
-        public static readonly StyledProperty ValueProperty = null;
+        public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<NumericTextBox, double>(nameof(Value), 0.0);
         public double Value
         {
             // TODO: Convert to Avalonia property getter - get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnValueChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnValueChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             if (((NumericTextBox)d).updateText)
                 ((NumericTextBox)d).Text = double.IsNaN((double)e.NewValue) || double.IsNegativeInfinity((double)e.NewValue) ? string.Empty : Math.Round((double)e.NewValue, ((NumericTextBox)d).np.Precision).ToString(((NumericTextBox)d).np.DisplayFormat, CultureInfo.InvariantCulture);
@@ -86,13 +86,13 @@ namespace CNC.Controls
         //        }
 
         // TODO: Convert FormatProperty to Avalonia StyledProperty  
-        public static readonly StyledProperty FormatProperty = null;
+        public static readonly StyledProperty<string> FormatProperty = AvaloniaProperty.Register<NumericTextBox, string>(nameof(Format), string.Empty);
         public string Format
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnFormatChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnFormatChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             NumericProperties.OnFormatChanged(d, ((NumericTextBox)d).np, (string)e.NewValue);
         }

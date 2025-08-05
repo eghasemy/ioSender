@@ -54,22 +54,22 @@ namespace CNC.Controls
             LEDOff = btnLED.Background;
         }
 
-        public static readonly StyledProperty IsSetProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsSetProperty = AvaloniaProperty.Register<SignalControl, bool>(nameof(IsSet), false);
         public bool IsSet
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsSetProperty); }
+            set { SetValue(IsSetProperty, value); }
         }
-        private static void OnIsSetChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnIsSetChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as SignalControl).btnLED.Background = (bool)e.NewValue ? LEDOn : LEDOff;
         }
 
-        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<SignalControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
         }
     }
 }

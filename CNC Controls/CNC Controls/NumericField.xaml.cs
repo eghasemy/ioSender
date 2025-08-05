@@ -59,60 +59,60 @@ namespace CNC.Controls
             data.DataContext = this;
         }
 
-        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<NumericField, double>(nameof(Value), 0.0);
         public double Value
         {
             // TODO: Convert to Avalonia property getter - get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnValueChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnValueChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             if (double.IsNaN((double)e.NewValue))
                 ((NumericField)d).data.Clear();
         }
 
-        public static readonly StyledProperty FormatProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> FormatProperty = AvaloniaProperty.Register<NumericField, string>(nameof(Format), string.Empty);
         public string Format
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(FormatProperty); }
+            set { SetValue(FormatProperty, value); }
         }
 
-        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<NumericField, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(LabelProperty); }
+            set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly StyledProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> UnitProperty = AvaloniaProperty.Register<NumericField, string>(nameof(Unit), string.Empty);
         public string Unit
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(UnitProperty); }
+            set { SetValue(UnitProperty, value); }
         }
 
-        public static readonly StyledProperty Tooltip2Property = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<string> Tooltip2Property = AvaloniaProperty.Register<NumericField, string>(nameof(Tooltip2), string.Empty);
         public string Tooltip2
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(Tooltip2Property); }
+            set { SetValue(Tooltip2Property, value); }
         }
 
-        public static readonly StyledProperty IsReadOnlyProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsReadOnlyProperty = AvaloniaProperty.Register<NumericField, bool>(nameof(IsReadOnly), false);
         public bool IsReadOnly
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsReadOnlyProperty); }
+            set { SetValue(IsReadOnlyProperty, value); }
         }
 
-        public static readonly StyledProperty ColonAtProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<double> ColonAtProperty = AvaloniaProperty.Register<NumericField, double>(nameof(ColonAt), 0.0);
         public double ColonAt
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(ColonAtProperty); }
+            set { SetValue(ColonAtProperty, value); }
         }
-        private static void OnColonAtChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnColonAtChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             ((NumericField)d).OnColonAtChanged();
         }

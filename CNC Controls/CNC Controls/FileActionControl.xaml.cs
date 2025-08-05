@@ -43,6 +43,7 @@ using Avalonia;
 using Avalonia.Controls;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>

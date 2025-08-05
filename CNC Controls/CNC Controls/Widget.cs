@@ -265,12 +265,15 @@ namespace CNC.Controls
                         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                         ValidatesOnDataErrors = true
                     };
+                    // Avalonia TODO: Implement validation
+                    /*
                     binding.ValidationRules.Add(new NumericRangeRule()
                     {
                         Min = widget.Min,
                         Max = widget.Max,
                         AllowNull = widget.AllowNull
                     });
+                    */
                     wNumericTextBox.Style = View.Resources["NumericErrorStyle"] as Style;
                     BindingOperations.SetBinding(wNumericTextBox, NumericTextBox.ValueProperty, binding);
 //                    model.NumericValue = dbl.Parse(widget.Value);
@@ -304,7 +307,8 @@ namespace CNC.Controls
                             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                             ValidatesOnDataErrors = true
                         };
-                        sbinding.ValidationRules.Add(new IP4ValueRule());
+                        // Avalonia TODO: Implement validation
+                        // sbinding.ValidationRules.Add(new IP4ValueRule());
                         wTextBox.Style = View.Resources["Ip4ErrorStyle"] as Style;
                         BindingOperations.SetBinding(wTextBox, TextBox.TextProperty, sbinding);
                     }
@@ -320,12 +324,15 @@ namespace CNC.Controls
                             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                             ValidatesOnDataErrors = true
                         };
+                        // Avalonia TODO: Implement validation
+                        /*
                         sbinding.ValidationRules.Add(new StringRangeRule()
                         {
                             Min = widget.Min,
                             Max = widget.Max,
                             AllowNull = widget.AllowNull
                         });
+                        */
                         wTextBox.Style = View.Resources["StringErrorStyle"] as Style;
                         BindingOperations.SetBinding(wTextBox, TextBox.TextProperty, sbinding);
                     }

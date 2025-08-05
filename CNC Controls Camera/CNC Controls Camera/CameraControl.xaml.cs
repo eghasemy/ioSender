@@ -48,6 +48,7 @@ using Avalonia.Media.Imaging;
 using AForge.Video.DirectShow;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Camera
 {
     /// <summary>
@@ -111,29 +112,29 @@ namespace CNC.Controls.Camera
             }
         }
 
-        public static readonly StyledProperty IsMoveEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> IsMoveEnabledProperty = AvaloniaProperty.Register<CameraControl, bool>(nameof(IsMoveEnabled), false);
         public bool IsMoveEnabled
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(IsMoveEnabledProperty); }
+            set { SetValue(IsMoveEnabledProperty, value); }
         }
 
-        public static readonly StyledProperty GuideScaleProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<int> GuideScaleProperty = AvaloniaProperty.Register<CameraControl, int>(nameof(GuideScale), 0);
         public int GuideScale
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(GuideScaleProperty); }
+            set { SetValue(GuideScaleProperty, value); }
         }
-        private static void OnGuideScaleChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
+        private static void OnGuideScaleChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             AppConfig.Settings.Camera.GuideScale = (int)e.NewValue;
         }
 
-        public static readonly StyledProperty MoveCameraToSpindlePositionProperty = null; // TODO: Convert to Avalonia StyledProperty
+                public static readonly StyledProperty<bool> MoveCameraToSpindlePositionProperty = AvaloniaProperty.Register<CameraControl, bool>(nameof(MoveCameraToSpindlePosition), false);
         public bool MoveCameraToSpindlePosition
         {
-            get { /* TODO: Implement Avalonia property getter */ return default; }
-            set { /* TODO: Implement Avalonia property setter */ }
+            get { return GetValue(MoveCameraToSpindlePositionProperty); }
+            set { SetValue(MoveCameraToSpindlePositionProperty, value); }
         }
 
         public GrblViewModel grbl {  get { return Grbl.GrblViewModel;  } }
