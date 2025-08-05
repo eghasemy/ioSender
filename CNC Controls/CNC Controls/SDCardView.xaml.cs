@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Data;
 using System.Linq;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -179,7 +180,7 @@ namespace CNC.Controls
 
         private void DownloadRun_Click(object sender, RoutedEventArgs e)
         {
-            if (currentFile != null && !isMacro((string)currentFile["Name"]) && MessageBox.Show(string.Format((string)this.FindResource("DownloandRun"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (currentFile != null && !isMacro((string)currentFile["Name"]) && MessageBox.Show(string.Format((string)this.FindResource("DownloandRun"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 var model = DataContext as GrblViewModel;
 
@@ -326,7 +327,7 @@ namespace CNC.Controls
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(string.Format((string)this.FindResource("DeleteFile"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (MessageBox.Show(string.Format((string)this.FindResource("DeleteFile"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Comms.com.WriteCommand(GrblConstants.CMD_SDCARD_UNLINK + (string)currentFile["Name"]);
                 GrblSDCard.Load(DataContext as GrblViewModel, ViewAll);

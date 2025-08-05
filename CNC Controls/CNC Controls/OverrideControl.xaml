@@ -9,16 +9,12 @@
     <UserControl.Resources>
         <local:EncoderModeToColorConverter x:Key="EncoderModeConverter" />
         <local:LogicalNotConverter x:Key="BooleanConverter" />
-            <Style x:Key="ResetButtonStyle" Selector="Button">
+        <Style x:Key="ResetButtonStyle" Selector="Button">
             <Setter Property="Height" Value="36"/>
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Margin" Value="3,0"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="BorderThickness" Value="0"/>
-            </Style>
-            <Style Selector="Button.ResetButtonStyle:disabled">
-                <Setter Property="Opacity" Value="0.5"/>
-            </Style>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate Selector="Button">
@@ -30,6 +26,9 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style Selector="Button.ResetButtonStyle:disabled">
+            <Setter Property="Opacity" Value="0.5"/>
         </Style>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="240">
