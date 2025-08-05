@@ -61,14 +61,14 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly DependencyProperty SingleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SingleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool SingleSelected
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             private set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MultipleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MultipleSelectedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool MultipleSelected
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

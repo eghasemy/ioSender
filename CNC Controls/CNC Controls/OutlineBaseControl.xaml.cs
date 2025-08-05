@@ -50,7 +50,7 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty FeedRateProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty FeedRateProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int FeedRate
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

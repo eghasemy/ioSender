@@ -44,8 +44,7 @@ using Avalonia;
 using System.Collections.ObjectModel;
 using Avalonia.Media;
 using System.Threading;
-using CNC.Core;  // Cross-platform 3D math types
-using CNC.Core;
+using CNC.Core; // Cross-platform 3D math types
 using CNC.GCode;
 using static CNC.GCode.GCodeParser;
 using System.Collections.Generic;

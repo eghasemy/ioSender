@@ -47,6 +47,7 @@ using Avalonia.Input;
 using System.Threading;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Data;
 
 namespace CNC.Controls
 {
@@ -193,7 +194,7 @@ namespace CNC.Controls
             useBuffering = AppConfig.Settings.Base.UseBuffering; // && GrblInfo.IsGrblHAL;
         }
 
-        private void JobControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void JobControl_DataContextChanged(object sender, StyledPropertyChangedEventArgs e)
         {
             if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
                 ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;

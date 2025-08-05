@@ -136,46 +136,46 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty SFiltEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SFiltEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool SFiltEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             private set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnSFiltEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSFiltEnabledChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             Comms.com.WriteCommand(string.Format("M122H{0}", (bool)e.NewValue == true ? 1 : 0));
         }
 
-        public static readonly DependencyProperty AxisEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty AxisEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public EnumFlags<AxisFlags> AxisEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             private set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty DriverStatusProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty DriverStatusProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string DriverStatus
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SGValueMinProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SGValueMinProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int SGValueMin
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SGValueMaxProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SGValueMaxProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int SGValueMax
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SGValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SGValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int SGValue
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

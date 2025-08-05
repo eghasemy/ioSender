@@ -54,40 +54,40 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsCssEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsCssEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool? IsCssEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        private static void OnCssEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCssEnabledChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             (d as CssControl).data.Label = ((CssControl)d).IsCssEnabled == true ? "Speed:" : "Spindle:";
             (d as CssControl).data.Unit = ((CssControl)d).IsCssEnabled == true ? (d as CssControl).Unit : "RPM";
         }
 
-        public static readonly DependencyProperty SpindleDirProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SpindleDirProperty = null; // TODO: Convert to Avalonia StyledProperty
         public SpindleState SpindleDir
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Unit
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnUnitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnUnitChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             (d as CssControl).OnUnitChanged();
         }

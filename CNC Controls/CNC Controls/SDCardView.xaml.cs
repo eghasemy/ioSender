@@ -101,42 +101,42 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly DependencyProperty RewindProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty RewindProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool Rewind
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanRewindProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CanRewindProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanRewind
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool ViewAll
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CanViewAllProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanViewAll
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanUploadProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CanUploadProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanUpload
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CanDeleteProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CanDeleteProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanDelete
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

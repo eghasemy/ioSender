@@ -55,14 +55,14 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

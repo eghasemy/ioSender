@@ -111,25 +111,25 @@ namespace CNC.Controls.Camera
             }
         }
 
-        public static readonly DependencyProperty IsMoveEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsMoveEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsMoveEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty GuideScaleProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty GuideScaleProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int GuideScale
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnGuideScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnGuideScaleChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             AppConfig.Settings.Camera.GuideScale = (int)e.NewValue;
         }
 
-        public static readonly DependencyProperty MoveCameraToSpindlePositionProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MoveCameraToSpindlePositionProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool MoveCameraToSpindlePosition
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

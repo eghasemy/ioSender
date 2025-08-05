@@ -23,6 +23,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Data;
 #endif
 
 namespace CNC.Core

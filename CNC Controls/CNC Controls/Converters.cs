@@ -401,7 +401,7 @@ namespace CNC.Controls
         {
             string result = string.Empty;
 
-            Converters.grblState.Value.TryGetValue(((GrblState)value).State, out result);
+            // TODO: Convert to Avalonia property getter - Converters.grblState.Value.TryGetValue(((GrblState)value).State, out result);
             int substate = ((GrblState)value).State == GrblStates.Alarm && ((GrblState)value).LastAlarm > 0 ? ((GrblState)value).LastAlarm : ((GrblState)value).Substate;
 
             if (value is GrblState && ((GrblState)value).State != GrblStates.Unknown) 

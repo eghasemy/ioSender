@@ -68,14 +68,14 @@ namespace CNC.Controls
         public AxisFlags AxisEnabledFlags { get { return GrblInfo.AxisFlags; } }
         public CoordinateSystem Offset { get; private set; } = new CoordinateSystem();
 
-        public static readonly DependencyProperty CanEditProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CanEditProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanEdit
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty IsPredefinedProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsPredefinedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsPredefined
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

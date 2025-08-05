@@ -102,7 +102,7 @@ namespace CNC.Controls.Lathe
             object[] result = new object[2];
 
             result[0] = value;
-            result[1] = DependencyProperty.UnsetValue;
+            result[1] = StyledProperty.UnsetValue;
 
             return result;
         }

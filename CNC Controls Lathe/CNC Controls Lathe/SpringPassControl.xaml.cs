@@ -52,14 +52,14 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsPassesEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsPassesEnabledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsPassesEnabled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

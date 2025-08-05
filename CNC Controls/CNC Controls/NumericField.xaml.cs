@@ -59,60 +59,60 @@ namespace CNC.Controls
             data.DataContext = this;
         }
 
-        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
-            get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
+            // TODO: Convert to Avalonia property getter - get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             if (double.IsNaN((double)e.NewValue))
                 ((NumericField)d).data.Clear();
         }
 
-        public static readonly DependencyProperty FormatProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty FormatProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Format
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Unit
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty Tooltip2Property = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty Tooltip2Property = null; // TODO: Convert to Avalonia StyledProperty
         public string Tooltip2
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty IsReadOnlyProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsReadOnlyProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsReadOnly
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ColonAtProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ColonAtProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double ColonAt
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnColonAtChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnColonAtChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((NumericField)d).OnColonAtChanged();
         }

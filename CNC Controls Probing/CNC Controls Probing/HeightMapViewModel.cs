@@ -37,8 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using CNC.Core;  // Cross-platform 3D math types
-using CNC.Core;
+using CNC.Core; // Cross-platform 3D math types
 using Avalonia.Controls;
 
 namespace CNC.Controls.Probing

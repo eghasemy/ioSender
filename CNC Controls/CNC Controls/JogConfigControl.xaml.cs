@@ -52,7 +52,7 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsGrblProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsGrblProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsGrbl
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

@@ -65,57 +65,57 @@ namespace CNC.Controls
 
         #region dependencyproperties
 
-        public static readonly DependencyProperty MinimumProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MinimumProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int Minimum
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MaximumProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MaximumProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int Maximum
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty TicksProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty TicksProperty = null; // TODO: Convert to Avalonia StyledProperty
         public System.Windows.Media.DoubleCollection Ticks
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty TickFrequencyProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty TickFrequencyProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int TickFrequency
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty SliderValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SliderValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double SliderValue
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnSliderValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSliderValueChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((OverrideControl)d).txtOverride.Text = Math.Round((double)e.NewValue).ToString() + "%";
         }
 
-        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((OverrideControl)d).SliderValue = Math.Round((double)e.NewValue);
         }
 
-        public static readonly DependencyProperty EncoderModeProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty EncoderModeProperty = null; // TODO: Convert to Avalonia StyledProperty
         public GrblEncoderMode EncoderMode
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
@@ -134,13 +134,13 @@ namespace CNC.Controls
                 switch((int)SliderValue)
                 {
                     case 25:
-                        cmd.SetValue(CoarseMinusCommand, len++);
+                        // TODO: Convert to Avalonia property setter - cmd.SetValue(CoarseMinusCommand, len++);
                         break;
                     case 50:
-                        cmd.SetValue(FineMinusCommand, len++);
+                        // TODO: Convert to Avalonia property setter - cmd.SetValue(FineMinusCommand, len++);
                         break;
                     default:
-                        cmd.SetValue(ResetCommand, len++);
+                        // TODO: Convert to Avalonia property setter - cmd.SetValue(ResetCommand, len++);
                         break;
                 }
             } else {
@@ -154,12 +154,12 @@ namespace CNC.Controls
 
                 while (coarseDelta != 0d)
                 {
-                    cmd.SetValue(coarseCmd, len++);
+                    // TODO: Convert to Avalonia property setter - cmd.SetValue(coarseCmd, len++);
                     coarseDelta -= 10d;
                 }
                 while (fineDelta != 0d)
                 {
-                    cmd.SetValue(fineCmd, len++);
+                    // TODO: Convert to Avalonia property setter - cmd.SetValue(fineCmd, len++);
                     fineDelta -= 1d;
                 }
             }

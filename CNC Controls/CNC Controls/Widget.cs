@@ -541,7 +541,7 @@ namespace CNC.Controls
 
         #region UIEvents
 
-        private void wWidget_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void wWidget_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
                 Assign();

@@ -43,6 +43,7 @@ using Avalonia;
 using Avalonia.Controls;
 using System.ComponentModel;
 using CNC.Core;
+using Avalonia.Data;
 
 namespace CNC.Controls
 {
@@ -64,7 +65,7 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        private void View_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void View_DataContextChanged(object sender, StyledPropertyChangedEventArgs e)
         {
             if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
                 ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
@@ -83,14 +84,14 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        private static void OnMacrosChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMacrosChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             (d as MacroExecuteControl).OnMacrosChanged();
         }
@@ -104,7 +105,7 @@ namespace CNC.Controls
             IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? Visibility.Visible : Visibility.Hidden;
         }
 
-        public static readonly DependencyProperty IsMessageVisibleProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsMessageVisibleProperty = null; // TODO: Convert to Avalonia StyledProperty
         public Visibility IsMessageVisible
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

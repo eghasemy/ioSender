@@ -64,7 +64,7 @@ namespace CNC.Controls.Viewer
                 DataContext = null;
         }
 
-        private void OnVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnVisibleChanged(object sender, StyledPropertyChangedEventArgs e)
         {
             DataContext = (bool)e.NewValue ? model : null;
         }

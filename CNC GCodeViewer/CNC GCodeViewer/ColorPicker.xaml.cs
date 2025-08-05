@@ -57,18 +57,18 @@ namespace CNC.Controls.Viewer
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SelectedColorProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SelectedColorProperty = null; // TODO: Convert to Avalonia StyledProperty
         public Color SelectedColor
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnIsSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSelectedColorChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((ColorPicker)d).cbut.Background = new SolidColorBrush((Color)e.NewValue);
         }
 
-        public static readonly DependencyProperty IsPickerOpenProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsPickerOpenProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsPickerOpen
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

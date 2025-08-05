@@ -57,14 +57,14 @@ namespace CNC.Controls
             ScaledOff = btnScaled.Background;
         }
 
-        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Value
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
@@ -77,13 +77,13 @@ namespace CNC.Controls
             set { txtReadout.IsReadOnly = value; }
         }
 
-        public static readonly DependencyProperty IsScaledProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsScaledProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsScaled
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnIsScaledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsScaledChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((DROBaseControl)d).btnScaled.Background = (bool)e.NewValue ? ScaledOn : ScaledOff;
         }

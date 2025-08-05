@@ -57,14 +57,14 @@ namespace CNC.Controls
 
         public new bool IsFocused { get { return txtMDI.IsKeyboardFocusWithin; } }
 
-        public static readonly DependencyProperty CommandProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CommandProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Command
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty CommandsProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CommandsProperty = null; // TODO: Convert to Avalonia StyledProperty
         public ObservableCollection<string> Commands
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
@@ -84,7 +84,7 @@ namespace CNC.Controls
             }
         }
 
-        private void txtMDI_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void txtMDI_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Return && (DataContext as GrblViewModel).MDICommand.CanExecute(null))
             {

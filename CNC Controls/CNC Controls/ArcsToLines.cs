@@ -39,8 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Collections.Generic;
-using CNC.Core;  // Cross-platform 3D math types
-using CNC.Core;
+using CNC.Core; // Cross-platform 3D math types
 using CNC.GCode;
 using Avalonia;
 using Avalonia.Controls;

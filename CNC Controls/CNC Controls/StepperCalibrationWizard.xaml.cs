@@ -134,50 +134,50 @@ namespace CNC.Controls
             ResolutionUnit = setting.Unit;
         }
 
-        public static readonly DependencyProperty AxisProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty AxisProperty = null; // TODO: Convert to Avalonia StyledProperty
         public int Axis
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnAxisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAxisChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((StepperCalibrationWizard)d).getAxisDetails((int)e.NewValue);
         }
 
-        public static readonly DependencyProperty CanUpdateProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty CanUpdateProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool CanUpdate
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty DistanceProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty DistanceProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Distance
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnDistanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDistanceChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             ((StepperCalibrationWizard)d).CanUpdate = false;
             ((StepperCalibrationWizard)d).ActualDistance = (double)e.NewValue;
         }
 
-        public static readonly DependencyProperty DistanceUnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty DistanceUnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string DistanceUnit
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ActualDistanceProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ActualDistanceProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double ActualDistance
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnActualDistanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnActualDistanceChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             var instance = (StepperCalibrationWizard)d;
 
@@ -187,14 +187,14 @@ namespace CNC.Controls
                 instance.Resolution = Math.Round(dbl.Parse(instance.setting.Value) / (double)e.NewValue * instance.Distance, GrblInfo.IsGrblHAL ? 6 : 3);
         }
 
-        public static readonly DependencyProperty ResolutionProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ResolutionProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double Resolution
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ResolutionUnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ResolutionUnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string ResolutionUnit
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

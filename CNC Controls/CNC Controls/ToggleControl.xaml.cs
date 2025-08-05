@@ -37,14 +37,14 @@ namespace CNC.Controls
             Click?.Invoke(this, e);
         }
 
-        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty IsCheckedProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsCheckedProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsChecked
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

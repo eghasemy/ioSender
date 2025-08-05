@@ -71,14 +71,14 @@ namespace CNC.Controls.Lathe
             cbxProfile.SelectedValue = options.Profiles.First().Id;
         }
 
-        public static readonly DependencyProperty SelectedItemProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty SelectedItemProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string SelectedItem
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty ItemsSourceProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty ItemsSourceProperty = null; // TODO: Convert to Avalonia StyledProperty
         public IEnumerable ItemsSource
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

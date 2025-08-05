@@ -52,6 +52,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using CNC.Core;
 using System.Collections.Generic;
+using Avalonia.Data;
 
 namespace CNC.Controls.Lathe
 {

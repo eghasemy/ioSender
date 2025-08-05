@@ -54,28 +54,28 @@ namespace CNC.Controls
             //UnitProperty.OverrideMetadata(typeof(string), new PropertyMetadata("mm"));
         }
 
-        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty UnitProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Unit
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MinValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MinValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double MinValue
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty MaxValueProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MaxValueProperty = null; // TODO: Convert to Avalonia StyledProperty
         public double MaxValue
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

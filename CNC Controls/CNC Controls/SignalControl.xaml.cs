@@ -54,18 +54,18 @@ namespace CNC.Controls
             LEDOff = btnLED.Background;
         }
 
-        public static readonly DependencyProperty IsSetProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty IsSetProperty = null; // TODO: Convert to Avalonia StyledProperty
         public bool IsSet
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnIsSetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSetChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             (d as SignalControl).btnLED.Background = (bool)e.NewValue ? LEDOn : LEDOff;
         }
 
-        public static readonly DependencyProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty LabelProperty = null; // TODO: Convert to Avalonia StyledProperty
         public string Label
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }

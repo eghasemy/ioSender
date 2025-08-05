@@ -387,7 +387,7 @@ namespace CNC.Controls
                 details.IsVisible = false;
         }
 
-        private void searchField_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void searchField_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
             if(e.Key == System.Windows.Input.Key.Return && e.IsDown)
             {

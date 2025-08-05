@@ -171,12 +171,12 @@ namespace CNC.Controls.Lathe
             {
                 var targetProperty = type.GetProperty(sourceProperty.Name);
                 if(targetProperty.CanWrite)
-                    targetProperty.SetValue(target, sourceProperty.GetValue(source, null), null);
+                    // TODO: Convert to Avalonia property setter - // TODO: Convert to Avalonia property getter - targetProperty.SetValue(target, sourceProperty.GetValue(source, null), null);
             }
             //foreach (var sourceField in type.GetFields())
             //{
             //    var targetField = type.GetField(sourceField.Name);
-            //    targetField.SetValue(target, sourceField.GetValue(source));
+            // TODO: Convert to Avalonia property setter - // TODO: Convert to Avalonia property getter - //    targetField.SetValue(target, sourceField.GetValue(source));
             //}
         }
     }

@@ -42,8 +42,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia;
-using CNC.Core;  // Cross-platform 3D math types
-using CNC.Core;
+using CNC.Core; // Cross-platform 3D math types
 using CNC.Controls;
 using Avalonia.Controls;
 

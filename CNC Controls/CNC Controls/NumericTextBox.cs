@@ -66,18 +66,18 @@ namespace CNC.Controls
         public string DisplayFormat { get { return np.DisplayFormat; } }
 
         // TODO: Convert ValueProperty to Avalonia StyledProperty
-        public static readonly DependencyProperty ValueProperty = null;
+        public static readonly StyledProperty ValueProperty = null;
         public double Value
         {
-            get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
+            // TODO: Convert to Avalonia property getter - get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             if (((NumericTextBox)d).updateText)
                 ((NumericTextBox)d).Text = double.IsNaN((double)e.NewValue) || double.IsNegativeInfinity((double)e.NewValue) ? string.Empty : Math.Round((double)e.NewValue, ((NumericTextBox)d).np.Precision).ToString(((NumericTextBox)d).np.DisplayFormat, CultureInfo.InvariantCulture);
         }
-        //        public static bool CoerceValueChanged(DependencyObject d, object value)
+        //        public static bool CoerceValueChanged(AvaloniaObject d, object value)
         //        {
         //            double v = (double)value;
         //            NumericTextBox ntb = (NumericTextBox)d;
@@ -86,13 +86,13 @@ namespace CNC.Controls
         //        }
 
         // TODO: Convert FormatProperty to Avalonia StyledProperty  
-        public static readonly DependencyProperty FormatProperty = null;
+        public static readonly StyledProperty FormatProperty = null;
         public string Format
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
             set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFormatChanged(AvaloniaObject d, StyledPropertyChangedEventArgs e)
         {
             NumericProperties.OnFormatChanged(d, ((NumericTextBox)d).np, (string)e.NewValue);
         }

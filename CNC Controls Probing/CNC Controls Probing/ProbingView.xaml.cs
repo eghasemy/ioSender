@@ -433,7 +433,7 @@ namespace CNC.Controls.Probing
         {
             double height;
 
-            if (probeProperties.Visibility == Visibility.Collapsed)
+            if (probeProperties!.IsVisible)
             {
                 probeProperties.IsVisible = false;
                 probeProperties.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
@@ -450,7 +450,7 @@ namespace CNC.Controls.Probing
         {
             double width;
 
-            if (droPanel.Visibility == Visibility.Collapsed)
+            if (droPanel!.IsVisible)
             {
                 droPanel.IsVisible = false;
                 droPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
@@ -461,7 +461,7 @@ namespace CNC.Controls.Probing
                 width = droPanel.ActualWidth;
 
             droPanel.Visibility = (tab.ActualWidth + width + t1.ActualWidth + 20) < ActualWidth ? Visibility.Visible : Visibility.Collapsed;
-            dp.Width = droPanel.Visibility == Visibility.Visible  ? 460 : 240;
+            dp.Width = droPanel.IsVisible  ? 460 : 240;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        public static readonly DependencyProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
+        public static readonly StyledProperty MacrosProperty = null; // TODO: Convert to Avalonia StyledProperty
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
             get { /* TODO: Implement Avalonia property getter */ return default; }
