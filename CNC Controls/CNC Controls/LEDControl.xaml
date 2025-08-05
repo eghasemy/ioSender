@@ -8,7 +8,7 @@
              d:DesignHeight="28" d:DesignWidth="140"
              MaxHeight="28" MaxWidth="140">
     <UserControl.Resources>
-        <Style x:Key="ButtonStyleNoHighlighting" Selector="Button" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+        <Style x:Key="ButtonStyleNoHighlighting" Selector="Button" BasedOn="{StaticResource Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate Selector="Button">

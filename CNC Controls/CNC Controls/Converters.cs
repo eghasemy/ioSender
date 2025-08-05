@@ -346,11 +346,11 @@ namespace CNC.Controls
             if (value is HomedState) switch ((HomedState)value)
             {
                 case HomedState.NotHomed:
-                    result = (Brush)Brushes.LightYellow;
+                    result = Brushes.LightYellow;
                     break;
 
                 case HomedState.Homed:
-                    result = (Brush)Brushes.LightGreen;
+                    result = Brushes.LightGreen;
                     break;
             }
 

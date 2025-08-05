@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="using:System;assembly=System.Runtime"
+                    xmlns:system="using:System"
                     xmlns:local="using:CNC.Controls">
     <system:String x:Key="CreateConfig">Config file not found or invalid, create new?</system:String>
     <system:String x:Key="CreateConfigFail">Could not save config file.</system:String>

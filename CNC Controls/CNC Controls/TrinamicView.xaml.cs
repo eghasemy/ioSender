@@ -325,7 +325,7 @@ namespace CNC.Controls
             else if (data == "ok")
                 read_status = false;
             else if (read_status)
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, addData, data);
+                Dispatcher.UIThread.InvokeAsync(() => addData(data), DispatcherPriority.ContextIdle);
         }
 
         private void PlotSGValue(int value, int value2)
@@ -334,27 +334,31 @@ namespace CNC.Controls
 
             if (lines.Count != (int)SGPlot.Width)
             {
-                lines.Add(new Line()
+                var line = new Line()
                 {
-                    X1 = sg_index == 0 ? 0 : sg_index - 1,
-                    X2 = sg_index,
-                    Y1 = sg_index == 0 ? value : lines[sg_index - 1].Y2,
-                    Y2 = value,
+                    StartPoint = new Avalonia.Point(sg_index == 0 ? 0 : sg_index - 1, sg_index == 0 ? value : lines[sg_index - 1].StartPoint.Y),
+                    EndPoint = new Avalonia.Point(sg_index, value),
                     Stroke = Brushes.Blue
-                });
+                };
+                
+                Canvas.SetLeft(line, line.StartPoint.X);
+                Canvas.SetTop(line, line.StartPoint.Y);
+                lines.Add(line);
 
                 if(value2 >= 0)
                 {
                     value2 /= y_scale;
 
-                    lines2.Add(new Line()
+                    var line2 = new Line()
                     {
-                        X1 = sg_index == 0 ? 0 : sg_index - 1,
-                        X2 = sg_index,
-                        Y1 = sg_index == 0 ? value2 : lines2[sg_index - 1].Y2,
-                        Y2 = value2,
+                        StartPoint = new Avalonia.Point(sg_index == 0 ? 0 : sg_index - 1, sg_index == 0 ? value2 : lines2[sg_index - 1].StartPoint.Y),
+                        EndPoint = new Avalonia.Point(sg_index, value2),
                         Stroke = Brushes.Green
-                    });
+                    };
+                    
+                    Canvas.SetLeft(line2, line2.StartPoint.X);
+                    Canvas.SetTop(line2, line2.StartPoint.Y);
+                    lines2.Add(line2);
 
                     SGPlot.Children.Add(lines2[sg_index]);
                 }
@@ -364,13 +368,13 @@ namespace CNC.Controls
             else
             {
                 sg_index %= (int)SGPlot.Width;
-                lines[sg_index].Y1 = sg_index == 0 ? value : lines[sg_index - 1].Y2;
-                lines[sg_index].Y2 = value;
+                lines[sg_index].StartPoint = new Avalonia.Point(lines[sg_index].StartPoint.X, sg_index == 0 ? value : lines[sg_index - 1].EndPoint.Y);
+                lines[sg_index].EndPoint = new Avalonia.Point(lines[sg_index].EndPoint.X, value);
                 if (value2 >= 0 && lines2.Count == (int)SGPlot.Width)
                 {
                     value2 /= y_scale;
-                    lines2[sg_index].Y1 = sg_index == 0 ? value2 : lines2[sg_index - 1].Y2;
-                    lines2[sg_index].Y2 = value2;
+                    lines2[sg_index].StartPoint = new Avalonia.Point(lines2[sg_index].StartPoint.X, sg_index == 0 ? value2 : lines2[sg_index - 1].EndPoint.Y);
+                    lines2[sg_index].EndPoint = new Avalonia.Point(lines2[sg_index].EndPoint.X, value2);
                 }
             }
             sg_index++;

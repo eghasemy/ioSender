@@ -38,14 +38,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Data;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using System.Threading;
 using System.Net;
-using Microsoft.Win32;
+using Avalonia.Platform.Storage;
 using CNC.Core;
+using MessageBox = CNC.Core.MessageBox;
+using MessageBoxButton = CNC.Core.MessageBoxButton;
+using MessageBoxResult = CNC.Core.MessageBoxResult;
+using MessageBoxImage = CNC.Core.MessageBoxImage;
 using CNC.GCode;
 namespace CNC.Controls
 {
@@ -220,17 +225,36 @@ namespace CNC.Controls
             }
         }
 
-        private void Upload_Click(object sender, RoutedEventArgs e)
+        private async void Upload_Click(object sender, RoutedEventArgs e)
         {
             bool ok = false;
             string filename = string.Empty;
-            OpenFileDialog file = new OpenFileDialog();
 
-            file.Filter = string.Format("GCode files ({0})|{0}|GCode macros (*.macro)|*.macro|Text files (*.txt)|*.txt|All files (*.*)|*.*", FileUtils.ExtensionsToFilter(GCode.FileTypes));
-
-            if (file.ShowDialog() == true)
+            var storageProvider = TopLevel.GetTopLevel(this)?.StorageProvider;
+            if (storageProvider != null)
             {
-                filename = file.FileName;
+                var fileTypeChoices = new List<FilePickerFileType>
+                {
+                    new("GCode files") 
+                    { 
+                        Patterns = FileUtils.ExtensionsToFilter(GCode.FileTypes).Split('|').Where((x, i) => i % 2 == 0).ToArray()
+                    },
+                    new("GCode macros") { Patterns = new[] { "*.macro" } },
+                    new("Text files") { Patterns = new[] { "*.txt" } },
+                    new("All files") { Patterns = new[] { "*.*" } }
+                };
+
+                var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+                {
+                    Title = "Select GCode file",
+                    AllowMultiple = false,
+                    FileTypeFilter = fileTypeChoices
+                });
+
+                if (files.Count > 0)
+                {
+                    filename = files[0].Path.LocalPath;
+                }
             }
 
             if (filename != string.Empty)
