@@ -42,7 +42,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
-using System.Windows.Input;
+using Avalonia.Input;
 using System.Xml.Serialization;
 using CNC.GCode;
 
@@ -129,7 +129,8 @@ namespace CNC.Core
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.Message, "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                // TODO: Replace with Avalonia MessageBox implementation
+                // System.Windows.MessageBox.Show(e.Message, "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
             }
 
             return ok;
@@ -164,7 +165,8 @@ namespace CNC.Core
             }
             catch
             {
-                System.Windows.MessageBox.Show("keymap file is corrupt!", "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                // TODO: Replace with Avalonia MessageBox implementation
+                // System.Windows.MessageBox.Show("keymap file is corrupt!", "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
 
             return ok;

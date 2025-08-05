@@ -41,7 +41,7 @@ using System;
 using System.Linq;
 using Avalonia.Media;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using Avalonia.Input;
 using System.Threading;
 using CNC.GCode;
 using Avalonia.Controls;
@@ -314,7 +314,8 @@ namespace CNC.Core
                     }
                     catch (Exception e)
                     {
-                        if (!(ok = System.Windows.MessageBox.Show(string.Format(LibStrings.FindResource("LoadError").Replace("\\n", "\r"), e.Message, i + 1, commands[i]), "ioSender", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes))
+                        // TODO: Replace with Avalonia MessageBox implementation
+                        if (!(ok = true)) // System.Windows.MessageBox.Show(string.Format(LibStrings.FindResource("LoadError").Replace("\\n", "\r"), e.Message, i + 1, commands[i]), "ioSender", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes))
                             break;
                     }
                 }
