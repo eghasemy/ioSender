@@ -1,21 +1,21 @@
 ﻿<UserControl x:Class="CNC.Controls.MacroExecuteControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:system="using:System;assembly=System.Runtime"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CNC.Controls"
+             xmlns:local="using:CNC.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="220" d:DesignWidth="315"
-             Loaded="macroExecuteControl_Loaded">
+            >
     <UserControl.Resources>
-        <system:String x:Uid="str_macrosFlyout" x:Key="MenuLabel">_Macros</system:String>
-        <system:String x:Uid="str_runMacro" x:Key="RunMacro">Run {0} macro?</system:String>
-        <Style x:Key="SmallXButtonStyle" TargetType="Button">
+        <system:String x:Key="x:Key="MenuLabel"">_Macros</system:String>
+        <system:String x:Key="x:Key="RunMacro"">Run {0} macro?</system:String>
+        <Style x:Key="x:Key="SmallXButtonStyle"" Selector="TargetType="Button"">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
+                    <ControlTemplate Selector="TargetType="Button"">
                         <Grid Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center"/>
                         </Grid>
@@ -29,7 +29,7 @@
             <ItemsControl ItemsSource="{Binding Path=Macros, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Width="140" Height="25" Focusable="False" Margin="5 3 0 0" Content="{Binding Path=Name}" Tag="{Binding Path=Id}"  VerticalAlignment="Top" Click="button_Click">
+                        <Button Width="140" Height="25" Focusable="False" Margin="5 3 0 0" Content="{Binding Path=Name}" Tag="{Binding Path=Id}"  VerticalAlignment="Top">
                         </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -39,9 +39,9 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <TextBlock x:Uid="lbl_noMacrosDefined" Text="No macros defined, use Edit button to add." TextWrapping="Wrap" Visibility="{Binding Path=IsMessageVisible, RelativeSource={RelativeSource AncestorType=UserControl}}" HorizontalAlignment="Center" Margin="0,80,0,0" Width="290" VerticalAlignment="Top"/>
-            <Button x:Uid="btn_edit" Content="Edit" Padding="5,0" MinWidth="60" Height="25" HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Click="button_Edit" />
-            <Button Content="×" Focusable="False" Style="{StaticResource SmallXButtonStyle}" VerticalContentAlignment="Top" HorizontalAlignment="Left" Margin="297,0,0,0" VerticalAlignment="Top" Width="14" Height="18" Click="btn_Close"/>
+            <TextBlock Text="No macros defined, use Edit button to add." TextWrapping="Wrap" IsVisible="{Binding Path=IsMessageVisible, RelativeSource={RelativeSource AncestorType=UserControl}}" HorizontalAlignment="Center" Margin="0,80,0,0" Width="290" VerticalAlignment="Top"/>
+            <Button Content="Edit" Padding="5,0" MinWidth="60" Height="25" HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" />
+            <Button Content="×" Focusable="False" Classes=" SmallXButtonStyle}" VerticalContentAlignment="Top" HorizontalAlignment="Left" Margin="297,0,0,0" VerticalAlignment="Top" Width="14" Height="18"/>
         </Grid>
     </Border>
 </UserControl>

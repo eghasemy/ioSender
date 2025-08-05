@@ -16,6 +16,13 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
+  <!-- Avalonia packages -->
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+  </ItemGroup>
+
   <!-- Package references -->
   <ItemGroup>
     <!-- Note: HelixToolkit.Wpf will need to be replaced with a cross-platform 3D library for full cross-platform support -->
@@ -27,18 +34,10 @@
     <ProjectReference Include="..\..\CNC Core\CNC Core\CNC Core.csproj" />
   </ItemGroup>
 
-  <!-- Remove the default Compile items to avoid duplicates -->
+  <!-- Include all source files for Avalonia build -->
   <ItemGroup>
-    <Compile Remove="**/*.cs" />
-    <Page Remove="**/*.xaml" />
-    <Resource Remove="**/*" />
-  </ItemGroup>
-
-  <!-- For cross-platform build, include basic viewer components without WPF UI -->
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <!-- Note: UI components temporarily excluded for cross-platform compatibility -->
-    <!-- Full 3D viewer functionality will require cross-platform UI framework -->
+    <Compile Include="**/*.cs" />
+    <AvaloniaResource Include="**/*.xaml" />
   </ItemGroup>
 
 </Project>

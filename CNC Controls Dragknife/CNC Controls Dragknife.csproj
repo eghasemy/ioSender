@@ -16,23 +16,23 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
+  <!-- Avalonia packages -->
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+  </ItemGroup>
+
   <!-- Project references -->
   <ItemGroup>
     <ProjectReference Include="..\CNC Controls\CNC Controls\CNC Controls.csproj" />
     <ProjectReference Include="..\CNC Core\CNC Core\CNC Core.csproj" />
   </ItemGroup>
 
-  <!-- Remove the default Compile items to avoid duplicates -->
+  <!-- Include all source files for Avalonia build -->
   <ItemGroup>
-    <Compile Remove="**/*.cs" />
-    <Page Remove="**/*.xaml" />
-    <Resource Remove="**/*" />
-  </ItemGroup>
-
-  <!-- For cross-platform build, include core dragknife logic -->
-  <ItemGroup>
-    <Compile Include="DragknifeViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="**/*.cs" />
+    <AvaloniaResource Include="**/*.xaml" />
   </ItemGroup>
 
 </Project>

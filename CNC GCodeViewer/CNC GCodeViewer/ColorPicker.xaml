@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="CNC.Controls.Viewer.ColorPicker"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CNC.Controls.Viewer"
-             xmlns:Controls="clr-namespace:CNC.Controls;assembly=CNC.Controls.WPF"
+             xmlns:local="using:CNC.Controls.Viewer"
+             xmlns:Controls="using:CNC.Controls;assembly=CNC.Controls.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="24" d:DesignWidth="110">
     <UserControl.Resources>
@@ -71,14 +71,14 @@
 
             </Button>
         </Border>
-        <Button Grid.Column="1" Content="v" Style="{DynamicResource ButtonStyle1}" Width="22" Height="22" BorderBrush="DarkGray" Click="Popup_Open" LostFocus="Popup_Close"/>
+        <Button Grid.Column="1" Content="v" Style="{DynamicResource ButtonStyle1}" Width="22" Height="22" BorderBrush="DarkGray" LostFocus="Popup_Close"/>
         <Popup IsOpen = "{Binding IsPickerOpen, RelativeSource={RelativeSource AncestorType=UserControl}}"    
                PlacementTarget = "{Binding ElementName = colorPicker}"
                AllowsTransparency = "True"
                PopupAnimation = "Slide"
                LostFocus="Popup_Close">
             <Canvas x:Name="popup" Width = "225" Height = "300" Background = "LightGray">
-                <Button Content="×" Focusable="False" Style="{StaticResource SmallXButtonStyle}" VerticalContentAlignment="Top" HorizontalAlignment="Right" Margin="205,0,5,0" VerticalAlignment="Top" Width="14" Height="18" Click="Popup_Close"/>
+                <Button Content="×" Focusable="False" Style="{StaticResource SmallXButtonStyle}" VerticalContentAlignment="Top" HorizontalAlignment="Right" Margin="205,0,5,0" VerticalAlignment="Top" Width="14" Height="18"/>
             </Canvas>
         </Popup>
     </Grid>

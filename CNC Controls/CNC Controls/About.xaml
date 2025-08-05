@@ -8,7 +8,7 @@
         Title="About" Height="350" Width="450" CanResize="False" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        <local:StringCollectionToTextConverter x:Key="OcToString" />
+        <local:StringCollectionToTextConverter x:Key="x:Key="OcToString"" />
     </Window.Resources>
     <Grid Background="#FFF8F8F8">
         <Grid.RowDefinitions>

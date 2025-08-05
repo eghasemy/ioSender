@@ -1,16 +1,16 @@
 ﻿<UserControl x:Class="CNC.Controls.MachinePositionFlyout"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:system="using:System;assembly=System.Runtime"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CNC.Controls"
-             xmlns:core="clr-namespace:CNC.Core;assembly=CNC.Core"
+             xmlns:local="using:CNC.Controls"
+             xmlns:core="using:CNC.Core"
              mc:Ignorable="d"
              d:DesignHeight="90" Width="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
-            <system:String x:Uid="str_mposFlyout" x:Key="MenuLabel">M_Pos</system:String>
+            <system:String x:Key="x:Key="MenuLabel"">M_Pos</system:String>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SharedStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -25,16 +25,16 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <local:NumericField Label="X:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.X, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Top"/>
-                <local:NumericField Label="Y:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.Y, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Style="{StaticResource YAxisVisibleStyle}"/>
-                <local:NumericField Label="Z:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.Z, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Style="{StaticResource ZAxisVisibleStyle}"/>
+                <local:NumericField Label="Y:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.Y, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Classes=" YAxisVisibleStyle}"/>
+                <local:NumericField Label="Z:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.Z, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Classes=" ZAxisVisibleStyle}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <local:NumericField Label="A:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.A, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Top" Style="{StaticResource AAxisVisibleStyle}" />
-                <local:NumericField Label="B:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.B, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Style="{StaticResource BAxisVisibleStyle}"/>
-                <local:NumericField Label="C:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.C, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Style="{StaticResource CAxisVisibleStyle}"/>
+                <local:NumericField Label="A:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.A, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Top" Classes=" AAxisVisibleStyle}" />
+                <local:NumericField Label="B:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.B, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Classes=" BAxisVisibleStyle}"/>
+                <local:NumericField Label="C:" Unit="" ColonAt="20" Value="{Binding Path=MachinePosition.C, Mode=OneWay}" Format="{Binding Path=FormatSigned}" IsReadOnly="True" HorizontalAlignment="Left" Margin="-10,0,0,0" VerticalAlignment="Top" Classes=" CAxisVisibleStyle}"/>
             </StackPanel>
-            <TextBlock x:Uid="lbl_machinePosition" Text="Machine Position" Margin="0,4,0,0"/>
-            <Button Content="×" Focusable="False" Style="{StaticResource SmallXButtonStyle}" VerticalContentAlignment="Top" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Top" Width="14" Height="18" Click="btn_Close"/>
+            <TextBlock Text="Machine Position" Margin="0,4,0,0"/>
+            <Button Content="×" Focusable="False" Classes=" SmallXButtonStyle}" VerticalContentAlignment="Top" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Top" Width="14" Height="18"/>
         </Grid>
     </Border>
 </UserControl>
