@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -67,10 +67,10 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(Origin), typeof(OriginControl), new PropertyMetadata(Origin.None));
+                public static readonly StyledProperty<Origin> ValueProperty = AvaloniaProperty.Register<OriginControl, Origin>(nameof(Value), default);
         public Origin Value
         {
-            get { return (Origin)GetValue(ValueProperty); }
+            get { return GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
     }

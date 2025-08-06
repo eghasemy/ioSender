@@ -37,14 +37,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Data;
 using System;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
 
@@ -61,8 +62,8 @@ namespace CNC.Controls.Lathe
 
         }
         public bool xmodeenabled { get; set; }
-        public Visibility threadVisibility { get; set; }
-        public Visibility rpmVisibility { get; set; }
+        public bool threadVisibility { get; set; }
+        public bool rpmVisibility { get; set; }
         public ObservableCollection<ProfileData> Profiles { get; set; }
 
         ProfileData _profile;
@@ -96,8 +97,8 @@ namespace CNC.Controls.Lathe
 
             profile.xmode = options.ActiveProfile.xmode;
             profile.xmodeenabled = !options.ActiveProfile.xmodelock;
-            profile.threadVisibility = options.ProfileName == "Threading" ? Visibility.Hidden : Visibility.Visible;
-            profile.rpmVisibility = options.ProfileName != "Threading" ? Visibility.Hidden : Visibility.Visible;
+            profile.threadVisibility = options.ProfileName == "Threading" ? false : true;
+            profile.rpmVisibility = options.ProfileName != "Threading" ? false : true;
             profile.Profiles = options.Profiles;
 
             DataContext = profile;
@@ -171,12 +172,12 @@ namespace CNC.Controls.Lathe
             {
                 var targetProperty = type.GetProperty(sourceProperty.Name);
                 if(targetProperty.CanWrite)
-                    targetProperty.SetValue(target, sourceProperty.GetValue(source, null), null);
+                    // TODO: Convert to Avalonia property setter - // TODO: Convert to Avalonia property getter - targetProperty.SetValue(target, sourceProperty.GetValue(source, null), null);
             }
             //foreach (var sourceField in type.GetFields())
             //{
             //    var targetField = type.GetField(sourceField.Name);
-            //    targetField.SetValue(target, sourceField.GetValue(source));
+            // TODO: Convert to Avalonia property setter - // TODO: Convert to Avalonia property getter - //    targetField.SetValue(target, sourceField.GetValue(source));
             //}
         }
     }

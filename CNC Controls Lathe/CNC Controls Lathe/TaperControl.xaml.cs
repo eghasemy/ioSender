@@ -38,9 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
     /// <summary>
@@ -73,29 +74,29 @@ namespace CNC.Controls.Lathe
       //  public string Format { get { return data.Format;  } }
 
 
-        public static readonly DependencyProperty IsTaperEnabledProperty = DependencyProperty.Register(nameof(IsTaperEnabled), typeof(bool), typeof(TaperControl), new PropertyMetadata(/*"Label:"  , new PropertyChangedCallback(OnLabelChanged)*/));
+                public static readonly StyledProperty<bool> IsTaperEnabledProperty = AvaloniaProperty.Register<TaperControl, bool>(nameof(IsTaperEnabled), false);
         public bool IsTaperEnabled
         {
-            get { return (bool)GetValue(IsTaperEnabledProperty); }
+            get { return GetValue(IsTaperEnabledProperty); }
             set { SetValue(IsTaperEnabledProperty, value); }
         }
 
-        public static readonly DependencyProperty FormatProperty = DependencyProperty.Register(nameof(Format), typeof(string), typeof(TaperControl), new PropertyMetadata("##0", new PropertyChangedCallback(OnFormatChanged)));
+                public static readonly StyledProperty<string> FormatProperty = AvaloniaProperty.Register<TaperControl, string>(nameof(Format), string.Empty);
         public string Format
         {
-            get { return (string)GetValue(FormatProperty); }
+            get { return GetValue(FormatProperty); }
             set { SetValue(FormatProperty, value); }
         }
 
-        private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFormatChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             ((TaperControl)d).data.Format = (string)e.NewValue;
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(TaperControl), new PropertyMetadata(/*"Label:"  , new PropertyChangedCallback(OnLabelChanged)*/));
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<TaperControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
+            get { return GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
     }

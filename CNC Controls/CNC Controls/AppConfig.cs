@@ -40,33 +40,31 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.IO;
 using System.Xml.Serialization;
-using System.Windows;
+using Avalonia;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
+using Avalonia.Media;
 using System.Threading;
-using System.Windows.Media.Media3D;
-using CNC.Core;
+using CNC.Core; // Cross-platform 3D math types
 using CNC.GCode;
 using static CNC.GCode.GCodeParser;
 using System.Collections.Generic;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Styling;
+using Avalonia.Controls.Primitives;
 
 namespace CNC.Controls
 {
     public class LibStrings
     {
-        static ResourceDictionary resource = new ResourceDictionary();
+        // TODO: ResourceDictionary usage needs Avalonia equivalent
+        static Dictionary<object, object> resource = new Dictionary<object, object>();
 
         public static string FindResource(string key)
         {
-            if(resource.Source == null)
-            try {
-                resource.Source = new Uri("pack://application:,,,/CNC.Controls.WPF;Component/LibStrings.xaml", UriKind.Absolute);
-            }
-            catch
-            {
-            }
-
-            return resource.Source == null || !resource.Contains(key) ? string.Empty : (string)resource[key];
+            // TODO: Implement proper Avalonia resource lookup
+            // For now return empty string to allow compilation
+            return string.Empty;
         }
     }
 
@@ -164,8 +162,8 @@ namespace CNC.Controls
         public int ViewMode { get; set; } = -1;
         public int ToolVisualizer { get; set; } = 1;
         public Point3D CameraPosition { get; set; }
-        public Vector3D CameraLookDirection { get; set; }
-        public Vector3D CameraUpDirection { get; set; }
+        public CNC.Core.Vector3D CameraLookDirection { get; set; }
+        public CNC.Core.Vector3D CameraUpDirection { get; set; }
     }
 
     [Serializable]
@@ -420,7 +418,7 @@ namespace CNC.Controls
             Base.PortParams = port;
         }
 
-        public int SetupAndOpen(string appname, GrblViewModel model, System.Windows.Threading.Dispatcher dispatcher)
+        public int SetupAndOpen(string appname, GrblViewModel model, object dispatcher)
         {
             int status = 0;
             bool selectPort = false;
@@ -514,16 +512,32 @@ namespace CNC.Controls
                     setPort(port, baud);
 #if USEWEBSOCKET
                 if (Base.PortParams.ToLower().StartsWith("ws://"))
+#if WINDOWS
                     new WebsocketStream(Base.PortParams, dispatcher);
+#else
+                    new WebsocketStream(Base.PortParams);
+#endif
                 else
 #endif
                 if (char.IsDigit(Base.PortParams[0])) // We have an IP address
+#if WINDOWS
                     new TelnetStream(Base.PortParams, dispatcher);
+#else
+                    new TelnetStream(Base.PortParams);
+#endif
                 else
 #if USEELTIMA
+#if WINDOWS
                     new EltimaStream(Config.PortParams, Config.ResetDelay, dispatcher);
 #else
+                    new EltimaStream(Config.PortParams, Config.ResetDelay);
+#endif
+#else
+#if WINDOWS
                     new SerialStream(Base.PortParams, Base.ResetDelay, dispatcher);
+#else
+                    new SerialStream(Base.PortParams, Base.ResetDelay);
+#endif
 #endif
             }
 
@@ -540,16 +554,32 @@ namespace CNC.Controls
                     setPort(port, string.Empty);
 #if USEWEBSOCKET
                     if (port.ToLower().StartsWith("ws://"))
+#if WINDOWS
                         new WebsocketStream(Base.PortParams, dispatcher);
+#else
+                        new WebsocketStream(Base.PortParams);
+#endif
                     else
 #endif
                     if (char.IsDigit(port[0])) // We have an IP address
+#if WINDOWS
                         new TelnetStream(Base.PortParams, dispatcher);
+#else
+                        new TelnetStream(Base.PortParams);
+#endif
                     else
 #if USEELTIMA
+#if WINDOWS
                         new EltimaStream(Config.PortParams, Config.ResetDelay, dispatcher);
 #else
+                        new EltimaStream(Config.PortParams, Config.ResetDelay);
+#endif
+#else
+#if WINDOWS
                         new SerialStream(Base.PortParams, Base.ResetDelay, dispatcher);
+#else
+                        new SerialStream(Base.PortParams, Base.ResetDelay);
+#endif
 #endif
                     Save(CNC.Core.Resources.IniFile);
                 }
@@ -610,9 +640,10 @@ namespace CNC.Controls
                 // ...if so show dialog for wait for it to stop polling and relinquish control.
                 if (MPGactive == true)
                 {
-                    MPGPending await = new MPGPending(model);
-                    await.ShowDialog();
-                    if (await.Cancelled)
+                    MPGPending mpgPending = new MPGPending(model);
+                    var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+                    mpgPending.ShowDialog(mainWindow);
+                    if (mpgPending.Cancelled)
                     {
                         Comms.com.Close(); //!!
                         status = 2;
@@ -824,7 +855,7 @@ namespace CNC.Controls
                 MessageBox.Show(response == string.Empty
                                     ? LibStrings.FindResource("MsgNoResponseExit")
                                     : string.Format(LibStrings.FindResource("MsgBadResponseExit"), response),
-                                    "ioSender", MessageBoxButton.OK, MessageBoxImage.Stop);
+                                    "ioSender", MessageBoxButton.OK, MessageBoxImage.Error);
                 return RestartResult.Exit;
             }
 

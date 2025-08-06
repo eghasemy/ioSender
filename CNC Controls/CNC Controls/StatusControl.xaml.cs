@@ -37,11 +37,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
 
@@ -60,7 +62,7 @@ namespace CNC.Controls
         {
             InitializeComponent();
 
-            HomeButtonColor = btnHome.Background;
+            HomeButtonColor = btnHome.Background as Brush;
 
             btnHome.Tag = StatusButton.Home;
             btnReset.Tag = StatusButton.Reset;
@@ -75,7 +77,7 @@ namespace CNC.Controls
                 case StatusButton.Reset:
                     var model = (DataContext as GrblViewModel);
                     if (model.GrblState.State == GrblStates.Alarm && model.GrblState.Substate == 10 && model.Signals.Value.HasFlag(Signals.EStop))
-                        MessageBox.Show((string)FindResource("ClearEStop"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        MessageBox.Show((string)this.FindResource("ClearEStop"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     else
                         Grbl.Reset();
                     break;

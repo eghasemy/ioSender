@@ -39,8 +39,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Text;
-using System.Windows.Threading;
+#if WINDOWS
+using Avalonia.Threading;
+#endif
 using WebSocketSharp;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {
@@ -51,15 +54,23 @@ namespace CNC.Core
         private volatile bool _isOpen = false;
         private volatile Comms.State state = Comms.State.ACK;
         private StringBuilder input = new StringBuilder(1024);
+#if WINDOWS
         private Dispatcher Dispatcher { get; set; }
+#endif
 
         public event DataReceivedHandler DataReceived;
 
-        public WebsocketStream(string host, Dispatcher dispatcher)
+        public WebsocketStream(string host
+#if WINDOWS
+            , Dispatcher dispatcher
+#endif
+            )
         {
             Comms.com = this;
             Reply = string.Empty;
+#if WINDOWS
             Dispatcher = dispatcher;
+#endif
 
             try
             {
@@ -222,7 +233,11 @@ namespace CNC.Core
                         input.Remove(0, pos + 1);
                         state = Reply == "ok" ? Comms.State.ACK : (Reply.StartsWith("error") ? Comms.State.NAK : Comms.State.DataReceived);
                         if (Reply.Length != 0 && DataReceived != null)
+#if WINDOWS
                             Dispatcher.Invoke(DataReceived, Reply);
+#else
+                            DataReceived?.Invoke(Reply);
+#endif
                     }
                 }
                 else

@@ -1,0 +1,42 @@
+﻿<Window x:Class="CNC.Controls.About"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:CNC.Controls"
+        mc:Ignorable="d"
+        Title="About" Height="350" Width="450" CanResize="False" ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <local:StringCollectionToTextConverter x:Key="OcToString" />
+    </Window.Resources>
+    <Grid Background="#FFF8F8F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="copyright" Content="©2015-2025 Io Engineering (Terje Io)" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Top"/>
+        <HeaderedContentControl x:Name="grpGrbl" Header="grbl" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical">
+                <Label x:Name="txtGrblVersion" Content="-" HorizontalAlignment="Left" Margin="10,0,5,0" VerticalAlignment="Bottom" Height="20" Padding="0"/>
+                <Label x:Name="txtGrblOptions" Content="-" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Bottom" Height="20" Padding="0"/>
+                <Label x:Name="txtGrblNewOpts" Content="-" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Bottom" Height="20" Padding="0"/>
+                <Label x:Name="txtGrblConnection" Content="-" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Bottom" Height="20" Padding="0"/>
+                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Height="145" Width="410" TextWrapping="Wrap" VerticalAlignment="Top"
+                     FontSize="10" FontFamily="Verdana">
+                    <TextBox.Text>
+                        <MultiBinding Converter="{StaticResource OcToString}">
+                            <Binding Path="SystemInfo" Mode="OneWay"/>
+                            <Binding Path="SystemInfo.Count" Mode="OneWay" />
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+        </HeaderedContentControl>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,5,0,5">
+            <Button x:Name="btnOk" Content="Ok" HorizontalAlignment="Center" VerticalAlignment="Top" Width="85"/>
+            <Button x:Name="btnToClipboard" Content="To Clipboard" ToolTip.Tip="Copy grbl version information and settings to clipboard" Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="85"/>
+        </StackPanel>
+    </Grid>
+</Window>

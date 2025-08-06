@@ -38,7 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows.Threading;
+#if WINDOWS
+using Avalonia.Threading;
+using Avalonia.Controls;
+#endif
 
 namespace CNC.Core
 {
@@ -103,15 +106,17 @@ namespace CNC.Core
     {
         public static void DoEvents()
         {
-            DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
-            Dispatcher.PushFrame(frame);
+            // DispatcherFrame frame = new DispatcherFrame();
+            // Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
+            // Dispatcher.PushFrame(frame);
+            // Commented out for cross-platform build - using Thread.Yield instead
+            System.Threading.Thread.Yield();
         }
 
         public static object ExitFrame(object f)
         {
-            ((DispatcherFrame)f).Continue = false;
-
+            // ((DispatcherFrame)f).Continue = false;
+            // Commented out for cross-platform build
             return null;
         }
     }

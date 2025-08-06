@@ -37,9 +37,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -55,17 +56,17 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(CoordValueSetControl), new PropertyMetadata(double.NaN));
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<CoordValueSetControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
+            get { return GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(CoordValueSetControl), new PropertyMetadata());
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<CoordValueSetControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
+            get { return GetValue(LabelProperty); }
             set { SetValue(LabelProperty, value); }
         }
 

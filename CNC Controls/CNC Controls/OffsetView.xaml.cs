@@ -38,12 +38,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
 using System.Threading;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -68,17 +69,17 @@ namespace CNC.Controls
         public AxisFlags AxisEnabledFlags { get { return GrblInfo.AxisFlags; } }
         public CoordinateSystem Offset { get; private set; } = new CoordinateSystem();
 
-        public static readonly DependencyProperty CanEditProperty = DependencyProperty.Register(nameof(CanEdit), typeof(bool), typeof(OffsetView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> CanEditProperty = AvaloniaProperty.Register<OffsetView, bool>(nameof(CanEdit), false);
         public bool CanEdit
         {
-            get { return (bool)GetValue(CanEditProperty); }
+            get { return GetValue(CanEditProperty); }
             set { SetValue(CanEditProperty, value); }
         }
 
-        public static readonly DependencyProperty IsPredefinedProperty = DependencyProperty.Register(nameof(IsPredefined), typeof(bool), typeof(OffsetView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> IsPredefinedProperty = AvaloniaProperty.Register<OffsetView, bool>(nameof(IsPredefined), false);
         public bool IsPredefined
         {
-            get { return (bool)GetValue(IsPredefinedProperty); }
+            get { return GetValue(IsPredefinedProperty); }
             set { SetValue(IsPredefinedProperty, value); }
         }
 

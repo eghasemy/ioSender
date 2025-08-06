@@ -40,11 +40,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Linq;
 using System.Text;
+#if WINDOWS
 using System.Windows.Forms;
+#endif
 using System.IO.Ports;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using System.IO;
 using System.Collections.ObjectModel;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {

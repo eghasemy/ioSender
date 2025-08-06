@@ -38,10 +38,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Controls.Primitives;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Viewer
 {
     /// <summary>
@@ -56,21 +58,26 @@ namespace CNC.Controls.Viewer
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor), typeof(Color), typeof(ColorPicker), new PropertyMetadata(Colors.AliceBlue, new PropertyChangedCallback(OnIsSelectedColorChanged)));
+        public static readonly StyledProperty<Color> SelectedColorProperty = AvaloniaProperty.Register<ColorPicker, Color>(nameof(SelectedColor), Colors.AliceBlue);
+        
+        static ColorPicker()
+        {
+            SelectedColorProperty.Changed.AddClassHandler<ColorPicker>((x, e) => x.OnIsSelectedColorChanged(e));
+        }
         public Color SelectedColor
         {
-            get { return (Color)GetValue(SelectedColorProperty); }
+            get { return GetValue(SelectedColorProperty); }
             set { SetValue(SelectedColorProperty, value); }
         }
-        private static void OnIsSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void OnIsSelectedColorChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            ((ColorPicker)d).cbut.Background = new SolidColorBrush((Color)e.NewValue);
+            cbut.Background = new SolidColorBrush((Color)e.NewValue);
         }
 
-        public static readonly DependencyProperty IsPickerOpenProperty = DependencyProperty.Register(nameof(IsPickerOpen), typeof(bool), typeof(ColorPicker), new PropertyMetadata(false));
+        public static readonly StyledProperty<bool> IsPickerOpenProperty = AvaloniaProperty.Register<ColorPicker, bool>(nameof(IsPickerOpen), false);
         public bool IsPickerOpen
         {
-            get { return (bool)GetValue(IsPickerOpenProperty); }
+            get { return GetValue(IsPickerOpenProperty); }
             set { SetValue(IsPickerOpenProperty, value); }
         }
 

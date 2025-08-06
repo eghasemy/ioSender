@@ -37,9 +37,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class GotoFlyoutControl : UserControl, ISidebarControl
@@ -48,11 +49,11 @@ namespace CNC.Controls
         {
             InitializeComponent();
         }
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            IsVisible = false;
         }
     }
 }

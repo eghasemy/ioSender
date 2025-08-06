@@ -37,11 +37,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
+using Avalonia;
 using CNC.Core;
+using CNC.GCode;
 using System;
-using System.Windows.Controls;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class PortDialog : Window
@@ -120,7 +122,8 @@ namespace CNC.Controls
                 }
             }
 
-            ShowDialog();
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            ShowDialog(mainWindow);
 
             return port;
         }

@@ -10,6 +10,7 @@
 
 namespace CNC.Controls.Viewer.Properties {
     using System;
+using Avalonia.Controls;
     
     
     /// <summary>

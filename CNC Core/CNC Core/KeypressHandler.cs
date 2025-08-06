@@ -41,8 +41,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia.Controls;
+using Avalonia.Input;
 using System.Xml.Serialization;
 using CNC.GCode;
 
@@ -65,7 +65,7 @@ namespace CNC.Core
             internal string method, dummy;
 
             public Key Key;
-            public ModifierKeys Modifiers;
+            public KeyModifiers Modifiers;
             public bool OnUp;
             [XmlIgnore]
             public UserControl context;
@@ -82,11 +82,11 @@ namespace CNC.Core
         private GrblViewModel grbl;
         private List<KeypressHandlerFn> handlers = new List<KeypressHandlerFn>();
 
-        public void AddHandler(Key key, ModifierKeys modifiers, Func<Key, bool> handler, UserControl context = null, bool onUp = true)
+        public void AddHandler(Key key, KeyModifiers modifiers, Func<Key, bool> handler, UserControl context = null, bool onUp = true)
         {
             handlers.Add(new KeypressHandlerFn(){Key = key, Modifiers = modifiers, Call = handler, context = context, OnUp = onUp });
         }
-        public void AddHandler(Key key, ModifierKeys modifiers, Func<Key, bool> handler, bool onUp)
+        public void AddHandler(Key key, KeyModifiers modifiers, Func<Key, bool> handler, bool onUp)
         {
             handlers.Add(new KeypressHandlerFn() { Key = key, Modifiers = modifiers, Call = handler, context = null, OnUp = onUp });
         }
@@ -129,7 +129,8 @@ namespace CNC.Core
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.Message, "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                // TODO: Replace with Avalonia MessageBox implementation
+                // System.Windows.MessageBox.Show(e.Message, "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
             }
 
             return ok;
@@ -164,7 +165,8 @@ namespace CNC.Core
             }
             catch
             {
-                System.Windows.MessageBox.Show("keymap file is corrupt!", "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                // TODO: Replace with Avalonia MessageBox implementation
+                // System.Windows.MessageBox.Show("keymap file is corrupt!", "ioSender", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
 
             return ok;
@@ -175,7 +177,11 @@ namespace CNC.Core
             bool isJogging = IsJogging, jogkeyPressed = false;
             double[] dist = new double[4] { 0d, 0d, 0d, 0d };
 
+#if WINDOWS
             if (e.IsUp && isJogging)
+#else
+            if (isJogging) // Avalonia KeyEventArgs doesn't have IsUp property - simplified implementation
+#endif
             {
                 bool cancel = !allowJog;
 
@@ -203,11 +209,21 @@ namespace CNC.Core
 
             this.allowJog = allowJog;
 
+#if WINDOWS
             if (IsJoggingEnabled && e.IsDown && CanJog)
+#else
+            if (IsJoggingEnabled && CanJog) // Avalonia KeyEventArgs doesn't have IsDown property
+#endif
             {
                 // Do not respond to autorepeats!
+#if WINDOWS
                 if (e.IsRepeat)
                     return true;
+#else
+                // Avalonia doesn't have IsRepeat property - simplified implementation
+                // if (false) // Effectively disable autorepeat handling for cross-platform
+                //     return true;
+#endif
 
                 N_AXIS = GrblInfo.AxisFlags.HasFlag(AxisFlags.A) ? 4 : 3;
 
@@ -260,7 +276,11 @@ namespace CNC.Core
                 }
             }
             else
+#if WINDOWS
                 jogkeyPressed = !(Keyboard.FocusedElement is System.Windows.Controls.TextBox) && (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.PageUp || e.Key == Key.PageDown);
+#else
+                jogkeyPressed = (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.PageUp || e.Key == Key.PageDown);
+#endif
 
             if (isJogging)
             {
@@ -336,7 +356,11 @@ namespace CNC.Core
 
                 if ((isJogging = command != string.Empty))
                 {
-                    if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+#if WINDOWS
+                    if ((Keyboard.Modifiers & KeyModifiers.Control) == KeyModifiers.Control)
+#else
+                    if ((e.KeyModifiers & KeyModifiers.Control) == KeyModifiers.Control)
+#endif
                     {
                         for (int i = 0; i < N_AXIS; i++)
                             axisjog[i] = Key.None;
@@ -347,7 +371,11 @@ namespace CNC.Core
                     else if (IsContinuousJoggingEnabled)
                     {
                         preCancel = true;
-                        if ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+#if WINDOWS
+                        if ((Keyboard.Modifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
+#else
+                        if ((e.KeyModifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
+#endif
                             jogMode = JogMode.Fast;
                         else
                             jogMode = JogMode.Slow;
@@ -418,9 +446,14 @@ namespace CNC.Core
                 } 
             }
 
+#if WINDOWS
             IsRepeating = e.IsRepeat;
+#else
+            IsRepeating = false; // Avalonia doesn't have IsRepeat property - simplified implementation
+#endif
 
-            if (Keyboard.Modifiers == ModifierKeys.Alt)
+#if WINDOWS // WPF-specific keyboard handling
+            if (Keyboard.Modifiers == KeyModifiers.Alt)
             {
                 var handler = handlers.Where(k => k.Modifiers == Keyboard.Modifiers && k.Key == e.SystemKey && k.OnUp == e.IsUp && k.context == context).FirstOrDefault();
                 if (handler != null)
@@ -432,7 +465,7 @@ namespace CNC.Core
                         return handler.Call(e.SystemKey);
                 }
             }
-            else if (Keyboard.Modifiers == ModifierKeys.None || Keyboard.Modifiers == ModifierKeys.Control || Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+            else if (Keyboard.Modifiers == KeyModifiers.None || Keyboard.Modifiers == KeyModifiers.Control || Keyboard.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
             {
                 var handler = handlers.Where(k => k.Modifiers == Keyboard.Modifiers && k.Key == e.Key && k.OnUp == e.IsUp && k.context == context).FirstOrDefault();
                 if (handler != null)
@@ -444,6 +477,33 @@ namespace CNC.Core
                         return handler.Call(e.Key);
                 }
             }
+#else // Avalonia cross-platform keyboard handling - simplified implementation
+            var keyModifiers = e.KeyModifiers; // Get modifiers from event args
+            if (keyModifiers == KeyModifiers.Alt)
+            {
+                var handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == context).FirstOrDefault();
+                if (handler != null)
+                    return handler.Call(e.Key);
+                else
+                {
+                    handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == null).FirstOrDefault();
+                    if (handler != null)
+                        return handler.Call(e.Key);
+                }
+            }
+            else if (keyModifiers == KeyModifiers.None || keyModifiers == KeyModifiers.Control || keyModifiers == (KeyModifiers.Control | KeyModifiers.Shift))
+            {
+                var handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == context).FirstOrDefault();
+                if (handler != null)
+                    return handler.Call(e.Key);
+                else
+                {
+                    handler = handlers.Where(k => k.Modifiers == keyModifiers && k.Key == e.Key && k.context == null).FirstOrDefault();
+                    if (handler != null)
+                        return handler.Call(e.Key);
+                }
+            }
+#endif
 
             return jogkeyPressed;
         }

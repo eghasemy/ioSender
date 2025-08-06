@@ -39,10 +39,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -60,17 +62,17 @@ namespace CNC.Controls
             Macros = AppConfig.Settings.Macros;
         }
 
-        public static readonly DependencyProperty MacrosProperty = DependencyProperty.Register(nameof(MacroToolbarControl.Macros), typeof(ObservableCollection<CNC.GCode.Macro>), typeof(MacroToolbarControl));
+        public static readonly StyledProperty<ObservableCollection<CNC.GCode.Macro>> MacrosProperty = AvaloniaProperty.Register<MacroToolbarControl, ObservableCollection<CNC.GCode.Macro>>(nameof(Macros));
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
-            get { return (ObservableCollection<CNC.GCode.Macro>)GetValue(MacrosProperty); }
+            get { return GetValue(MacrosProperty); }
             set { SetValue(MacrosProperty, value); }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var macro = Macros.FirstOrDefault(o => o.Id == (int)(sender as Button).Tag);
-            if (macro != null && (!macro.ConfirmOnExecute || MessageBox.Show(string.Format((string)FindResource("RunMacro"), macro.Name), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+            if (macro != null && (!macro.ConfirmOnExecute || MessageBox.Show(string.Format((string)this.FindResource("RunMacro"), macro.Name), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
                 (DataContext as GrblViewModel).ExecuteMacro(macro.Code);
         }
     }

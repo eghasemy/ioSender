@@ -42,9 +42,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows;
+using Avalonia.Controls;
+using Avalonia.Data;
+using Avalonia;
 using CNC.Core;
 using CNC.GCode;
 
@@ -102,7 +102,7 @@ namespace CNC.Controls.Lathe
             object[] result = new object[2];
 
             result[0] = value;
-            result[1] = DependencyProperty.UnsetValue;
+            result[1] = StyledProperty.UnsetValue;
 
             return result;
         }

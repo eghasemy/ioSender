@@ -38,14 +38,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CNC.Core;
 using CNC.GCode;
 using System.Threading;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class ToolView : UserControl, ICNCView

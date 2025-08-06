@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -54,31 +54,31 @@ namespace CNC.Controls
             //UnitProperty.OverrideMetadata(typeof(string), new PropertyMetadata("mm"));
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(LimitsBaseControl), new PropertyMetadata());
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<LimitsBaseControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
+            get { return GetValue(LabelProperty); }
             set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly DependencyProperty UnitProperty = DependencyProperty.Register(nameof(Unit), typeof(string), typeof(LimitsBaseControl), new PropertyMetadata("mm"));
+                public static readonly StyledProperty<string> UnitProperty = AvaloniaProperty.Register<LimitsBaseControl, string>(nameof(Unit), string.Empty);
         public string Unit
         {
-            get { return (string)GetValue(UnitProperty); }
+            get { return GetValue(UnitProperty); }
             set { SetValue(UnitProperty, value); }
         }
 
-        public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(nameof(MinValue), typeof(double), typeof(LimitsBaseControl), new PropertyMetadata());
+                public static readonly StyledProperty<double> MinValueProperty = AvaloniaProperty.Register<LimitsBaseControl, double>(nameof(MinValue), 0.0);
         public double MinValue
         {
-            get { return (double)GetValue(MinValueProperty); }
+            get { return GetValue(MinValueProperty); }
             set { SetValue(MinValueProperty, value); }
         }
 
-        public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(nameof(MaxValue), typeof(double), typeof(LimitsBaseControl), new PropertyMetadata());
+                public static readonly StyledProperty<double> MaxValueProperty = AvaloniaProperty.Register<LimitsBaseControl, double>(nameof(MaxValue), 0.0);
         public double MaxValue
         {
-            get { return (double)GetValue(MinValueProperty); }
+            get { return GetValue(MaxValueProperty); }
             set { SetValue(MaxValueProperty, value); }
         }
     }

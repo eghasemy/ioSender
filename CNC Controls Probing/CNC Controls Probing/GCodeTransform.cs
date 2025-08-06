@@ -7,6 +7,7 @@ using CNC.GCode;
 using RP.Math;
 using System;
 using System.Collections.Generic;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {

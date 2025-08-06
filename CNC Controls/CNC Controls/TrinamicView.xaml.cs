@@ -38,17 +38,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Controls.Shapes;
 using System.Collections.Generic;
 using System.Threading;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using System.ComponentModel;
 using CNC.Core;
 using CNC.GCode;
-
+using Avalonia.Input;
+using Avalonia.Collections;
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -135,49 +137,49 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty SFiltEnabledProperty = DependencyProperty.Register(nameof(SFiltEnabled), typeof(bool), typeof(TrinamicView), new PropertyMetadata(false, new PropertyChangedCallback(OnSFiltEnabledChanged)));
+        public static readonly StyledProperty<bool> SFiltEnabledProperty = AvaloniaProperty.Register<TrinamicView, bool>(nameof(SFiltEnabled), false);
         public bool SFiltEnabled
         {
-            get { return (bool)GetValue(SFiltEnabledProperty); }
-            private set { SetValue(SFiltEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            private set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnSFiltEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSFiltEnabledChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             Comms.com.WriteCommand(string.Format("M122H{0}", (bool)e.NewValue == true ? 1 : 0));
         }
 
-        public static readonly DependencyProperty AxisEnabledProperty = DependencyProperty.Register(nameof(AxisEnabled), typeof(EnumFlags<AxisFlags>), typeof(TrinamicView), new PropertyMetadata(new EnumFlags<AxisFlags>(AxisFlags.X)));
+        public static readonly StyledProperty<EnumFlags<AxisFlags>> AxisEnabledProperty = AvaloniaProperty.Register<TrinamicView, EnumFlags<AxisFlags>>(nameof(AxisEnabled));
         public EnumFlags<AxisFlags> AxisEnabled
         {
-            get { return (EnumFlags<AxisFlags>)GetValue(AxisEnabledProperty); }
-            private set { SetValue(AxisEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            private set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        public static readonly DependencyProperty DriverStatusProperty = DependencyProperty.Register(nameof(DriverStatus), typeof(string), typeof(TrinamicView));
+                public static readonly StyledProperty<string> DriverStatusProperty = AvaloniaProperty.Register<TrinamicView, string>(nameof(DriverStatus), string.Empty);
         public string DriverStatus
         {
-            get { return (string)GetValue(DriverStatusProperty); }
+            get { return GetValue(DriverStatusProperty); }
             set { SetValue(DriverStatusProperty, value); }
         }
 
-        public static readonly DependencyProperty SGValueMinProperty = DependencyProperty.Register(nameof(SGValueMin), typeof(int), typeof(TrinamicView), new PropertyMetadata(-64));
+                public static readonly StyledProperty<int> SGValueMinProperty = AvaloniaProperty.Register<TrinamicView, int>(nameof(SGValueMin), 0);
         public int SGValueMin
         {
-            get { return (int)GetValue(SGValueMinProperty); }
+            get { return GetValue(SGValueMinProperty); }
             set { SetValue(SGValueMinProperty, value); }
         }
 
-        public static readonly DependencyProperty SGValueMaxProperty = DependencyProperty.Register(nameof(SGValueMax), typeof(int), typeof(TrinamicView), new PropertyMetadata(63));
+                public static readonly StyledProperty<int> SGValueMaxProperty = AvaloniaProperty.Register<TrinamicView, int>(nameof(SGValueMax), 0);
         public int SGValueMax
         {
-            get { return (int)GetValue(SGValueMaxProperty); }
+            get { return GetValue(SGValueMaxProperty); }
             set { SetValue(SGValueMaxProperty, value); }
         }
 
-        public static readonly DependencyProperty SGValueProperty = DependencyProperty.Register(nameof(SGValue), typeof(int), typeof(TrinamicView));
+                public static readonly StyledProperty<int> SGValueProperty = AvaloniaProperty.Register<TrinamicView, int>(nameof(SGValue), 0);
         public int SGValue
         {
-            get { return (int)GetValue(SGValueProperty); }
+            get { return GetValue(SGValueProperty); }
             set { SetValue(SGValueProperty, value); }
         }
         #endregion
@@ -203,7 +205,7 @@ namespace CNC.Controls
             GetDriverStatus(string.Empty);
         }
 
-        private void Slider_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Slider_LostMouseCapture(object sender, Avalonia.Input.PointerEventArgs e)
         {
             Comms.com.WriteString(string.Format("M914{0}{1}\r", AxisEnabled.Value.ToString(), SGValue));
         }
@@ -280,13 +282,11 @@ namespace CNC.Controls
             SGPlot.Children.Clear();
             SGPlot.Children.Add(new Line()
             {
-                X1 = 0d,
-                X2 = SGPlot.Width,
-                Y1 = SGPlot.Height / 2d,
-                Y2 = SGPlot.Height / 2d,
-                Stroke = Brushes.Black,
+                StartPoint = new Avalonia.Point(0d, SGPlot.Height / 2d),
+                EndPoint = new Avalonia.Point(SGPlot.Width, SGPlot.Height / 2d),
+                Stroke = new SolidColorBrush(Colors.Black),
                 StrokeThickness = 0.5d,
-                StrokeDashArray = new DoubleCollection() { 2d }
+                StrokeDashArray = new AvaloniaList<double>() { 2d }
             });
 
             double ydelta = SGPlot.Height / 10;
@@ -296,13 +296,11 @@ namespace CNC.Controls
             {
                 SGPlot.Children.Add(new Line()
                 {
-                    X1 = 0d,
-                    X2 = SGPlot.Width,
-                    Y1 = ypos,
-                    Y2 = ypos,
-                    Stroke = Brushes.DarkGray,
+                    StartPoint = new Avalonia.Point(0d, ypos),
+                    EndPoint = new Avalonia.Point(SGPlot.Width, ypos),
+                    Stroke = new SolidColorBrush(Colors.DarkGray),
                     StrokeThickness = 0.5d,
-                    StrokeDashArray = new DoubleCollection() { 2d }
+                    StrokeDashArray = new AvaloniaList<double>() { 2d }
                 });
 
                 ypos -= ydelta;
@@ -323,7 +321,7 @@ namespace CNC.Controls
             else if (data == "ok")
                 read_status = false;
             else if (read_status)
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, addData, data);
+                Dispatcher.UIThread.InvokeAsync(() => addData(data), DispatcherPriority.ContextIdle);
         }
 
         private void PlotSGValue(int value, int value2)
@@ -332,27 +330,31 @@ namespace CNC.Controls
 
             if (lines.Count != (int)SGPlot.Width)
             {
-                lines.Add(new Line()
+                var line = new Line()
                 {
-                    X1 = sg_index == 0 ? 0 : sg_index - 1,
-                    X2 = sg_index,
-                    Y1 = sg_index == 0 ? value : lines[sg_index - 1].Y2,
-                    Y2 = value,
+                    StartPoint = new Avalonia.Point(sg_index == 0 ? 0 : sg_index - 1, sg_index == 0 ? value : lines[sg_index - 1].StartPoint.Y),
+                    EndPoint = new Avalonia.Point(sg_index, value),
                     Stroke = Brushes.Blue
-                });
+                };
+                
+                Canvas.SetLeft(line, line.StartPoint.X);
+                Canvas.SetTop(line, line.StartPoint.Y);
+                lines.Add(line);
 
                 if(value2 >= 0)
                 {
                     value2 /= y_scale;
 
-                    lines2.Add(new Line()
+                    var line2 = new Line()
                     {
-                        X1 = sg_index == 0 ? 0 : sg_index - 1,
-                        X2 = sg_index,
-                        Y1 = sg_index == 0 ? value2 : lines2[sg_index - 1].Y2,
-                        Y2 = value2,
+                        StartPoint = new Avalonia.Point(sg_index == 0 ? 0 : sg_index - 1, sg_index == 0 ? value2 : lines2[sg_index - 1].StartPoint.Y),
+                        EndPoint = new Avalonia.Point(sg_index, value2),
                         Stroke = Brushes.Green
-                    });
+                    };
+                    
+                    Canvas.SetLeft(line2, line2.StartPoint.X);
+                    Canvas.SetTop(line2, line2.StartPoint.Y);
+                    lines2.Add(line2);
 
                     SGPlot.Children.Add(lines2[sg_index]);
                 }
@@ -362,13 +364,13 @@ namespace CNC.Controls
             else
             {
                 sg_index %= (int)SGPlot.Width;
-                lines[sg_index].Y1 = sg_index == 0 ? value : lines[sg_index - 1].Y2;
-                lines[sg_index].Y2 = value;
+                lines[sg_index].StartPoint = new Avalonia.Point(lines[sg_index].StartPoint.X, sg_index == 0 ? value : lines[sg_index - 1].EndPoint.Y);
+                lines[sg_index].EndPoint = new Avalonia.Point(lines[sg_index].EndPoint.X, value);
                 if (value2 >= 0 && lines2.Count == (int)SGPlot.Width)
                 {
                     value2 /= y_scale;
-                    lines2[sg_index].Y1 = sg_index == 0 ? value2 : lines2[sg_index - 1].Y2;
-                    lines2[sg_index].Y2 = value2;
+                    lines2[sg_index].StartPoint = new Avalonia.Point(lines2[sg_index].StartPoint.X, sg_index == 0 ? value2 : lines2[sg_index - 1].EndPoint.Y);
+                    lines2[sg_index].EndPoint = new Avalonia.Point(lines2[sg_index].EndPoint.X, value2);
                 }
             }
             sg_index++;
@@ -386,7 +388,7 @@ namespace CNC.Controls
                 int v1 = int.Parse(sg_result[0]);
                 int v2 = sg_result.Length == 2 ? int.Parse(sg_result[1]) : -1;
 
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new System.Action(() => PlotSGValue(v1, v2)));
+                Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() => PlotSGValue(v1, v2));
             }
         }
     }

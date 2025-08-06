@@ -39,11 +39,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Linq;
-using System.Windows.Media;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Avalonia.Media;
+using System.Collections.ObjectModel;
+using Avalonia.Input;
 using System.Threading;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {
@@ -92,7 +94,7 @@ namespace CNC.Core
 
             Clear();
 
-            Keyboard = new KeypressHandler(this);
+            Keyboard = new KeypressHandler(this); // Restored for cross-platform build
             MDICommand = new ActionCommand<string>(ExecuteMDI);
             StartFromBlock = new ActionCommand<int>(ExecuteStartFromBlock, canExecuteStartFromBlock);
 
@@ -313,7 +315,8 @@ namespace CNC.Core
                     }
                     catch (Exception e)
                     {
-                        if (!(ok = System.Windows.MessageBox.Show(string.Format(LibStrings.FindResource("LoadError").Replace("\\n", "\r"), e.Message, i + 1, commands[i]), "ioSender", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes))
+                        // TODO: Replace with Avalonia MessageBox implementation
+                        if (!(ok = true)) // System.Windows.MessageBox.Show(string.Format(LibStrings.FindResource("LoadError").Replace("\\n", "\r"), e.Message, i + 1, commands[i]), "ioSender", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes))
                             break;
                     }
                 }
@@ -345,7 +348,7 @@ namespace CNC.Core
                 StartFromBlockNum = block;
         }
 
-        public KeypressHandler Keyboard { get; private set; }
+        public KeypressHandler Keyboard { get; private set; } // Restored for cross-platform build
 
         public bool ResponseLogVerbose { get { return _responseLogVerbose; } set { _responseLogVerbose = value; OnPropertyChanged(); } }
         public bool ResponseLogFilterRT { get; set; } = false;

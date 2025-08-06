@@ -37,11 +37,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
 using CNC.Core;
-using System.Windows;
+using CNC.GCode;
+using Avalonia;
 
 namespace CNC.Controls
 {
@@ -60,13 +61,13 @@ namespace CNC.Controls
 
         public new bool IsFocused { get { return cbxTool.IsFocused || cbxOffset.IsFocused; } }
 
-        public static readonly DependencyProperty IsToolChangingProperty = DependencyProperty.Register(nameof(IsToolChanging), typeof(bool), typeof(WorkParametersControl), new PropertyMetadata(false, new PropertyChangedCallback(IsToolChangingChanged)));
+                public static readonly StyledProperty<bool> IsToolChangingProperty = AvaloniaProperty.Register<WorkParametersControl, bool>(nameof(IsToolChanging), false);
         public bool IsToolChanging
         {
-            get { return (bool)GetValue(IsToolChangingProperty); }
+            get { return GetValue(IsToolChangingProperty); }
             set { SetValue(IsToolChangingProperty, value); }
         }
-        private static void IsToolChangingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void IsToolChangingChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as WorkParametersControl).bgTool.Background = ((bool)e.NewValue ? Brushes.Salmon : ((WorkParametersControl)d).Background);
             (d as WorkParametersControl).cbxTool.IsEnabled = !(bool)e.NewValue;

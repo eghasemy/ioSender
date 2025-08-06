@@ -37,11 +37,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Input;
+using Avalonia.Threading;
 using CNC.Core;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Probing
 {
 

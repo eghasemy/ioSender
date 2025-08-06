@@ -40,8 +40,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media.Media3D;
+#if WINDOWS
+using CNC.Core;  // Cross-platform 3D math types
+#else
+using CNC.Core;
+#endif
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {

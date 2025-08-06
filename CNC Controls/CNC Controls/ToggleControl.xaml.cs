@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using ToggleSwitch;
+using Avalonia;
+using Avalonia.Controls;
+// using ToggleSwitch; // Removed third-party ToggleSwitch dependency for cross-platform build
 
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia.Data;
+using Avalonia.Controls.Documents;
+using Avalonia.Input;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Interactivity;
+// using System.Windows.Navigation;  // Platform-specific in Avalonia
+using Avalonia.Controls.Shapes;
 
 namespace CNC.Controls
 {
@@ -23,7 +24,7 @@ namespace CNC.Controls
     public partial class ToggleControl : UserControl
     {
 
-        public event RoutedEventHandler Click;
+        public event EventHandler<RoutedEventArgs>? Click;
 
         public ToggleControl()
         {
@@ -37,17 +38,17 @@ namespace CNC.Controls
             Click?.Invoke(this, e);
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(ToggleControl), new PropertyMetadata("Label"));
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<ToggleControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
+            get { return GetValue(LabelProperty); }
             set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(ToggleControl), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> IsCheckedProperty = AvaloniaProperty.Register<ToggleControl, bool>(nameof(IsChecked), false);
         public bool IsChecked
         {
-            get { return (bool)GetValue(IsCheckedProperty); }
+            get { return GetValue(IsCheckedProperty); }
             set { SetValue(IsCheckedProperty, value); }
         }
     }

@@ -40,8 +40,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.Windows.Media.Media3D;
+using System.IO.Ports;
 using CNC.Core;
+
+namespace CNC.Core
+{
+    /// <summary>
+    /// Constants for GRBL compatibility
+    // Duplicate class definitions removed - using real implementations from dedicated files
+
+    // Duplicate enum definitions removed - using real implementations from dedicated files
+}
 
 namespace CNC.GCode
 {

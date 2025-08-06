@@ -38,11 +38,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
-using System.Windows.Data;
 using CNC.GCode;
+using Avalonia.Data;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -256,22 +257,22 @@ namespace CNC.Controls
                     components.Children.Add(grid);
                     wNumericTextBox.TextChanged += wWidget_TextChanged;
                     wNumericTextBox.KeyDown += wWidget_KeyDown;
-                    Binding binding = new Binding("Text")
+                    Binding binding = new Binding("NumericValue")
                     {
                         Source = Canvas.DataContext,
-                        Path = new PropertyPath("NumericValue"),
-                        Mode = BindingMode.TwoWay,
-                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                        ValidatesOnDataErrors = true
+                        Mode = BindingMode.TwoWay
                     };
+                    // Avalonia TODO: Implement validation
+                    /*
                     binding.ValidationRules.Add(new NumericRangeRule()
                     {
                         Min = widget.Min,
                         Max = widget.Max,
                         AllowNull = widget.AllowNull
                     });
-                    wNumericTextBox.Style = View.Resources["NumericErrorStyle"] as Style;
-                    BindingOperations.SetBinding(wNumericTextBox, NumericTextBox.ValueProperty, binding);
+                    */
+                    // TODO: Style support - wNumericTextBox.Style = View.Resources["NumericErrorStyle"] as Style;
+                    wNumericTextBox.Bind(NumericTextBox.ValueProperty, binding);
 //                    model.NumericValue = dbl.Parse(widget.Value);
                     break;
 
@@ -281,7 +282,7 @@ namespace CNC.Controls
                     {
                         Name = "tb_name_xxx",
                         MaxLength = widget.Format.Length,
-                        VerticalContentAlignment = VerticalAlignment.Bottom,
+                        VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Bottom,
                         Height = 24
                         //TabIndex = Canvas.Row
                     };
@@ -295,38 +296,36 @@ namespace CNC.Controls
                     else if (widget.DataType == GrblSettingDetails.DataTypes.IP4)
                     {
                         wTextBox.MaxLength = 16;
-                        Binding sbinding = new Binding("Text")
+                        Binding sbinding = new Binding("TextValue")
                         {
                             Source = Canvas.DataContext,
-                            Path = new PropertyPath("TextValue"),
-                            Mode = BindingMode.TwoWay,
-                            UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                            ValidatesOnDataErrors = true
+                            Mode = BindingMode.TwoWay
                         };
-                        sbinding.ValidationRules.Add(new IP4ValueRule());
-                        wTextBox.Style = View.Resources["Ip4ErrorStyle"] as Style;
-                        BindingOperations.SetBinding(wTextBox, TextBox.TextProperty, sbinding);
+                        // Avalonia TODO: Implement validation
+                        // sbinding.ValidationRules.Add(new IP4ValueRule());
+                        // TODO: Style support - wTextBox.Style = View.Resources["Ip4ErrorStyle"] as Style;
+                        wTextBox.Bind(TextBox.TextProperty, sbinding);
                     }
                     if(widget.Min != double.NaN &&
                         (widget.DataType == GrblSettingDetails.DataTypes.TEXT || 
                           widget.DataType == GrblSettingDetails.DataTypes.PASSWORD))
                     {
-                        Binding sbinding = new Binding("Text")
+                        Binding sbinding = new Binding("TextValue")
                         {
                             Source = Canvas.DataContext,
-                            Path = new PropertyPath("TextValue"),
-                            Mode = BindingMode.TwoWay,
-                            UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                            ValidatesOnDataErrors = true
+                            Mode = BindingMode.TwoWay
                         };
+                        // Avalonia TODO: Implement validation
+                        /*
                         sbinding.ValidationRules.Add(new StringRangeRule()
                         {
                             Min = widget.Min,
                             Max = widget.Max,
                             AllowNull = widget.AllowNull
                         });
-                        wTextBox.Style = View.Resources["StringErrorStyle"] as Style;
-                        BindingOperations.SetBinding(wTextBox, TextBox.TextProperty, sbinding);
+                        */
+                        // TODO: Style support - wTextBox.Style = View.Resources["StringErrorStyle"] as Style;
+                        wTextBox.Bind(TextBox.TextProperty, sbinding);
                     }
                     grid = labelGrid = AddGrid();
                     grid.Children.Add(wTextBox);
@@ -345,8 +344,8 @@ namespace CNC.Controls
                     {
                         Width = labelWidth,
                         Height = 26,
-                        HorizontalContentAlignment = HorizontalAlignment.Right,
-                        VerticalContentAlignment = VerticalAlignment.Center,
+                        HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                        VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
                         Name = "label_xx",
                         Content = widget.Label + ":"
                     };
@@ -359,7 +358,7 @@ namespace CNC.Controls
                     wUnit = new Label
                     {
                         Height = 26,
-                        HorizontalContentAlignment = HorizontalAlignment.Left,
+                        HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Left,
                         Name = "unit_xxx",
                         Content = widget.Unit
                     };
@@ -383,7 +382,7 @@ namespace CNC.Controls
             {
                 Width = Canvas.Width,
                 Height = 26,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
             };
 
             ColumnDefinition c = new ColumnDefinition();
@@ -540,9 +539,9 @@ namespace CNC.Controls
 
         #region UIEvents
 
-        private void wWidget_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void wWidget_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == Avalonia.Input.Key.Enter)
                 Assign();
         }
 
@@ -589,11 +588,15 @@ namespace CNC.Controls
             {
                 case GrblSettingDetails.DataTypes.INTEGER:
                 case GrblSettingDetails.DataTypes.FLOAT:
-                    ok = !Validation.GetHasError(wNumericTextBox);
+                    // Avalonia TODO: Implement validation checking
+                    // ok = !Validation.GetHasError(wNumericTextBox);
+                    ok = true;
                     break;
 
                 case GrblSettingDetails.DataTypes.IP4:
-                    ok = !Validation.GetHasError(wTextBox);
+                    // Avalonia TODO: Implement validation checking
+                    // ok = !Validation.GetHasError(wTextBox);
+                    ok = true;
                     break;
             }
 

@@ -38,10 +38,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Collections.Generic;
-using System.Windows.Controls;
+using Avalonia.Controls;
 using CNC.GCode;
 using CNC.Core;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Viewer
 {
     public partial class Viewer : UserControl, ICNCView
@@ -100,7 +101,7 @@ namespace CNC.Controls.Viewer
             }
         }
 
-        private void button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void button_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             gcodeView.ResetView();
         }

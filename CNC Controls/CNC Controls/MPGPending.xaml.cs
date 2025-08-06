@@ -37,8 +37,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
+using Avalonia;
 using CNC.Core;
+using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {

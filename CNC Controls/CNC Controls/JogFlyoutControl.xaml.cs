@@ -38,24 +38,52 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.ComponentModel;
-using System.Windows;
+using Avalonia;
 using CNC.Core;
-using System.Windows.Input;
+using CNC.GCode;
+using Avalonia.Input;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
-    public partial class JogFlyoutControl : ISidebarControl
+    public partial class JogFlyoutControl : UserControl, ISidebarControl
     {
         public JogFlyoutControl()
         {
             InitializeComponent();
+            
+            // Add key event handlers
+            this.KeyDown += (sender, e) => {
+                if (!(e.Handled = ProcessKeyPreview(e)))
+                {
+                    var modifiers = e.KeyModifiers;
+                    if (modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
+                        Focus();
+                }
+            };
+            
+            this.KeyUp += (sender, e) => {
+                if (!(e.Handled = ProcessKeyPreview(e)))
+                {
+                    // Handle key up
+                }
+            };
         }
 
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel 
+        { 
+            get 
+            { 
+                if (this.TryGetResource("MenuLabel", out var resource))
+                    return resource?.ToString() ?? "";
+                return "";
+            } 
+        }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            IsVisible = false;
         }
 
         private void JogControl_Loaded(object sender, RoutedEventArgs e)
@@ -71,27 +99,10 @@ namespace CNC.Controls
             if (sender is GrblViewModel) switch (e.PropertyName)
             {
                 case nameof(GrblViewModel.StreamingState):
-                    if (Visibility == Visibility.Visible && (sender as GrblViewModel).IsJobRunning)
-                        Visibility = Visibility.Hidden;
+                    if (IsVisible && (sender as GrblViewModel).IsJobRunning)
+                        IsVisible = false;
                     break;
             }
-        }
-
-        protected override void OnPreviewKeyDown(KeyEventArgs e)
-        {
-            if (!(e.Handled = ProcessKeyPreview(e)))
-            {
-                if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
-                    Focus();
-
-                base.OnPreviewKeyDown(e);
-            }
-        }
-
-        protected override void OnPreviewKeyUp(KeyEventArgs e)
-        {
-            if (!(e.Handled = ProcessKeyPreview(e)))
-                base.OnPreviewKeyDown(e);
         }
 
         protected bool ProcessKeyPreview(KeyEventArgs e)

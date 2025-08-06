@@ -37,15 +37,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Win32;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Platform.Storage;
 using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Threading;
 using CNC.Core;
+using CNC.GCode;
+using Avalonia.Input;
+using System.Linq;
+using System.Threading.Tasks;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class GrblConfigControl : UserControl, IGrblConfigTab
@@ -68,10 +73,10 @@ namespace CNC.Controls
 
             model = (DataContext as WidgetViewModel).Grbl;
 
-            dgrSettings.Visibility = GrblInfo.HasEnums ? Visibility.Collapsed : Visibility.Visible;
-            searchField.Visibility = !GrblInfo.HasEnums ? Visibility.Collapsed : Visibility.Visible;
-            treeView.Visibility = !GrblInfo.HasEnums ? Visibility.Collapsed : Visibility.Visible;
-            details.Visibility = GrblInfo.HasEnums && curSetting == null ? Visibility.Hidden : Visibility.Visible;
+            dgrSettings.IsVisible = !GrblInfo.HasEnums;
+            searchField.IsVisible = GrblInfo.HasEnums;
+            treeView.IsVisible = GrblInfo.HasEnums;
+            details.IsVisible = GrblInfo.HasEnums && curSetting != null;
 
             if (GrblInfo.HasEnums)
             {
@@ -119,7 +124,7 @@ namespace CNC.Controls
 
                     if (GrblSettings.HasChanges())
                     {
-                        if (MessageBox.Show((string)FindResource("SaveSettings"), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
+                        if (MessageBox.Show((string)this.FindResource("SaveSettings"), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
                             GrblSettings.Save();
                     }
                 }
@@ -152,13 +157,13 @@ namespace CNC.Controls
         void btnBackup_Click(object sender, RoutedEventArgs e)
         {
             if(GrblSettings.Backup(string.Format("{0}settings.txt", Core.Resources.ConfigPath)))
-                model.Message = string.Format((string)FindResource("SettingsWritten"), "settings.txt");
+                model.Message = string.Format((string)this.FindResource("SettingsWritten"), "settings.txt");
             GrblWorkParameters.Backup(string.Format("{0}offsets.nc", Core.Resources.ConfigPath));
         }
 
         private void ShowSetting(GrblSettingDetails setting, bool assign)
         {
-            details.Visibility = Visibility.Visible;
+            details.IsVisible = true;
 
             if (curSetting != null)
             {
@@ -174,7 +179,7 @@ namespace CNC.Controls
 
             canvas.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-            txtDescription.Height = Math.Max(ActualHeight - 40d - canvas.DesiredSize.Height, 0d);
+            txtDescription.Height = Math.Max(Bounds.Height - 40d - canvas.DesiredSize.Height, 0d);
         }
 
         private bool SetSetting (KeyValuePair<int, string> setting)
@@ -209,10 +214,10 @@ namespace CNC.Controls
 
                 var details = GrblSettings.Get((GrblSetting)setting.Key);
 
-                if (MessageBox.Show(string.Format((string)FindResource("SettingsError"), scmd, retval), "ioSender" + (details == null ? "" : " - " + details.Name), MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+                if (MessageBox.Show(string.Format((string)this.FindResource("SettingsError"), scmd, retval), "ioSender" + (details == null ? "" : " - " + details.Name), MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
                     return false;
             }
-            else if (res == false && MessageBox.Show(string.Format((string)FindResource("SettingsTimeout"), scmd), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+            else if (res == false && MessageBox.Show(string.Format((string)this.FindResource("SettingsTimeout"), scmd), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
                 return false;
 
             return true;
@@ -248,7 +253,7 @@ namespace CNC.Controls
                 }
                 catch (Exception e)
                 {
-                    if (MessageBox.Show(((string)FindResource("SettingsFail")).Replace("\\n", "\r\r"), e.Message, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (MessageBox.Show(((string)this.FindResource("SettingsFail")).Replace("\\n", "\r\r"), e.Message, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         block = sr.ReadLine();
                     else
                     {
@@ -262,7 +267,7 @@ namespace CNC.Controls
             sr.Close();
 
             if (settings.Count == 0)
-                MessageBox.Show((string)FindResource("SettingsInvalid"));
+                MessageBox.Show((string)this.FindResource("SettingsInvalid"));
             else
             {
                 bool? res = null;
@@ -291,10 +296,10 @@ namespace CNC.Controls
 
                     if (retval != string.Empty)
                     {
-                        if (MessageBox.Show(string.Format((string)FindResource("SettingsError"), cmd, retval), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+                        if (MessageBox.Show(string.Format((string)this.FindResource("SettingsError"), cmd, retval), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
                             break;
                     }
-                    else if (res == false && MessageBox.Show(string.Format((string)FindResource("SettingsTimeout"), cmd), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
+                    else if (res == false && MessageBox.Show(string.Format((string)this.FindResource("SettingsTimeout"), cmd), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.No)
                         break;
                 }
 
@@ -342,7 +347,7 @@ namespace CNC.Controls
             model.Message = string.Empty;
 
             if (mismatch > 0)
-                MessageBox.Show(string.Format((string)FindResource("SettingsReloadMismatch"), mismatch), "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(string.Format((string)this.FindResource("SettingsReloadMismatch"), mismatch), "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
             return settings.Count > 0;
         }
@@ -353,20 +358,30 @@ namespace CNC.Controls
                 retval = data;
         }
 
-        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        private async void btnRestore_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel?.StorageProvider == null) return;
 
-            file.InitialDirectory = Core.Resources.ConfigPath;
-            file.Title = (string)FindResource("SettingsRestore");
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = (string)this.FindResource("SettingsRestore"),
+                AllowMultiple = false,
+                FileTypeFilter = new[]
+                {
+                    new FilePickerFileType("Text files")
+                    {
+                        Patterns = new[] { "*.txt" }
+                    }
+                }
+            });
 
-            file.Filter = string.Format("Text files (*.txt)|*.txt");
-
-            if (file.ShowDialog() == true)
+            if (files.Count >= 1)
             {
                 using (new UIUtils.WaitCursor())
                 {
-                    LoadFile(file.FileName);
+                    var file = files[0];
+                    LoadFile(file.Path.LocalPath);
                 }
             }
         }
@@ -378,17 +393,17 @@ namespace CNC.Controls
         }
         #endregion
 
-        private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void treeView_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e != null && e.NewValue is GrblSettingDetails && (e.NewValue as GrblSettingDetails).Value != null)
-                ShowSetting(e.NewValue as GrblSettingDetails, true);
+            if (e != null && e.AddedItems.Count > 0 && e.AddedItems[0] is GrblSettingDetails details && details.Value != null)
+                ShowSetting(details, true);
             else
-                details.Visibility = Visibility.Hidden;
+                this.details.IsVisible = false;
         }
 
-        private void searchField_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void searchField_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            if(e.Key == System.Windows.Input.Key.Return && e.IsDown)
+            if(e.Key == Avalonia.Input.Key.Return)
             {
                 var setting = GrblSettings.Get((GrblSetting)searchField.Value);
 
@@ -398,23 +413,17 @@ namespace CNC.Controls
                     {
                         if ((g as GrblSettingGroup).Id == setting.GroupId)
                         {
-                            TreeViewItem gitm = (TreeViewItem)treeView.ItemContainerGenerator.ContainerFromItem(g);
-                            gitm.IsExpanded = true;
-                            gitm.UpdateLayout();
-                            gitm.BringIntoView();
-                            foreach (object s in gitm.Items)
+                            // For Avalonia, we simplify by directly setting the selected item
+                            foreach (object s in (g as GrblSettingGroup).Settings)
                             {
                                 if ((s as GrblSettingDetails).Id == setting.Id)
                                 {
-                                    TreeViewItem sitm = (TreeViewItem)gitm.ItemContainerGenerator.ContainerFromItem(s);
-                                    if (sitm != null)
-                                    {
-                                        sitm.IsSelected = true;
-                                        sitm.BringIntoView();
-//                                        sitm.Focus();
-                                    }
+                                    treeView.SelectedItem = s;
+                                    ShowSetting(s as GrblSettingDetails, true);
+                                    break;
                                 }
                             }
+                            break;
                         }
                     }
                 }
@@ -423,7 +432,7 @@ namespace CNC.Controls
 
         private void ConfigView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            txtDescription.Height = e.NewSize.Height - 40d - canvas.ActualHeight;
+            txtDescription.Height = e.NewSize.Height - 40d - canvas.Bounds.Height;
         }
     }
 }

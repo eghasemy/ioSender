@@ -40,7 +40,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Text;
 using System.Net.Sockets;
-using System.Windows.Threading;
+#if WINDOWS
+using Avalonia.Threading;
+using Avalonia.Controls;
+#endif
 
 namespace CNC.Core
 {
@@ -51,15 +54,23 @@ namespace CNC.Core
         private byte[] buffer = new byte[512];
         private volatile Comms.State state = Comms.State.ACK;
         private StringBuilder input = new StringBuilder(1024);
+#if WINDOWS
         private Dispatcher Dispatcher { get; set; }
+#endif
 
         public event DataReceivedHandler DataReceived;
 
-        public TelnetStream(string host, Dispatcher dispatcher)
+        public TelnetStream(string host
+#if WINDOWS
+            , Dispatcher dispatcher
+#endif
+            )
         {
             Comms.com = this;
             Reply = string.Empty;
+#if WINDOWS
             Dispatcher = dispatcher;
+#endif
 
             if (!host.Contains(":"))
                 host += ":23";
@@ -226,7 +237,11 @@ namespace CNC.Core
                         input.Remove(0, pos + 1);
                         state = Reply == "ok" ? Comms.State.ACK : (Reply.StartsWith("error") ? Comms.State.NAK : Comms.State.DataReceived);
                         if (Reply.Length != 0 && DataReceived != null)
+#if WINDOWS
                             Dispatcher.Invoke(DataReceived, Reply);
+#else
+                            DataReceived?.Invoke(Reply);
+#endif
                     }
                 }
                 else

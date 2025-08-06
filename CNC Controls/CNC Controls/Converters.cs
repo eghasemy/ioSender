@@ -39,13 +39,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Media;
+using Avalonia.Data;
+using Avalonia.Data.Converters;
+using Avalonia.Media;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Windows;
+using Avalonia;
 using System.Collections.Generic;
-using System.Windows.Controls;
+using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
 
@@ -99,7 +100,7 @@ namespace CNC.Controls
     // Adapted from: https://stackoverflow.com/questions/4353186/binding-observablecollection-to-a-textbox/8847910#8847910
     public class StringCollectionToTextConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, CultureInfo culture)
         {
             var data = values[0] as ObservableCollection<string>;
 
@@ -179,7 +180,7 @@ namespace CNC.Controls
 
     public class BlocksToStringConverter : IMultiValueConverter
     {
-        public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(IList<object?> value, Type targetType, object parameter, CultureInfo culture)
         {
             return value[0] is int && value[1] is int ? (string.Format((int)value[1] == 0 ? Converters.numBlocks : Converters.blockOfBlocks, value[1], value[0])) : string.Empty;
         }
@@ -192,10 +193,10 @@ namespace CNC.Controls
 
     public class PositionToStringConverter : IMultiValueConverter
     {
-        public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(IList<object?> value, Type targetType, object parameter, CultureInfo culture)
         {
             string res = string.Empty;
-            string format = value.Length > 1 && value[1] is string ? value[1] as string : "####0.000";
+            string format = value.Count > 1 && value[1] is string ? value[1] as string : "####0.000";
 
             if(value[0] is Position) switch(GrblInfo.NumAxes)
             {
@@ -281,9 +282,9 @@ namespace CNC.Controls
 
     public class FeedSpeedToStringConverter : IMultiValueConverter
     {
-        public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(IList<object?> value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.Length == 2 && value[0] is double && value[1] is double
+            return value.Count == 2 && value[0] is double && value[1] is double
                     ? string.Format("F: {0}  S: {1}", ((double)value[0]).ToInvariantString(), ((double)value[1]).ToInvariantString())
                     : string.Empty;
         }
@@ -298,7 +299,7 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Brush result = Brushes.White;
+            Brush result = new SolidColorBrush(Colors.White);
 
             if (value is GrblState)
                 result = new SolidColorBrush(((GrblState)value).Color);
@@ -314,7 +315,7 @@ namespace CNC.Controls
 
     public class IsHomingEnabledConverter : IMultiValueConverter
     {
-        public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(IList<object?> value, Type targetType, object parameter, CultureInfo culture)
         {
             GrblStates state = value[0] is GrblState ? ((GrblState)value[0]).State : GrblStates.Unknown;
 
@@ -324,7 +325,7 @@ namespace CNC.Controls
             // value[1] = IsJobRunning
             // value[2] = IsSleeping
 
-            if (!result && GrblInfo.HomingEnabled && value.Length > 2 && value[1] is bool && !(bool)value[1] && value[2] is bool && !(bool)value[2])
+            if (!result && GrblInfo.HomingEnabled && value.Count > 2 && value[1] is bool && !(bool)value[1] && value[2] is bool && !(bool)value[2])
                 result = state != GrblStates.Unknown && !((GrblState)value[0]).MPG && (state == GrblStates.Idle || state == GrblStates.Alarm || !GrblInfo.IsGrblHAL);
 
             return result;
@@ -340,16 +341,16 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Brush result = System.Windows.SystemColors.ControlBrush;
+            Brush result = new SolidColorBrush(Colors.LightGray);
 
             if (value is HomedState) switch ((HomedState)value)
             {
                 case HomedState.NotHomed:
-                    result = Brushes.LightYellow;
+                    result = new SolidColorBrush(Colors.LightYellow);
                     break;
 
                 case HomedState.Homed:
-                    result = Brushes.LightGreen;
+                    result = new SolidColorBrush(Colors.LightGreen);
                     break;
             }
 
@@ -377,16 +378,16 @@ namespace CNC.Controls
 
     public class EncoderModeToColorConverter : IMultiValueConverter
     {
-        public static SolidColorBrush ReadOnlyBackGround { get; } = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFF8F8F8"));
+        public static SolidColorBrush ReadOnlyBackGround { get; } = new SolidColorBrush(Color.FromArgb(0xFF, 0xF8, 0xF8, 0xF8));
 
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool result = true;
 
             foreach (var value in values)
                 result &= value is bool && (bool)value;
 
-            return values.Length == 2 && values[0] is GrblEncoderMode && !values[0].Equals(GrblEncoderMode.Unknown) && values[1] is GrblEncoderMode && values[0].Equals(values[1]) ? Brushes.Salmon : ReadOnlyBackGround;
+            return values.Count == 2 && values[0] is GrblEncoderMode && !values[0].Equals(GrblEncoderMode.Unknown) && values[1] is GrblEncoderMode && values[0].Equals(values[1]) ? new SolidColorBrush(Colors.Salmon) : ReadOnlyBackGround;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -401,7 +402,7 @@ namespace CNC.Controls
         {
             string result = string.Empty;
 
-            Converters.grblState.Value.TryGetValue(((GrblState)value).State, out result);
+            // TODO: Convert to Avalonia property getter - Converters.grblState.Value.TryGetValue(((GrblState)value).State, out result);
             int substate = ((GrblState)value).State == GrblStates.Alarm && ((GrblState)value).LastAlarm > 0 ? ((GrblState)value).LastAlarm : ((GrblState)value).Substate;
 
             if (value is GrblState && ((GrblState)value).State != GrblStates.Unknown) 
@@ -418,9 +419,9 @@ namespace CNC.Controls
 
     public class GrblStateToBooleanConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return values.Length == 2 && values[0] is GrblState && values[1] is GrblStates && ((GrblState)values[0]).State == (GrblStates)values[1];
+            return values.Count == 2 && values[0] is GrblState && values[1] is GrblStates && ((GrblState)values[0]).State == (GrblStates)values[1];
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -462,7 +463,7 @@ namespace CNC.Controls
     {
         public IValueConverter FinalConverter { get; set; }
 
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool result = true;
 
@@ -482,7 +483,7 @@ namespace CNC.Controls
     {
         public IValueConverter FinalConverter { get; set; }
 
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool result = false;
 
@@ -502,27 +503,27 @@ namespace CNC.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is bool && (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            return value is bool && (bool)value ? true : false;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Visibility && (Visibility)value == Visibility.Visible;
+            return value is bool && (bool)value;
         }
     }
 
     public class IsAxisVisibleConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool enabled = false;
 
-            if(values.Length == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
+            if(values.Count == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
                 enabled = ((int)values[0] & (int)values[1]) != 0;
 
-            if(values.Length == 2 && values[0] is AxisFlags && values[1] is AxisFlags)
+            if(values.Count == 2 && values[0] is AxisFlags && values[1] is AxisFlags)
                 enabled = ((AxisFlags)values[0]).HasFlag((AxisFlags)values[1]);
 
-            return enabled ? Visibility.Visible : Visibility.Collapsed;
+            return enabled ? true : false;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -533,17 +534,17 @@ namespace CNC.Controls
 
     public class IsSignalVisibleConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             bool enabled = false;
 
-            if (values.Length == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
+            if (values.Count == 2 && values[0] is int && values[1] is int && (int)values[0] >= (int)values[1])
                 enabled = ((int)values[0] & (int)values[1]) != 0;
 
-            if (values.Length == 2 && values[0] is EnumFlags<Signals> && values[1] is Signals)
+            if (values.Count == 2 && values[0] is EnumFlags<Signals> && values[1] is Signals)
                 enabled = ((EnumFlags<Signals>)values[0]).Value.HasFlag((Signals)values[1]);
 
-            return enabled ? Visibility.Visible : Visibility.Collapsed;
+            return enabled ? true : false;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -554,9 +555,9 @@ namespace CNC.Controls
 
     public class StringAddToConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return values.Length == 2 ? values[0].ToString() + string.Format((string)parameter, values[1].ToString()) : string.Empty;
+            return values.Count == 2 ? values[0].ToString() + string.Format((string)parameter, values[1].ToString()) : string.Empty;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
@@ -595,7 +596,7 @@ namespace CNC.Controls
     // by  D4rth B4n3 - https://stackoverflow.com/questions/30627368/how-to-create-a-tooltip-to-display-multiple-validation-errors-for-a-single-contr
     public class MultiLineConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(IList<object?> values, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(values[0] is IEnumerable<ValidationError>))
                 return null;

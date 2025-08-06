@@ -39,10 +39,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Diagnostics;
 using System.IO;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>

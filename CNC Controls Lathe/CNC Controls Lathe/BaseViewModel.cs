@@ -42,6 +42,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Lathe
 {

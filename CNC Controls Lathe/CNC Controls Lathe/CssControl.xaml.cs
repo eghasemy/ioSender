@@ -39,8 +39,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.GCode;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Lathe
 {
@@ -54,40 +54,40 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsCssEnabledProperty = DependencyProperty.Register(nameof(IsCssEnabled), typeof(bool), typeof(CssControl), new PropertyMetadata(new PropertyChangedCallback(OnCssEnabledChanged)));
+        public static readonly StyledProperty<bool> IsCssEnabledProperty = AvaloniaProperty.Register<CssControl, bool>(nameof(IsCssEnabled), false);
         public bool? IsCssEnabled
         {
-            get { return (bool?)GetValue(IsCssEnabledProperty); }
-            set { SetValue(IsCssEnabledProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
 
-        private static void OnCssEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCssEnabledChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as CssControl).data.Label = ((CssControl)d).IsCssEnabled == true ? "Speed:" : "Spindle:";
             (d as CssControl).data.Unit = ((CssControl)d).IsCssEnabled == true ? (d as CssControl).Unit : "RPM";
         }
 
-        public static readonly DependencyProperty SpindleDirProperty = DependencyProperty.Register(nameof(SpindleDir), typeof(SpindleState), typeof(CssControl), new PropertyMetadata(SpindleState.CW));
+                public static readonly StyledProperty<SpindleState> SpindleDirProperty = AvaloniaProperty.Register<CssControl, SpindleState>(nameof(SpindleDir), default);
         public SpindleState SpindleDir
         {
-            get { return (SpindleState)GetValue(SpindleDirProperty); }
+            get { return GetValue(SpindleDirProperty); }
             set { SetValue(SpindleDirProperty, value); }
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(CssControl), new PropertyMetadata(double.NaN));
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<CssControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
+            get { return GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 
-        public static readonly DependencyProperty UnitProperty = DependencyProperty.Register(nameof(Unit), typeof(string), typeof(CssControl), new PropertyMetadata("m/min", new PropertyChangedCallback(OnUnitChanged)));
+                public static readonly StyledProperty<string> UnitProperty = AvaloniaProperty.Register<CssControl, string>(nameof(Unit), string.Empty);
         public string Unit
         {
-            get { return (string)GetValue(UnitProperty); }
+            get { return GetValue(UnitProperty); }
             set { SetValue(UnitProperty, value); }
         }
-        private static void OnUnitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnUnitChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as CssControl).OnUnitChanged();
         }

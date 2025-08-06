@@ -51,13 +51,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
-using HelixToolkit.Wpf;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using CNC.Core; using Avalonia.Interactivity;
+// Cross-platform 3D math types
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Input;
 
 namespace CNC.Controls.Viewer
 {
@@ -321,7 +322,7 @@ namespace CNC.Controls.Viewer
             }
         }
 
-        private void Renderer_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Renderer_IsVisibleChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {
             if (Machine.ToolMode != ToolVisualizerType.None)
             {

@@ -38,10 +38,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class OutlineFlyout : UserControl, ISidebarControl
@@ -50,7 +52,7 @@ namespace CNC.Controls
         {
             InitializeComponent();
         }
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
 
         private void OutlineFlyout_Loaded(object sender, RoutedEventArgs e)
@@ -60,18 +62,18 @@ namespace CNC.Controls
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is GrblViewModel && Visibility == Visibility.Visible) switch (e.PropertyName)
+            if (sender is GrblViewModel && IsVisible) switch (e.PropertyName)
                 {
                     case nameof(GrblViewModel.StreamingState):
                         if ((sender as GrblViewModel).IsJobRunning)
-                            Visibility = Visibility.Hidden;
+                            IsVisible = false;
                         break;
                 }
         }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            IsVisible = false;
         }
     }
 }

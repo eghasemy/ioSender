@@ -38,11 +38,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia.Controls;
+using Avalonia.Input;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Viewer
 {
     public partial class RenderControl : UserControl
@@ -56,7 +57,7 @@ namespace CNC.Controls.Viewer
 
         private void SettingsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            textOverlay.Visibility = AppConfig.Settings.GCodeViewer.ShowTextOverlay ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            textOverlay.Visibility = AppConfig.Settings.GCodeViewer.ShowTextOverlay ? true : false;
         }
 
         public Machine MachineView
@@ -105,24 +106,24 @@ namespace CNC.Controls.Viewer
 
         #endregion
 
-        private void ResetView_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void ResetView_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             gcodeView.ResetView();
         }
 
-        private void SaveView_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void SaveView_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             gcodeView.SaveView();
         }
 
-        private void RestoreView_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void RestoreView_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             gcodeView.RestoreView();
         }
 
-        private void RenderControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void RenderControl_Loaded(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            textOverlay.Visibility = AppConfig.Settings.GCodeViewer.ShowTextOverlay ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            textOverlay.Visibility = AppConfig.Settings.GCodeViewer.ShowTextOverlay ? true : false;
 
             if (!keyboardMappingsOk && DataContext is GrblViewModel)
             {

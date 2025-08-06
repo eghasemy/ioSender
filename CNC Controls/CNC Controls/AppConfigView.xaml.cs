@@ -37,10 +37,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
+using Avalonia.Input;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class AppConfigView : UserControl, ICNCView
@@ -66,13 +69,13 @@ namespace CNC.Controls
             {
                 if (control is JogConfigControl) {
                     if (GrblSettings.GetString(grblHALSetting.JogStepSpeed) != null)
-                        control.Visibility = Visibility.Collapsed;
+                        control.IsVisible = false;
                     else
                         (control as JogConfigControl).IsGrbl = !GrblInfo.IsGrblHAL;
                 } else if (control is ICameraConfig && model.Camera != null && !model.Camera.HasCamera)
-                    control.Visibility = Visibility.Collapsed;
+                    control.IsVisible = false;
             }
-            grblmodel.Message = activate ? (string)FindResource("RestartMessage") : string.Empty;
+            grblmodel.Message = activate ? (string)this.FindResource("RestartMessage") : string.Empty;
         }
 
         public void CloseFile()

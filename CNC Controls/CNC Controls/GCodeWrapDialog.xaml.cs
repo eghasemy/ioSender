@@ -38,12 +38,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Input;
+using Avalonia.Threading;
 using CNC.Core;
+using CNC.GCode;
 using System.Collections.ObjectModel;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -60,26 +63,27 @@ namespace CNC.Controls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var parent = Application.Current.MainWindow;
+            var parent = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
 
-            Left = parent.Left + (parent.Width - Width) / 2d;
-            Top = parent.Top + (parent.Height - Height) / 2d;
-
-            (sender as Window).Dispatcher.Invoke(new System.Action(() =>
+            if (parent != null)
             {
-                (sender as Window).MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-            }), DispatcherPriority.ContextIdle);
+                Position = new PixelPoint(
+                    (int)(parent.Position.X + (parent.Bounds.Width - Bounds.Width) / 2),
+                    (int)(parent.Position.Y + (parent.Bounds.Height - Bounds.Height) / 2)
+                );
+            }
+
+            // Focus handling in Avalonia is different, we'll skip this for now
         }
 
         void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
-            Close();
+            Close(true);
         }
 
         void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Close(false);
         }
     }
 
@@ -118,9 +122,12 @@ namespace CNC.Controls
         public int TargetAxis { get { return targetAxis; } set { targetAxis = value; OnPropertyChanged(); } }
         public ObservableCollection<WrapAxis> TargetAxes { get; private set; } = new ObservableCollection<WrapAxis>();
 
-        public void Apply()
+        public async void Apply()
         {
-            if (new GCodeWrapDialog(this) { Owner = Application.Current.MainWindow }.ShowDialog() != true)
+            var dialog = new GCodeWrapDialog(this);
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            var result = await dialog.ShowDialog<bool>(mainWindow);
+            if (result != true)
                 return;
 
             if (Diameter == 0d)

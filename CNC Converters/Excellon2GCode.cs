@@ -41,10 +41,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Media.Media3D;
-using CNC.Core;
+using Avalonia;
+using CNC.Core; // Cross-platform 3D math types
 using CNC.Controls;
+using Avalonia.Controls;
 
 namespace CNC.Converters
 {

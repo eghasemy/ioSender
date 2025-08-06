@@ -39,10 +39,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
+using Avalonia.Controls;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
     /// <summary>
@@ -142,7 +144,7 @@ namespace CNC.Controls.Lathe
             }
         }
 
-        private void btnCalculate_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void btnCalculate_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             logic.Calculate();
         }

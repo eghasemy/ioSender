@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -52,10 +52,10 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsGrblProperty = DependencyProperty.Register(nameof(IsGrbl), typeof(bool), typeof(JogConfigControl), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> IsGrblProperty = AvaloniaProperty.Register<JogConfigControl, bool>(nameof(IsGrbl), false);
         public bool IsGrbl
         {
-            get { return (bool)GetValue(IsGrblProperty); }
+            get { return GetValue(IsGrblProperty); }
             set { SetValue(IsGrblProperty, value); }
         }
     }

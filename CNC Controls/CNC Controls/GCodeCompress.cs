@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Collections.Generic;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -46,8 +47,10 @@ namespace CNC.Controls
     {
         public void Apply()
         {
+#if WINDOWS
             using (new UIUtils.WaitCursor())
             {
+#endif
                 List<string> gc = GCodeParser.TokensToGCode(GCode.File.Tokens, true);
 
                 GCode.File.AddBlock(string.Format("Compression applied: {0}", GCode.File.Model.FileName), Core.Action.New);
@@ -56,7 +59,9 @@ namespace CNC.Controls
                     GCode.File.AddBlock(block, Core.Action.Add);
 
                 GCode.File.AddBlock("", Core.Action.End);
+#if WINDOWS
             }
+#endif
         }
     }
 }

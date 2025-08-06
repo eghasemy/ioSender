@@ -39,9 +39,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Controls
 {
@@ -54,30 +54,32 @@ namespace CNC.Controls
         public NumericTextBox()
         {
             Height = 24;
-            HorizontalContentAlignment = HorizontalAlignment.Right;
-            VerticalContentAlignment = VerticalAlignment.Bottom;
-            TextWrapping = TextWrapping.NoWrap;
+            HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Right;
+            VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Bottom;
+            TextWrapping = Avalonia.Media.TextWrapping.NoWrap;
             if (Format == NumericProperties.MetricFormat)
                 NumericProperties.OnFormatChanged(this, np, Format);
+                
+            // Wire up text changed event handler
+            this.TextChanged += OnTextChanged;
         }
 
         public new string Text { get { return base.Text; } set { base.Text = value; } }
         public NumberStyles Styles { get { return np.Styles; } }
         public string DisplayFormat { get { return np.DisplayFormat; } }
 
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(double), typeof(NumericTextBox), new PropertyMetadata(double.NaN, new PropertyChangedCallback(OnValueChanged)));
+        public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<NumericTextBox, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { double v = (double)GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
+            get { double v = GetValue(ValueProperty); return double.IsNaN(v) ? 0d : v; }
             set { SetValue(ValueProperty, value); }
         }
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             if (((NumericTextBox)d).updateText)
                 ((NumericTextBox)d).Text = double.IsNaN((double)e.NewValue) || double.IsNegativeInfinity((double)e.NewValue) ? string.Empty : Math.Round((double)e.NewValue, ((NumericTextBox)d).np.Precision).ToString(((NumericTextBox)d).np.DisplayFormat, CultureInfo.InvariantCulture);
         }
-        //        public static bool CoerceValueChanged(DependencyObject d, object value)
+        //        public static bool CoerceValueChanged(AvaloniaObject d, object value)
         //        {
         //            double v = (double)value;
         //            NumericTextBox ntb = (NumericTextBox)d;
@@ -85,14 +87,14 @@ namespace CNC.Controls
         //;
         //        }
 
-        public static readonly DependencyProperty FormatProperty =
-            DependencyProperty.Register(nameof(Format), typeof(string), typeof(NumericTextBox), new PropertyMetadata(NumericProperties.MetricFormat, new PropertyChangedCallback(OnFormatChanged)));
+        // TODO: Convert FormatProperty to Avalonia StyledProperty  
+        public static readonly StyledProperty<string> FormatProperty = AvaloniaProperty.Register<NumericTextBox, string>(nameof(Format), string.Empty);
         public string Format
         {
-            get { return (string)GetValue(FormatProperty); }
-            set { SetValue(FormatProperty, value); }
+            get { /* TODO: Implement Avalonia property getter */ return default; }
+            set { /* TODO: Implement Avalonia property setter */ }
         }
-        private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFormatChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             NumericProperties.OnFormatChanged(d, ((NumericTextBox)d).np, (string)e.NewValue);
         }
@@ -105,13 +107,15 @@ namespace CNC.Controls
             base.Text = string.Empty;
         }
 
-        protected override void OnPreviewKeyUp(KeyEventArgs e)
+        protected override void OnKeyUp(KeyEventArgs e)
         {
-            base.OnPreviewKeyUp(e);
+            base.OnKeyUp(e);
 
             if (e.Key == Key.Delete || e.Key == Key.Back)
             {
-                string text = SelectionLength > 0 ? Text.Remove(SelectionStart, SelectionLength) : Text;
+                int selectionStart = SelectionStart;
+                int selectionEnd = SelectionEnd;
+                string text = selectionEnd > selectionStart ? Text.Remove(selectionStart, selectionEnd - selectionStart) : Text;
 
                 updateText = false;
                 Value = double.Parse(text == string.Empty || text == "." ? "0" : (text == "-" || text == "-." ? "-0" : text), np.Styles, CultureInfo.InvariantCulture);
@@ -119,11 +123,13 @@ namespace CNC.Controls
             }
         }
 
-        protected override void OnPreviewTextInput(TextCompositionEventArgs e)
+        protected override void OnTextInput(Avalonia.Input.TextInputEventArgs e)
         {
-            TextBox textBox = (TextBox)e.OriginalSource;
-            string text = textBox.SelectionLength > 0 ? textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength) : textBox.Text;
-            text = text.Insert(textBox.CaretIndex, e.Text);
+            TextBox textBox = this;
+            int selectionStart = textBox.SelectionStart;
+            int selectionEnd = textBox.SelectionEnd;
+            string text = selectionEnd > selectionStart ? textBox.Text.Remove(selectionStart, selectionEnd - selectionStart) : textBox.Text;
+            text = text.Insert(selectionStart, e.Text);
             if (!(e.Handled = !NumericProperties.IsStringNumeric(text, np)))
             {
                 updateText = false;
@@ -131,10 +137,10 @@ namespace CNC.Controls
                 updateText = true;
             }
 
-            base.OnPreviewTextInput(e);
+            base.OnTextInput(e);
         }
 
-        protected override void OnTextChanged(TextChangedEventArgs e)
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
             double val = 0d;
             if (double.TryParse(Text == string.Empty ? "NaN" : Text, np.Styles, CultureInfo.InvariantCulture, out val))
@@ -146,7 +152,7 @@ namespace CNC.Controls
                     updateText = true;
                 }
 
-                base.OnTextChanged(e);
+                // Don't call base.OnTextChanged for event handler
             }
             else if(Text == string.Empty || Text == ".")
             {

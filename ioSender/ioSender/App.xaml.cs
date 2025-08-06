@@ -1,4 +1,4 @@
-﻿/*
+/*
  * App.xaml.cs - part of Grbl Code Sender
  *
  * v0.37 / 2022-02-20 / Io Engineering (Terje Io)
@@ -42,9 +42,13 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Markup;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using Avalonia.Data.Core.Plugins;
+using Avalonia.Threading;
+using Avalonia.Controls;
+using Avalonia.Data;
 
 namespace GCode_Sender
 {
@@ -53,70 +57,59 @@ namespace GCode_Sender
     /// </summary>
     public partial class App : Application
     {
-
-        public App()
+        public override void Initialize()
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-            Application.Current.DispatcherUnhandledException += DispatcherOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
+            
+            AvaloniaXamlLoader.Load(this);
         }
 
-        public ResourceDictionary ThemeDictionary
+        public override void OnFrameworkInitializationCompleted()
         {
-            // You could probably get it via its name with some query logic as well.
-            get { return Resources.MergedDictionaries[0]; }
-        }
+            // Line below is needed to remove Avalonia data validation.
+            // Without this line you will get duplicate validations from both Avalonia and CT
+            BindingPlugins.DataValidators.RemoveAt(0);
 
-        public void ChangeTheme(Uri uri)
-        {
-            ThemeDictionary.MergedDictionaries.Clear();
-            ThemeDictionary.MergedDictionaries.Add(new ResourceDictionary() { Source = uri });
-        }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            string[] args = Environment.GetCommandLineArgs();
-
-            int p = 0, lng = 0;
-            while (p < args.GetLength(0)) switch (args[p++])
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                case "-locale":
-                    if (p < args.GetLength(0))
-                        lng = p;
-                    break;
+                desktop.MainWindow = new MainWindow();
+                
+                // Handle startup arguments
+                string[] args = Environment.GetCommandLineArgs();
+                int p = 0, lng = 0;
+                while (p < args.GetLength(0)) switch (args[p++])
+                {
+                    case "-locale":
+                        if (p < args.GetLength(0))
+                            lng = p;
+                        break;
+                }
+
+                if (lng > 0)
+                {
+                    Thread.CurrentThread.CurrentUICulture =
+                     Thread.CurrentThread.CurrentCulture =
+                      CultureInfo.DefaultThreadCurrentCulture =
+                       CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(args[lng]);
+                }
             }
 
-            if (lng > 0)
-            {
-                Thread.CurrentThread.CurrentUICulture =
-                 Thread.CurrentThread.CurrentCulture =
-                  CultureInfo.DefaultThreadCurrentCulture =
-                   CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(args[lng]); ;
-
-                FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-            }
-
-            base.OnStartup(e);
+            base.OnFrameworkInitializationCompleted();
         }
 
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs args)
         { 
-            MessageBox.Show("Unhandled exception occured: " + (args.ExceptionObject as Exception).Message, "CurrentDomainException");
-        }
-
-        private void DispatcherOnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
-        {
-            args.Handled = true;
-
-            MessageBox.Show("Unhandled exception occured: " + (args.Exception as Exception).Message, "DispatcherException");
-            Environment.Exit(-1);
+            var window = (ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            // Use Avalonia equivalent for message boxes
+            // For now, just log to console
+            Console.WriteLine("Unhandled exception occurred: " + (args.ExceptionObject as Exception)?.Message);
         }
 
         private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs args)
         {
             args.SetObserved();
-
-            MessageBox.Show("Unhandled exception occured: " + (args.Exception.GetBaseException() as Exception).Message, "TaskSchedulerException");
+            Console.WriteLine("Unhandled exception occurred: " + (args.Exception.GetBaseException() as Exception)?.Message);
         }
     }
 }

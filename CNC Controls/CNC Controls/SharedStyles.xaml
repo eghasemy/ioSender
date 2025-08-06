@@ -1,13 +1,13 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:gcode="clr-namespace:CNC.GCode;assembly=CNC.Core"
-                    xmlns:local="clr-namespace:CNC.Controls">
+                    xmlns:gcode="using:CNC.GCode"
+                    xmlns:local="using:CNC.Controls">
     <local:IsAxisVisibleConverter x:Key="IsAxisVisibleConverter" />
-    <Style x:Key="SmallXButtonStyle" TargetType="Button">
+    <Style x:Key="SmallXButtonStyle" Selector="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
+                <ControlTemplate Selector="Button">
                     <Grid Background="{TemplateBinding Background}">
                         <ContentPresenter HorizontalAlignment="Center"/>
                     </Grid>

@@ -41,9 +41,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Windows;
+using Avalonia;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Controls.Lathe
 {
@@ -482,9 +484,9 @@ namespace CNC.Controls.Lathe
             }
         }
 
-        private Visibility _showTaperControls = Visibility.Hidden;
+        private bool _showTaperControls = false;
 
-        public Visibility TaperControlsVisibility
+        public bool TaperControlsVisibility
         {
             get { return _showTaperControls; }
             set

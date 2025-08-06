@@ -39,9 +39,9 @@ using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Media.Media3D;
-using System.Xml;
+using Avalonia;
+using CNC.Core; // Cross-platform 3D math types
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {
@@ -318,7 +318,7 @@ namespace CNC.Controls.Probing
                     variables.Add("X", (x * (Max.X - Min.X)) / (SizeX - 1) + Min.X);
                     variables.Add("Y", (y * (Max.Y - Min.Y)) / (SizeY - 1) + Min.Y);
 
-                    AddPoint(x, y, expr.GetValue(variables));
+                    // TODO: Convert to Avalonia property getter - AddPoint(x, y, expr.GetValue(variables));
                 }
             }
         }

@@ -38,15 +38,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Windows.Threading;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 using CNC.Core;
-using CNC.Controls;
+using Avalonia.Input;
+
+namespace GCode_Sender
+{
+    /// <summary>
+    /// Interaction logic for JobView.xaml
+    /// </summary>
+    public partial class JobView : UserControl
+    {
+        public JobView()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+    }
+}
 
 namespace GCode_Sender
 {
@@ -286,17 +300,17 @@ namespace GCode_Sender
         {
             double height;
 
-            if (limitsControl.Visibility == Visibility.Collapsed)
+            if (limitsControl.Visibility == false)
             {
-                limitsControl.Visibility = Visibility.Hidden;
+                limitsControl.IsVisible = false;
                 limitsControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 height = limitsControl.DesiredSize.Height;
-                limitsControl.Visibility = Visibility.Collapsed;
+                limitsControl.IsVisible = false;
             }
             else
                 height = limitsControl.ActualHeight;
 
-            limitsControl.Visibility = (dp.ActualHeight - t1.ActualHeight - t2.ActualHeight + limitsControl.ActualHeight) > height ? Visibility.Visible : Visibility.Collapsed;
+            limitsControl.Visibility = (dp.ActualHeight - t1.ActualHeight - t2.ActualHeight + limitsControl.ActualHeight) > height ? true : false;
         }
 
 #if ADD_CAMERA

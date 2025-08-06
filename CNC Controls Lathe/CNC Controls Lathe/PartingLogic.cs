@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Lathe
 {

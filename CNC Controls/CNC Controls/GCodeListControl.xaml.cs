@@ -38,11 +38,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.Collections.Generic;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -61,27 +63,27 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly DependencyProperty SingleSelectedProperty = DependencyProperty.Register(nameof(SingleSelected), typeof(bool), typeof(GCodeListControl), new PropertyMetadata(false));
+        public static readonly StyledProperty<bool> SingleSelectedProperty = AvaloniaProperty.Register<GCodeListControl, bool>(nameof(SingleSelected), false);
         public bool SingleSelected
         {
-            get { return (bool)GetValue(SingleSelectedProperty); }
+            get { return GetValue(SingleSelectedProperty); }
             private set { SetValue(SingleSelectedProperty, value); }
         }
 
-        public static readonly DependencyProperty MultipleSelectedProperty = DependencyProperty.Register(nameof(MultipleSelected), typeof(bool), typeof(GCodeListControl), new PropertyMetadata(false));
+        public static readonly StyledProperty<bool> MultipleSelectedProperty = AvaloniaProperty.Register<GCodeListControl, bool>(nameof(MultipleSelected), false);
         public bool MultipleSelected
         {
-            get { return (bool)GetValue(MultipleSelectedProperty); }
+            get { return GetValue(MultipleSelectedProperty); }
             private set { SetValue(MultipleSelectedProperty, value); }
         }
         #endregion
 
-        private void grdGCode_Drag(object sender, DragEventArgs e)
+        private void grdGCode_Drag(object sender, Avalonia.Input.DragEventArgs e)
         {
             GCode.File.Drag(sender, e);
         }
 
-        private void grdGCode_Drop(object sender, DragEventArgs e)
+        private void grdGCode_Drop(object sender, Avalonia.Input.DragEventArgs e)
         {
             GCode.File.Drop(sender, e);
         }
@@ -101,9 +103,9 @@ namespace CNC.Controls
                 case nameof(GrblViewModel.ScrollPosition):
                     int sp = ((GrblViewModel)sender).ScrollPosition;
                     if (sp == 0)
-                        scroll.ScrollToTop();
+                        scroll.ScrollToHome();
                     else
-                        scroll.ScrollToVerticalOffset(sp);
+                        scroll.Offset = new Vector(scroll.Offset.X, sp);
                     break;
             }
         }

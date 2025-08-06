@@ -38,10 +38,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.Collections;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
     /// <summary>
@@ -71,17 +72,17 @@ namespace CNC.Controls.Lathe
             cbxProfile.SelectedValue = options.Profiles.First().Id;
         }
 
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(ProfileData), typeof(ProfileControl), new PropertyMetadata());
+                public static readonly StyledProperty<string> SelectedItemProperty = AvaloniaProperty.Register<ProfileControl, string>(nameof(SelectedItem), string.Empty);
         public string SelectedItem
         {
-            get { return (string)GetValue(SelectedItemProperty); }
+            get { return GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
 
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(ProfileControl), new PropertyMetadata());
+                public static readonly StyledProperty<IEnumerable> ItemsSourceProperty = AvaloniaProperty.Register<ProfileControl, IEnumerable>(nameof(ItemsSource), default);
         public IEnumerable ItemsSource
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+            get { return GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
 

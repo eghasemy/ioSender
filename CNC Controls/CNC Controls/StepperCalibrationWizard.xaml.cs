@@ -40,9 +40,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using CNC.Core;
 using CNC.GCode;
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -134,50 +135,50 @@ namespace CNC.Controls
             ResolutionUnit = setting.Unit;
         }
 
-        public static readonly DependencyProperty AxisProperty = DependencyProperty.Register(nameof(Axis), typeof(int), typeof(StepperCalibrationWizard), new PropertyMetadata(0, new PropertyChangedCallback(OnAxisChanged)));
+                public static readonly StyledProperty<int> AxisProperty = AvaloniaProperty.Register<StepperCalibrationWizard, int>(nameof(Axis), 0);
         public int Axis
         {
-            get { return (int)GetValue(AxisProperty); }
+            get { return GetValue(AxisProperty); }
             set { SetValue(AxisProperty, value); }
         }
-        private static void OnAxisChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAxisChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             ((StepperCalibrationWizard)d).getAxisDetails((int)e.NewValue);
         }
 
-        public static readonly DependencyProperty CanUpdateProperty = DependencyProperty.Register(nameof(CanUpdate), typeof(bool), typeof(StepperCalibrationWizard), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> CanUpdateProperty = AvaloniaProperty.Register<StepperCalibrationWizard, bool>(nameof(CanUpdate), false);
         public bool CanUpdate
         {
-            get { return (bool)GetValue(CanUpdateProperty); }
+            get { return GetValue(CanUpdateProperty); }
             set { SetValue(CanUpdateProperty, value); }
         }
 
-        public static readonly DependencyProperty DistanceProperty = DependencyProperty.Register(nameof(Distance), typeof(double), typeof(StepperCalibrationWizard), new PropertyMetadata(100d, new PropertyChangedCallback(OnDistanceChanged)));
+                public static readonly StyledProperty<double> DistanceProperty = AvaloniaProperty.Register<StepperCalibrationWizard, double>(nameof(Distance), 0.0);
         public double Distance
         {
-            get { return (double)GetValue(DistanceProperty); }
+            get { return GetValue(DistanceProperty); }
             set { SetValue(DistanceProperty, value); }
         }
-        private static void OnDistanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDistanceChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             ((StepperCalibrationWizard)d).CanUpdate = false;
             ((StepperCalibrationWizard)d).ActualDistance = (double)e.NewValue;
         }
 
-        public static readonly DependencyProperty DistanceUnitProperty = DependencyProperty.Register(nameof(DistanceUnit), typeof(string), typeof(StepperCalibrationWizard), new PropertyMetadata(string.Empty));
+                public static readonly StyledProperty<string> DistanceUnitProperty = AvaloniaProperty.Register<StepperCalibrationWizard, string>(nameof(DistanceUnit), string.Empty);
         public string DistanceUnit
         {
-            get { return (string)GetValue(DistanceUnitProperty); }
+            get { return GetValue(DistanceUnitProperty); }
             set { SetValue(DistanceUnitProperty, value); }
         }
 
-        public static readonly DependencyProperty ActualDistanceProperty = DependencyProperty.Register(nameof(ActualDistance), typeof(double), typeof(StepperCalibrationWizard), new PropertyMetadata(100d, new PropertyChangedCallback(OnActualDistanceChanged)));
+                public static readonly StyledProperty<double> ActualDistanceProperty = AvaloniaProperty.Register<StepperCalibrationWizard, double>(nameof(ActualDistance), 0.0);
         public double ActualDistance
         {
-            get { return (double)GetValue(ActualDistanceProperty); }
+            get { return GetValue(ActualDistanceProperty); }
             set { SetValue(ActualDistanceProperty, value); }
         }
-        private static void OnActualDistanceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnActualDistanceChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             var instance = (StepperCalibrationWizard)d;
 
@@ -187,17 +188,17 @@ namespace CNC.Controls
                 instance.Resolution = Math.Round(dbl.Parse(instance.setting.Value) / (double)e.NewValue * instance.Distance, GrblInfo.IsGrblHAL ? 6 : 3);
         }
 
-        public static readonly DependencyProperty ResolutionProperty = DependencyProperty.Register(nameof(Resolution), typeof(double), typeof(StepperCalibrationWizard), new PropertyMetadata(0d));
+                public static readonly StyledProperty<double> ResolutionProperty = AvaloniaProperty.Register<StepperCalibrationWizard, double>(nameof(Resolution), 0.0);
         public double Resolution
         {
-            get { return (double)GetValue(ResolutionProperty); }
+            get { return GetValue(ResolutionProperty); }
             set { SetValue(ResolutionProperty, value); }
         }
 
-        public static readonly DependencyProperty ResolutionUnitProperty = DependencyProperty.Register(nameof(ResolutionUnit), typeof(string), typeof(StepperCalibrationWizard), new PropertyMetadata(string.Empty));
+                public static readonly StyledProperty<string> ResolutionUnitProperty = AvaloniaProperty.Register<StepperCalibrationWizard, string>(nameof(ResolutionUnit), string.Empty);
         public string ResolutionUnit
         {
-            get { return (string)GetValue(ResolutionUnitProperty); }
+            get { return GetValue(ResolutionUnitProperty); }
             set { SetValue(ResolutionUnitProperty, value); }
         }
 
@@ -233,14 +234,14 @@ namespace CNC.Controls
             if (model == null)
             {
                 model = DataContext as GrblViewModel;
-                txtWarnings.Text = ((string)FindResource("Warnings")).Replace("\\n", "\n");
-                txtInstructions.Text = ((string)FindResource("Instructions1")).Replace("\\n", "\n") + "\n" +
-                                        ((string)FindResource("Instructions2")).Replace("\\n", "\n") + "\n" +
-                                         ((string)FindResource("Instructions3")).Replace("\\n", "\n") + "\n" +
-                                          ((string)FindResource("Instructions4")).Replace("\\n", "\n") + "\n" +
-                                           ((string)FindResource("Instructions5")).Replace("\\n", "\n") + "\n" +
-                                            ((string)FindResource("Instructions6")).Replace("\\n", "\n") + "\n" +
-                                             ((string)FindResource("Instructions7")).Replace("\\n", "\n");
+                txtWarnings.Text = ((string)this.FindResource("Warnings")).Replace("\\n", "\n");
+                txtInstructions.Text = ((string)this.FindResource("Instructions1")).Replace("\\n", "\n") + "\n" +
+                                        ((string)this.FindResource("Instructions2")).Replace("\\n", "\n") + "\n" +
+                                         ((string)this.FindResource("Instructions3")).Replace("\\n", "\n") + "\n" +
+                                          ((string)this.FindResource("Instructions4")).Replace("\\n", "\n") + "\n" +
+                                           ((string)this.FindResource("Instructions5")).Replace("\\n", "\n") + "\n" +
+                                            ((string)this.FindResource("Instructions6")).Replace("\\n", "\n") + "\n" +
+                                             ((string)this.FindResource("Instructions7")).Replace("\\n", "\n");
             }
         }
     }

@@ -39,9 +39,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Data;
+using Avalonia.Media;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {
@@ -58,10 +59,10 @@ namespace CNC.Controls.Probing
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values[0] == null || parameter == null)
-                return Visibility.Hidden;
+                return false;
 
             return values[0].ToString().Equals(parameter.ToString(), StringComparison.InvariantCultureIgnoreCase) &&
-                   (values.Length == 2 ? values[1] is bool && (bool)values[1] : true) ? Visibility.Visible : Visibility.Hidden;
+                   (values.Length == 2 ? values[1] is bool && (bool)values[1] : true) ? true : false;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

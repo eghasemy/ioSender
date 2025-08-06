@@ -37,15 +37,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
+using Avalonia;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Threading;
 using System.Threading.Tasks;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Probing
 {
 
@@ -245,7 +246,7 @@ namespace CNC.Controls.Probing
                     Comms.com.WriteByte(GrblConstants.CMD_STATUS_REPORT_ALL);
 
                 if (!model.Grbl.IsGrblHAL && !AppConfig.Settings.Jog.KeyboardEnable)
-                    Jog.Visibility = Visibility.Collapsed;
+                    Jog.IsVisible = false;
 
                 if (GrblInfo.IsGrblHAL)
                 {
@@ -433,35 +434,35 @@ namespace CNC.Controls.Probing
         {
             double height;
 
-            if (probeProperties.Visibility == Visibility.Collapsed)
+            if (probeProperties!.IsVisible)
             {
-                probeProperties.Visibility = Visibility.Hidden;
+                probeProperties.IsVisible = false;
                 probeProperties.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 height = probeProperties.DesiredSize.Height;
-                probeProperties.Visibility = Visibility.Collapsed;
+                probeProperties.IsVisible = false;
             }
             else
                 height = probeProperties.ActualHeight;
 
-            probeProperties.Visibility = (t1.ActualHeight - (Clearances.TranslatePoint(new Point(0, Clearances.ActualHeight), dp).Y + Jog.ActualHeight + Position.ActualHeight) + probeProperties.ActualHeight) > height ? Visibility.Visible : Visibility.Collapsed;
+            probeProperties.Visibility = (t1.ActualHeight - (Clearances.TranslatePoint(new Point(0, Clearances.ActualHeight), dp).Y + Jog.ActualHeight + Position.ActualHeight) + probeProperties.ActualHeight) > height ? true : false;
         }
 
         private void showDRO()
         {
             double width;
 
-            if (droPanel.Visibility == Visibility.Collapsed)
+            if (droPanel!.IsVisible)
             {
-                droPanel.Visibility = Visibility.Hidden;
+                droPanel.IsVisible = false;
                 droPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 width = droPanel.DesiredSize.Width;
-                droPanel.Visibility = Visibility.Collapsed;
+                droPanel.IsVisible = false;
             }
             else
                 width = droPanel.ActualWidth;
 
-            droPanel.Visibility = (tab.ActualWidth + width + t1.ActualWidth + 20) < ActualWidth ? Visibility.Visible : Visibility.Collapsed;
-            dp.Width = droPanel.Visibility == Visibility.Visible  ? 460 : 240;
+            droPanel.Visibility = (tab.ActualWidth + width + t1.ActualWidth + 20) < ActualWidth ? true : false;
+            dp.Width = droPanel.IsVisible  ? 460 : 240;
         }
     }
 }

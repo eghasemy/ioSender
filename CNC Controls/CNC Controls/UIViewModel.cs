@@ -39,9 +39,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System.Linq;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
 namespace CNC.Controls
 {
@@ -68,7 +69,7 @@ namespace CNC.Controls
         //public ObservableCollection<CNCView> CNCViews { get;  }
         public ObservableCollection<SidebarItem> SidebarItems { get; }
         public ObservableCollection<UserControl> ConfigControls { get; }
-        public ObservableCollection<MenuItem> TransformMenuItems { get; } = new ObservableCollection<MenuItem>();
+        public ObservableCollection<Avalonia.Controls.MenuItem> MenuItems { get; } = new ObservableCollection<Avalonia.Controls.MenuItem>();
 
         public bool IsConfigControlInstantiated<T>()
         {
@@ -86,7 +87,7 @@ namespace CNC.Controls
                     foreach (SidebarItem cmd in SidebarItems)
                     {
                         cmd.IsEnabled = _currentView.ViewType == ViewType.GRBL || _currentView.ViewType == ViewType.Probing;
-                        cmd.Visibility = Visibility.Hidden;
+                        cmd.IsVisible = false;
                     }
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(CurrentViewType));

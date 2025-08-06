@@ -38,13 +38,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
 using CNC.Core;
 using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class DROControl : UserControl
@@ -67,8 +68,8 @@ namespace CNC.Controls
             {
                 axis.txtReadout.GotFocus += txtReadout_GotFocus;
                 axis.txtReadout.LostFocus += txtReadout_LostFocus;
-                axis.txtReadout.PreviewKeyDown += txtReadout_PreviewKeyDown;
-                axis.txtReadout.PreviewKeyUp += txtReadout_PreviewKeyUp;
+                axis.txtReadout.KeyDown += txtReadout_PreviewKeyDown;
+                axis.txtReadout.KeyUp += txtReadout_PreviewKeyUp;
                 axis.btnZero.Click += btnZero_Click;
             }
         }
@@ -83,25 +84,25 @@ namespace CNC.Controls
 
         private void DRO_Loaded(object sender, RoutedEventArgs e)
         {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (Avalonia.Controls.Design.IsDesignMode)
                 return;
 
             if (!keyboardMappingsOk && DataContext is GrblViewModel)
             {
-                KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
+                CNC.Core.KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
 
                 keyboardMappingsOk = true;
 
-                keyboard.AddHandler(Key.X, ModifierKeys.Control | ModifierKeys.Shift, ZeroX);
-                keyboard.AddHandler(Key.Y, ModifierKeys.Control | ModifierKeys.Shift, ZeroY);
-                keyboard.AddHandler(Key.Z, ModifierKeys.Control | ModifierKeys.Shift, ZeroZ);
+                keyboard.AddHandler(Key.X, KeyModifiers.Control | KeyModifiers.Shift, ZeroX);
+                keyboard.AddHandler(Key.Y, KeyModifiers.Control | KeyModifiers.Shift, ZeroY);
+                keyboard.AddHandler(Key.Z, KeyModifiers.Control | KeyModifiers.Shift, ZeroZ);
                 if (GrblInfo.AxisFlags.HasFlag(AxisFlags.A))
-                    keyboard.AddHandler(Key.A, ModifierKeys.Control | ModifierKeys.Shift, ZeroA);
+                    keyboard.AddHandler(Key.A, KeyModifiers.Control | KeyModifiers.Shift, ZeroA);
                 if (GrblInfo.AxisFlags.HasFlag(AxisFlags.B))
-                    keyboard.AddHandler(Key.B, ModifierKeys.Control | ModifierKeys.Shift, ZeroB);
+                    keyboard.AddHandler(Key.B, KeyModifiers.Control | KeyModifiers.Shift, ZeroB);
                 if (GrblInfo.AxisFlags.HasFlag(AxisFlags.C))
-                    keyboard.AddHandler(Key.C, ModifierKeys.Control | ModifierKeys.Shift, ZeroC);
-                keyboard.AddHandler(Key.D0, ModifierKeys.Control | ModifierKeys.Shift, ZeroAxes);
+                    keyboard.AddHandler(Key.C, KeyModifiers.Control | KeyModifiers.Shift, ZeroC);
+                keyboard.AddHandler(Key.D0, KeyModifiers.Control | KeyModifiers.Shift, ZeroAxes);
             }
 
             foreach (DROBaseControl axis in UIUtils.FindLogicalChildren<DROBaseControl>(this))
@@ -116,9 +117,9 @@ namespace CNC.Controls
 
                 orgpos = (DataContext as GrblViewModel).Position.Values[(int)((NumericTextBox)(sender)).Tag];
 
-                background = (sender as NumericTextBox).Background;
+                background = (sender as NumericTextBox).Background as Brush;
                 (sender as NumericTextBox).IsReadOnly = false;
-                (sender as NumericTextBox).Background = Brushes.White;
+                (sender as NumericTextBox).Background = new SolidColorBrush(Colors.White);
 
                 hasFocus = true;
 

@@ -37,10 +37,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class OutlineBaseControl : UserControl
@@ -50,10 +52,10 @@ namespace CNC.Controls
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty FeedRateProperty = DependencyProperty.Register(nameof(FeedRate), typeof(int), typeof(OutlineBaseControl), new PropertyMetadata(500));
+                public static readonly StyledProperty<int> FeedRateProperty = AvaloniaProperty.Register<OutlineBaseControl, int>(nameof(FeedRate), 0);
         public int FeedRate
         {
-            get { return (int)GetValue(FeedRateProperty); }
+            get { return GetValue(FeedRateProperty); }
             set { SetValue(FeedRateProperty, value); }
         }
 

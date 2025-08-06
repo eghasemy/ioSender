@@ -37,38 +37,38 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace CNC.Controls
 {
     public partial class SignalControl : UserControl
     {
-        static Brush LEDOn = Brushes.Red, LEDOff = Brushes.LightGray;
+        static Brush LEDOn = new SolidColorBrush(Colors.Red), LEDOff = new SolidColorBrush(Colors.LightGray);
 
         public SignalControl()
         {
             InitializeComponent();
 
-            LEDOff = btnLED.Background;
+            LEDOff = btnLED.Background as Brush ?? new SolidColorBrush(Colors.LightGray);
         }
 
-        public static readonly DependencyProperty IsSetProperty = DependencyProperty.Register(nameof(IsSet), typeof(bool), typeof(SignalControl), new PropertyMetadata(false, new PropertyChangedCallback(OnIsSetChanged)));
+                public static readonly StyledProperty<bool> IsSetProperty = AvaloniaProperty.Register<SignalControl, bool>(nameof(IsSet), false);
         public bool IsSet
         {
-            get { return (bool)GetValue(IsSetProperty); }
+            get { return GetValue(IsSetProperty); }
             set { SetValue(IsSetProperty, value); }
         }
-        private static void OnIsSetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSetChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as SignalControl).btnLED.Background = (bool)e.NewValue ? LEDOn : LEDOff;
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(SignalControl), new PropertyMetadata());
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<SignalControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
+            get { return GetValue(LabelProperty); }
             set { SetValue(LabelProperty, value); }
         }
     }

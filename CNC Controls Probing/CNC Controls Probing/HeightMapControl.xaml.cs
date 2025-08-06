@@ -38,13 +38,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using Microsoft.Win32;
 using CNC.Core;
 using CNC.GCode;
 using HelixToolkit.Wpf;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Probing
 {
     /// <summary>

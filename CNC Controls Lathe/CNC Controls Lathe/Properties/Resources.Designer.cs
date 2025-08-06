@@ -10,6 +10,7 @@
 
 namespace CNC.Controls.Lathe.Properties {
     using System;
+using Avalonia.Controls;
     
     
     /// <summary>

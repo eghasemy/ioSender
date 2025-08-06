@@ -39,13 +39,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Controls.Shapes;
 using System.Globalization;
 using CNC.Core;
-
+using CNC.GCode;
+using Avalonia.Input;
+using Avalonia.Collections;
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -79,7 +82,7 @@ namespace CNC.Controls
 
         #endregion
 
-        private void sldError_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldError_ValueChanged(object sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             if (DataContext is PIDLogViewModel)
             {
@@ -102,21 +105,19 @@ namespace CNC.Controls
         {
             double center = PIDPlot.Height / 2d;
             double Xstep, Xpos;
-            Point a = new Point(0d, center), b = new Point(0d, center);
-            Point c = new Point(0d, center), d = new Point(0d, center);
-            Point g = new Point(0d, center), h = new Point(0d, center);
+            CNC.Core.Point a = new CNC.Core.Point(0d, center), b = new CNC.Core.Point(0d, center);
+            CNC.Core.Point c = new CNC.Core.Point(0d, center), d = new CNC.Core.Point(0d, center);
+            CNC.Core.Point g = new CNC.Core.Point(0d, center), h = new CNC.Core.Point(0d, center);
 
             PIDPlot.Children.Clear();
 
             PIDPlot.Children.Add(new Line()
             {
-                X1 = 0d,
-                X2 = PIDPlot.Width,
-                Y1 = center,
-                Y2 = center,
-                Stroke = Brushes.Black,
+                StartPoint = new Avalonia.Point(0d, center),
+                EndPoint = new Avalonia.Point(PIDPlot.Width, center),
+                Stroke = new SolidColorBrush(Colors.Black),
                 StrokeThickness = 0.5d,
-                StrokeDashArray = new DoubleCollection() { 2d }
+                StrokeDashArray = new AvaloniaList<double>() { 2d }
             });
 
             if (GrblPIDData.data.Rows.Count > 0)
@@ -130,11 +131,9 @@ namespace CNC.Controls
 
                     PIDPlot.Children.Add(new Line()
                     {
-                        X1 = a.X,
-                        X2 = b.X,
-                        Y1 = a.Y,
-                        Y2 = b.Y,
-                        Stroke = Brushes.Green,
+                        StartPoint = new Avalonia.Point(a.X, a.Y),
+                        EndPoint = new Avalonia.Point(b.X, b.Y),
+                        Stroke = new SolidColorBrush(Colors.Green),
                         StrokeThickness = 1
                     });
 
@@ -146,11 +145,9 @@ namespace CNC.Controls
 
                     PIDPlot.Children.Add(new Line()
                     {
-                        X1 = c.X,
-                        X2 = d.X,
-                        Y1 = c.Y,
-                        Y2 = d.Y,
-                        Stroke = Brushes.Blue,
+                        StartPoint = new Avalonia.Point(c.X, c.Y),
+                        EndPoint = new Avalonia.Point(d.X, d.Y),
+                        Stroke = new SolidColorBrush(Colors.Blue),
                         StrokeThickness = 1
                     });
 
@@ -162,11 +159,9 @@ namespace CNC.Controls
 
                     PIDPlot.Children.Add(new Line()
                     {
-                        X1 = g.X,
-                        X2 = h.X,
-                        Y1 = g.Y,
-                        Y2 = h.Y,
-                        Stroke = Brushes.Red,
+                        StartPoint = new Avalonia.Point(g.X, g.Y),
+                        EndPoint = new Avalonia.Point(h.X, h.Y),
+                        Stroke = new SolidColorBrush(Colors.Red),
                         StrokeThickness = 1
                     });
 

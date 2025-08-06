@@ -47,12 +47,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using CNC.Core;
 using System.Collections.Generic;
+using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls.Lathe
 {
     /// <summary>
@@ -73,7 +75,7 @@ namespace CNC.Controls.Lathe
         {
             InitializeComponent();
 
-            grpOptionsMach3.Visibility = Visibility.Hidden;
+            grpOptionsMach3.IsVisible = false;
 
             logic = new ThreadLogic();
 
@@ -149,14 +151,14 @@ namespace CNC.Controls.Lathe
             {
                 case Thread.Format.Mach3Native:
                 case Thread.Format.Mach3Sandvik:
-                    grpOptionsLinuxCNC.Visibility = Visibility.Visible;
+                    grpOptionsLinuxCNC.IsVisible = true;
                     grpOptionsMach3.Margin = grpOptionsLinuxCNC.Margin; // new Point(grpOptionsLinuxCNC.Location.X, grpOptionsLinuxCNC.Location.Y);
-                    grpOptionsMach3.Visibility = Visibility.Visible;
+                    grpOptionsMach3.IsVisible = true;
                     break;
 
                 case Thread.Format.LinuxCNC:
-                    grpOptionsLinuxCNC.Visibility = Visibility.Visible;
-                    grpOptionsMach3.Visibility = Visibility.Hidden;
+                    grpOptionsLinuxCNC.IsVisible = true;
+                    grpOptionsMach3.IsVisible = false;
                     break;
             }
 

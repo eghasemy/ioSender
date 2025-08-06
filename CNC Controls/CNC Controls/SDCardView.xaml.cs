@@ -38,14 +38,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Data;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using System.Linq;
+using System.Collections.Generic;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using System.Threading;
 using System.Net;
-using Microsoft.Win32;
+using Avalonia.Platform.Storage;
 using CNC.Core;
-
+using MessageBox = CNC.Core.MessageBox;
+using MessageBoxButton = CNC.Core.MessageBoxButton;
+using MessageBoxResult = CNC.Core.MessageBoxResult;
+using MessageBoxImage = CNC.Core.MessageBoxImage;
+using CNC.GCode;
 namespace CNC.Controls
 {
     /// <summary>
@@ -81,7 +88,7 @@ namespace CNC.Controls
                 if (GrblInfo.HasSDCard && (DataContext as GrblViewModel).SDCardMountStatus == SDState.Undetected)
                 {
                     GrblSDCard.Clear();
-                    (DataContext as GrblViewModel).Message = (string)FindResource("NoCard");
+                    (DataContext as GrblViewModel).Message = (string)this.FindResource("NoCard");
                 } else
                     GrblSDCard.Load(DataContext as GrblViewModel, ViewAll);
             }
@@ -101,45 +108,45 @@ namespace CNC.Controls
 
         #region Dependency properties
 
-        public static readonly DependencyProperty RewindProperty = DependencyProperty.Register(nameof(Rewind), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> RewindProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(Rewind), false);
         public bool Rewind
         {
-            get { return (bool)GetValue(RewindProperty); }
+            get { return GetValue(RewindProperty); }
             set { SetValue(RewindProperty, value); }
         }
 
-        public static readonly DependencyProperty CanRewindProperty = DependencyProperty.Register(nameof(CanRewind), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> CanRewindProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanRewind), false);
         public bool CanRewind
         {
-            get { return (bool)GetValue(CanRewindProperty); }
+            get { return GetValue(CanRewindProperty); }
             set { SetValue(CanRewindProperty, value); }
         }
 
-        public static readonly DependencyProperty ViewAllProperty = DependencyProperty.Register(nameof(ViewAll), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> ViewAllProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(ViewAll), false);
         public bool ViewAll
         {
-            get { return (bool)GetValue(ViewAllProperty); }
+            get { return GetValue(ViewAllProperty); }
             set { SetValue(ViewAllProperty, value); }
         }
 
-        public static readonly DependencyProperty CanViewAllProperty = DependencyProperty.Register(nameof(CanViewAll), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> CanViewAllProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanViewAll), false);
         public bool CanViewAll
         {
-            get { return (bool)GetValue(CanViewAllProperty); }
+            get { return GetValue(CanViewAllProperty); }
             set { SetValue(CanViewAllProperty, value); }
         }
 
-        public static readonly DependencyProperty CanUploadProperty = DependencyProperty.Register(nameof(CanUpload), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> CanUploadProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanUpload), false);
         public bool CanUpload
         {
-            get { return (bool)GetValue(CanUploadProperty); }
+            get { return GetValue(CanUploadProperty); }
             set { SetValue(CanUploadProperty, value); }
         }
 
-        public static readonly DependencyProperty CanDeleteProperty = DependencyProperty.Register(nameof(CanDelete), typeof(bool), typeof(SDCardView), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> CanDeleteProperty = AvaloniaProperty.Register<SDCardView, bool>(nameof(CanDelete), false);
         public bool CanDelete
         {
-            get { return (bool)GetValue(CanDeleteProperty); }
+            get { return GetValue(CanDeleteProperty); }
             set { SetValue(CanDeleteProperty, value); }
         }
 
@@ -156,7 +163,7 @@ namespace CNC.Controls
             currentFile = e.AddedItems.Count == 1 ? ((DataRowView)e.AddedItems[0]).Row : null;
         }
 
-        private void dgrSDCard_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void dgrSDCard_MouseDoubleClick(object sender, PointerPressedEventArgs e)
         {
             RunFile();
         }
@@ -173,7 +180,7 @@ namespace CNC.Controls
 
         private void DownloadRun_Click(object sender, RoutedEventArgs e)
         {
-            if (currentFile != null && !isMacro((string)currentFile["Name"]) && MessageBox.Show(string.Format((string)FindResource("DownloandRun"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (currentFile != null && !isMacro((string)currentFile["Name"]) && MessageBox.Show(string.Format((string)this.FindResource("DownloandRun"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 var model = DataContext as GrblViewModel;
 
@@ -185,7 +192,7 @@ namespace CNC.Controls
                     Comms.com.PurgeQueue();
 
                     model.SuspendProcessing = true;
-                    model.Message = string.Format((string)FindResource("Downloading"), (string)currentFile["Name"]);
+                    model.Message = string.Format((string)this.FindResource("Downloading"), (string)currentFile["Name"]);
 
                     GCode.File.AddBlock((string)currentFile["Name"], CNC.Core.Action.New);
 
@@ -219,32 +226,51 @@ namespace CNC.Controls
             }
         }
 
-        private void Upload_Click(object sender, RoutedEventArgs e)
+        private async void Upload_Click(object sender, RoutedEventArgs e)
         {
             bool ok = false;
             string filename = string.Empty;
-            OpenFileDialog file = new OpenFileDialog();
 
-            file.Filter = string.Format("GCode files ({0})|{0}|GCode macros (*.macro)|*.macro|Text files (*.txt)|*.txt|All files (*.*)|*.*", FileUtils.ExtensionsToFilter(GCode.FileTypes));
-
-            if (file.ShowDialog() == true)
+            var storageProvider = TopLevel.GetTopLevel(this)?.StorageProvider;
+            if (storageProvider != null)
             {
-                filename = file.FileName;
+                var fileTypeChoices = new List<FilePickerFileType>
+                {
+                    new("GCode files") 
+                    { 
+                        Patterns = FileUtils.ExtensionsToFilter(GCode.FileTypes).Split('|').Where((x, i) => i % 2 == 0).ToArray()
+                    },
+                    new("GCode macros") { Patterns = new[] { "*.macro" } },
+                    new("Text files") { Patterns = new[] { "*.txt" } },
+                    new("All files") { Patterns = new[] { "*.*" } }
+                };
+
+                var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+                {
+                    Title = "Select GCode file",
+                    AllowMultiple = false,
+                    FileTypeFilter = fileTypeChoices
+                });
+
+                if (files.Count > 0)
+                {
+                    filename = files[0].Path.LocalPath;
+                }
             }
 
             if (filename != string.Empty)
             {
                 GrblViewModel model = DataContext as GrblViewModel;
 
-                model.Message = (string)FindResource("Uploading");
+                model.Message = (string)this.FindResource("Uploading");
 
                 if (GrblInfo.UploadProtocol == "FTP")
                 {
                     if (GrblInfo.IpAddress == string.Empty)
-                        model.Message = (string)FindResource("NoConnection");
+                        model.Message = (string)this.FindResource("NoConnection");
                     else using(new UIUtils.WaitCursor())
                     {
-                        model.Message = (string)FindResource("Uploading");
+                        model.Message = (string)this.FindResource("Uploading");
                         try
                         {
                             using (WebClient client = new WebClient())
@@ -271,14 +297,14 @@ namespace CNC.Controls
                 }
                 else
                 {
-                    model.Message = (string)FindResource("Uploading");
+                    model.Message = (string)this.FindResource("Uploading");
                     YModem ymodem = new YModem();
                     ymodem.DataTransferred += Ymodem_DataTransferred;
                     ok = ymodem.Upload(filename);
                 }
 
                 if(!(GrblInfo.UploadProtocol == "FTP" && !ok))
-                    model.Message = (string)FindResource(ok ? "TransferDone" : "TransferAborted");
+                    model.Message = (string)this.FindResource(ok ? "TransferDone" : "TransferAborted");
 
                 GrblSDCard.Load(model, ViewAll);
             }
@@ -287,7 +313,7 @@ namespace CNC.Controls
         private void Ymodem_DataTransferred(long size, long transferred)
         {
             GrblViewModel model = DataContext as GrblViewModel;
-            model.Message = string.Format((string)FindResource("Transferring"), transferred, size);
+            model.Message = string.Format((string)this.FindResource("Transferring"), transferred, size);
         }
 
         private void Run_Click(object sender, RoutedEventArgs e)
@@ -301,7 +327,7 @@ namespace CNC.Controls
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(string.Format((string)FindResource("DeleteFile"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (MessageBox.Show(string.Format((string)this.FindResource("DeleteFile"), (string)currentFile["Name"]), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Comms.com.WriteCommand(GrblConstants.CMD_SDCARD_UNLINK + (string)currentFile["Name"]);
                 GrblSDCard.Load(DataContext as GrblViewModel, ViewAll);
@@ -316,7 +342,7 @@ namespace CNC.Controls
 
                 if ((bool)currentFile["Invalid"])
                 {
-                    MessageBox.Show(string.Format(((string)FindResource("IllegalName")).Replace("\\n", "\r\r"), (string)currentFile["Name"]), "ioSender",
+                    MessageBox.Show(string.Format(((string)this.FindResource("IllegalName")).Replace("\\n", "\r\r"), (string)currentFile["Name"]), "ioSender",
                                      MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
@@ -330,7 +356,7 @@ namespace CNC.Controls
                             int macro;
                             if(int.TryParse(filename.Substring(pos + 1), out macro) && macro >= 100)
                             {
-                                if(MessageBox.Show(string.Format((string)FindResource("RunMacro"), macro), "ioSender",
+                                if(MessageBox.Show(string.Format((string)this.FindResource("RunMacro"), macro), "ioSender",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                                 {
                                     Comms.com.WriteCommand("G65P" + macro.ToString());

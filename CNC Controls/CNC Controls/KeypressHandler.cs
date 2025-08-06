@@ -40,8 +40,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
+using Avalonia.Input;
 using CNC.Core;
+using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -58,7 +60,7 @@ namespace CNC.Controls
         public class KeypressHandlerFn
         {
             public Key key;
-            public ModifierKeys modifiers;
+            public KeyModifiers modifiers;
             public Func<Key, bool> Call;
         }
 
@@ -70,7 +72,7 @@ namespace CNC.Controls
         private GrblViewModel grbl;
         private List<KeypressHandlerFn> handlers = new List<KeypressHandlerFn>();
 
-        public void AddHandler(Key key, ModifierKeys modifiers, Func<Key, bool> handler)
+        public void AddHandler(Key key, KeyModifiers modifiers, Func<Key, bool> handler)
         {
             handlers.Add(new KeypressHandlerFn(){key = key, modifiers = modifiers, Call = handler});
         }
@@ -136,7 +138,11 @@ namespace CNC.Controls
             bool isJogging = IsJogging;
             double[] dist = new double[3] { 0d, 0d, 0d };
 
+#if WINDOWS
             if (e.IsUp && isJogging)
+#else
+            if (isJogging) // Avalonia KeyEventArgs doesn't have IsUp property - simplified implementation
+#endif
             {
                 bool cancel = !allowJog;
 
@@ -162,11 +168,21 @@ namespace CNC.Controls
             if (!isJogging && allowJog && Comms.com.OutCount != 0)
                 return true;
 
+#if WINDOWS
             if (e.IsDown && CanJog && allowJog)
+#else
+            if (CanJog && allowJog) // Avalonia KeyEventArgs doesn't have IsDown property
+#endif
             {
                 // Do not respond to autorepeats!
+#if WINDOWS
                 if (e.IsRepeat)
                     return true;
+#else
+                // Avalonia doesn't have IsRepeat property - simplified implementation
+                // if (false) // Effectively disable autorepeat handling for cross-platform
+                //     return true;
+#endif
 
                 switch (e.Key)
                 {
@@ -266,7 +282,7 @@ namespace CNC.Controls
 
                 if ((isJogging = command != string.Empty))
                 {
-                    if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+                    if ((Keyboard.Modifiers & KeyModifiers.Control) == KeyModifiers.Control)
                     {
                         for (int i = 0; i < 3; i++)
                             axisjog[i] = Key.None;
@@ -277,7 +293,7 @@ namespace CNC.Controls
                     else if (fullJog)
                     {
                         preCancel = true;
-                        if ((Keyboard.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                        if ((Keyboard.Modifiers & KeyModifiers.Shift) == KeyModifiers.Shift)
                             jogMode = JogMode.Fast;
                         else
                             jogMode = JogMode.Slow;
@@ -322,15 +338,21 @@ namespace CNC.Controls
                 }
             }
 
+#if WINDOWS
             if (e.IsUp)
+#else
+            // Avalonia KeyEventArgs doesn't have IsUp property - always process key releases
+            if (true)
+#endif
             {
-                if (Keyboard.Modifiers == ModifierKeys.Alt)
+                if (Keyboard.Modifiers == KeyModifiers.Alt)
                 {
-                    var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.SystemKey).FirstOrDefault();
+                    // In Avalonia, Alt keys are handled through the main Key property, not SystemKey
+                    var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.Key).FirstOrDefault();
                     if (handler != null)
-                        return handler.Call(e.SystemKey);
+                        return handler.Call(e.Key);
                 }
-                else if (Keyboard.Modifiers == ModifierKeys.None || Keyboard.Modifiers == ModifierKeys.Control || Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+                else if (Keyboard.Modifiers == KeyModifiers.None || Keyboard.Modifiers == KeyModifiers.Control || Keyboard.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
                 {
                     var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.Key).FirstOrDefault();
                     if (handler != null)
@@ -339,20 +361,20 @@ namespace CNC.Controls
                     else switch (e.Key)
                     {
                         case Key.NumPad4:
-                            JogControl.JogData.StepDec();
+                            JogBaseControl.JogData.StepDec();
                             return true;
                         //  break;
 
                         case Key.NumPad6:
-                            JogControl.JogData.StepInc();
+                            JogBaseControl.JogData.StepInc();
                             return true;
 
                         case Key.NumPad8:
-                            JogControl.JogData.FeedInc();
+                            JogBaseControl.JogData.FeedInc();
                             return true;
 
                         case Key.NumPad2:
-                            JogControl.JogData.FeedDec();
+                            JogBaseControl.JogData.FeedDec();
                             return true;
                                 //  break;
                     }

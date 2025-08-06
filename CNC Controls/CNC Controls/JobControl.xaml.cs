@@ -41,13 +41,15 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using System.Threading;
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class JobControl : UserControl
@@ -138,41 +140,41 @@ namespace CNC.Controls
 
         private void JobControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (!Design.IsDesignMode)
             {
                 AppConfig.Settings.Base.PropertyChanged += Base_PropertyChanged;
 
                 if (!keyboardMappingsOk && DataContext is GrblViewModel)
                 {
-                    KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
+                    CNC.Core.KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
 
                     keyboardMappingsOk = true;
 
                     var parent = UIUtils.TryFindParent<UserControl>(this);
 
-                    keyboard.AddHandler(Key.R, ModifierKeys.Alt, StartJob, parent);
-                    keyboard.AddHandler(Key.S, ModifierKeys.Alt, StopJob, parent);
-                    keyboard.AddHandler(Key.H, ModifierKeys.Control, Home, parent);
-                    keyboard.AddHandler(Key.U, ModifierKeys.Control, Unlock);
-                    keyboard.AddHandler(Key.R, ModifierKeys.Shift | ModifierKeys.Control, Reset);
-                    keyboard.AddHandler(Key.Space, ModifierKeys.None, FeedHold, parent);
-                    keyboard.AddHandler(Key.F1, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F2, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F3, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F4, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F5, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F6, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F7, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F8, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F9, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F10, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F11, ModifierKeys.None, FnKeyHandler);
-                    keyboard.AddHandler(Key.F12, ModifierKeys.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.R, KeyModifiers.Alt, StartJob, parent);
+                    keyboard.AddHandler(Key.S, KeyModifiers.Alt, StopJob, parent);
+                    keyboard.AddHandler(Key.H, KeyModifiers.Control, Home, parent);
+                    keyboard.AddHandler(Key.U, KeyModifiers.Control, Unlock);
+                    keyboard.AddHandler(Key.R, KeyModifiers.Shift | KeyModifiers.Control, Reset);
+                    keyboard.AddHandler(Key.Space, KeyModifiers.None, FeedHold, parent);
+                    keyboard.AddHandler(Key.F1, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F2, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F3, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F4, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F5, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F6, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F7, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F8, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F9, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F10, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F11, KeyModifiers.None, FnKeyHandler);
+                    keyboard.AddHandler(Key.F12, KeyModifiers.None, FnKeyHandler);
 
-                    keyboard.AddHandler(Key.OemMinus, ModifierKeys.Control, FeedRateDown);
-                    keyboard.AddHandler(Key.OemPlus, ModifierKeys.Control, FeedRateUp);
-                    keyboard.AddHandler(Key.OemMinus, ModifierKeys.Shift | ModifierKeys.Control, FeedRateDownFine);
-                    keyboard.AddHandler(Key.OemPlus, ModifierKeys.Shift | ModifierKeys.Control, FeedRateUpFine);
+                    keyboard.AddHandler(Key.OemMinus, KeyModifiers.Control, FeedRateDown);
+                    keyboard.AddHandler(Key.OemPlus, KeyModifiers.Control, FeedRateUp);
+                    keyboard.AddHandler(Key.OemMinus, KeyModifiers.Shift | KeyModifiers.Control, FeedRateDownFine);
+                    keyboard.AddHandler(Key.OemPlus, KeyModifiers.Shift | KeyModifiers.Control, FeedRateUpFine);
                 }
 
                 GCodeParser.IgnoreM6 = AppConfig.Settings.Base.IgnoreM6;
@@ -193,13 +195,11 @@ namespace CNC.Controls
             useBuffering = AppConfig.Settings.Base.UseBuffering; // && GrblInfo.IsGrblHAL;
         }
 
-        private void JobControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void JobControl_DataContextChanged(object sender, EventArgs e)
         {
-            if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
-            if (e.NewValue != null && e.NewValue is INotifyPropertyChanged)
+            if (DataContext != null && DataContext is INotifyPropertyChanged)
             {
-                model = (GrblViewModel)e.NewValue;
+                model = (GrblViewModel)DataContext;
                 model.PropertyChanged += OnDataContextPropertyChanged;
                 model.OnRealtimeStatusProcessed += RealtimeStatusProcessed;
                 model.OnCommandResponseReceived += ResponseReceived;
@@ -277,12 +277,12 @@ namespace CNC.Controls
                                 if (GCode.File.ToolChanges > 0)
                                 {
                                     if (!GrblSettings.HasSetting(grblHALSetting.ToolChangeMode))
-                                        MessageBox.Show(string.Format((string)FindResource("JobToolChanges"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                        MessageBox.Show(string.Format((string)this.FindResource("JobToolChanges"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
                                     else if (GrblSettings.GetInteger(grblHALSetting.ToolChangeMode) > 0 && !model.IsTloReferenceSet)
-                                        MessageBox.Show(string.Format((string)FindResource("JobToolReference"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                        MessageBox.Show(string.Format((string)this.FindResource("JobToolReference"), GCode.File.ToolChanges), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 }
                                 if (GCode.File.HasGoPredefinedPosition && (sender as GrblViewModel).IsGrblHAL && (sender as GrblViewModel).HomedState != HomedState.Homed)
-                                    MessageBox.Show((string)FindResource("JobG28G30"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    MessageBox.Show((string)this.FindResource("JobG28G30"), "ioSender", MessageBoxButton.OK, MessageBoxImage.Warning);
                                 streamingHandler.Call(GCode.File.IsLoaded ? StreamingState.Idle : StreamingState.NoFile, false);
                             }
                         }
@@ -487,7 +487,7 @@ namespace CNC.Controls
                     JobTimer.Start();
                     streamingHandler.Call(StreamingState.Send, false);
                     if ((job.IsChecking = model.GrblState.State == GrblStates.Check))
-                        model.Message = (string)FindResource("Checking");
+                        model.Message = (string)this.FindResource("Checking");
 
                     bool? res = null;
                     CancellationToken cancellationToken = new CancellationToken();
@@ -671,7 +671,7 @@ namespace CNC.Controls
                         btnStart.IsEnabled = true;
                         btnHold.IsEnabled = false;
                         if ((btnStop.IsEnabled = model.IsJobRunning || model.IsSDCardJob) && !GrblInfo.IsGrblHAL)
-                            btnStop.Content = (string)FindResource("JobStop");
+                            btnStop.Content = (string)this.FindResource("JobStop");
                         streamingHandler.Count = job.CurrentRow != null;
                         break;
 
@@ -808,7 +808,7 @@ namespace CNC.Controls
                         btnHold.IsEnabled = false;
                         btnStart.IsEnabled = true;
                         btnStop.IsEnabled = true;
-                        btnStop.Content = (string)FindResource("JobStop");
+                        btnStop.Content = (string)this.FindResource("JobStop");
                         if (job.ACKPending == 0)
                             streamingHandler.Count = false;
                         break;
@@ -1024,7 +1024,7 @@ namespace CNC.Controls
                         btnHold.IsEnabled = !grblState.MPG;
                     }
                     if (!GrblInfo.IsGrblHAL)
-                        btnStop.Content = (string)FindResource("JobPause");
+                        btnStop.Content = (string)this.FindResource("JobPause");
                     break;
 
                 case GrblStates.Tool:
@@ -1125,7 +1125,7 @@ namespace CNC.Controls
                 {
                     job.Transferred = false;
                     model.BlockExecuting = 0;
-                    model.Message = (string)FindResource("TransferComplete");
+                    model.Message = (string)this.FindResource("TransferComplete");
                 }
                 else if(job.PendingLine != job.PgmEndLine )
                 {

@@ -44,7 +44,8 @@ using System.Collections.ObjectModel;
 using CNC.Core;
 using CNC.GCode;
 using System.Diagnostics;
-using System.Windows;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Probing
 {

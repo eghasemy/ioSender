@@ -37,13 +37,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using System.ComponentModel;
 using CNC.Core;
+using CNC.GCode;
+using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -57,40 +61,38 @@ namespace CNC.Controls
             InitializeComponent();
             DataContextChanged += View_DataContextChanged;
         }
-        public string MenuLabel { get { return (string)FindResource("MenuLabel"); } }
+        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
 
         private void macroExecuteControl_Loaded(object sender, RoutedEventArgs e)
         {
             Macros = AppConfig.Settings.Macros;
         }
 
-        private void View_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void View_DataContextChanged(object sender, EventArgs e)
         {
-            if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
-            if (e.NewValue != null && e.NewValue is INotifyPropertyChanged)
-                (e.NewValue as GrblViewModel).PropertyChanged += OnDataContextPropertyChanged;
+            if (DataContext != null && DataContext is INotifyPropertyChanged)
+                (DataContext as GrblViewModel).PropertyChanged += OnDataContextPropertyChanged;
         }
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is GrblViewModel && Visibility == Visibility.Visible) switch (e.PropertyName)
+            if (sender is GrblViewModel && IsVisible) switch (e.PropertyName)
             {
                 case nameof(GrblViewModel.StreamingState):
                     if ((sender as GrblViewModel).IsJobRunning)
-                        Visibility = Visibility.Hidden;
+                        IsVisible = false;
                     break;
             }
         }
 
-        public static readonly DependencyProperty MacrosProperty = DependencyProperty.Register(nameof(MacroExecuteControl.Macros), typeof(ObservableCollection<CNC.GCode.Macro>), typeof(MacroExecuteControl), new PropertyMetadata(new PropertyChangedCallback(OnMacrosChanged)));
+        public static readonly StyledProperty<ObservableCollection<CNC.GCode.Macro>> MacrosProperty = AvaloniaProperty.Register<MacroExecuteControl, ObservableCollection<CNC.GCode.Macro>>(nameof(Macros));
         public ObservableCollection<CNC.GCode.Macro> Macros
         {
-            get { return (ObservableCollection<CNC.GCode.Macro>)GetValue(MacrosProperty); }
+            get { return GetValue(MacrosProperty); }
             set { SetValue(MacrosProperty, value); }
         }
 
-        private static void OnMacrosChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMacrosChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             (d as MacroExecuteControl).OnMacrosChanged();
         }
@@ -101,32 +103,33 @@ namespace CNC.Controls
         }
         private void Macros_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? Visibility.Visible : Visibility.Hidden;
+            IsMessageVisible = (sender as ObservableCollection<CNC.GCode.Macro>).Count == 0 ? true : false;
         }
 
-        public static readonly DependencyProperty IsMessageVisibleProperty = DependencyProperty.Register(nameof(IsMessageVisible), typeof(Visibility), typeof(MacroExecuteControl), new PropertyMetadata(Visibility.Visible));
-        public Visibility IsMessageVisible
+                public static readonly StyledProperty<bool> IsMessageVisibleProperty = AvaloniaProperty.Register<MacroExecuteControl, bool>(nameof(IsMessageVisible), false);
+        public bool IsMessageVisible
         {
-            get { return (Visibility)GetValue(IsMessageVisibleProperty); }
+            get { return GetValue(IsMessageVisibleProperty); }
             set { SetValue(IsMessageVisibleProperty, value); }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             CNC.GCode.Macro macro = Macros.FirstOrDefault(o => o.Id == (int)(sender as Button).Tag);
-            if (macro != null && (!macro.ConfirmOnExecute || MessageBox.Show(string.Format((string)FindResource("RunMacro"), macro.Name), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+            if (macro != null && (!macro.ConfirmOnExecute || MessageBox.Show(string.Format((string)this.FindResource("RunMacro"), macro.Name), "ioSender", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
                 (DataContext as GrblViewModel).ExecuteMacro(macro.Code);
         }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            IsVisible = false;
         }
 
         private void button_Edit(object sender, RoutedEventArgs e)
         {
-            MacroEditor editor = new MacroEditor(Macros) {Owner = Application.Current.MainWindow};
-            editor.ShowDialog();
+            MacroEditor editor = new MacroEditor(Macros);
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            editor.ShowDialog<object>(mainWindow);
             AppConfig.Settings.Save();
         }
     }

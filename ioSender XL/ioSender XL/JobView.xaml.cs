@@ -38,13 +38,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Threading;
-using System.Windows.Threading;
+using Avalonia.Threading;
 using CNC.Core;
 using CNC.Controls;
 
@@ -289,19 +289,19 @@ namespace GCode_Sender
         {
             double height;
 
-            if (limitsControl.Visibility == Visibility.Collapsed)
+            if (limitsControl.Visibility == false)
             {
-                limitsControl.Visibility = Visibility.Hidden;
+                limitsControl.IsVisible = false;
                 limitsControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 height = limitsControl.DesiredSize.Height;
-                limitsControl.Visibility = Visibility.Collapsed;
+                limitsControl.IsVisible = false;
             }
             else
                 height = limitsControl.ActualHeight;
 
-            limitsControl.Visibility = (dp.ActualHeight - t1.ActualHeight - t2.ActualHeight + limitsControl.ActualHeight) > height ? Visibility.Visible : Visibility.Collapsed;
-            coolantControl.Visibility = rhGrid.ActualHeight > 600 ? Visibility.Visible : Visibility.Collapsed;
-            gotoControl.Visibility = rhGrid.ActualHeight > 575 ? Visibility.Visible : Visibility.Collapsed;
+            limitsControl.Visibility = (dp.ActualHeight - t1.ActualHeight - t2.ActualHeight + limitsControl.ActualHeight) > height ? true : false;
+            coolantControl.Visibility = rhGrid.ActualHeight > 600 ? true : false;
+            gotoControl.Visibility = rhGrid.ActualHeight > 575 ? true : false;
         }
 
 #if ADD_CAMERA
@@ -391,7 +391,7 @@ namespace GCode_Sender
 
             if (AppConfig.Settings.Jog.Mode == JogConfig.JogMode.Keypad)
             {
-                jogControl.Visibility = Visibility.Hidden;
+                jogControl.IsVisible = false;
                 joggerRow.MaxHeight = 0;
             }
 

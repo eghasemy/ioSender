@@ -41,10 +41,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Media.Media3D;
+#if WINDOWS
+using Avalonia;
+using CNC.Core;  // Cross-platform 3D math types
+#else
+using CNC.Core;
+#endif
 using System.Collections.ObjectModel;
 using CNC.GCode;
+using Avalonia.Controls;
 
 namespace CNC.Core
 {
@@ -146,10 +151,12 @@ namespace CNC.Core
                 }
                 catch (Exception e)
                 {
-                    if ((ok = MessageBox.Show(string.Format(LibStrings.FindResource("LoadError").Replace("\\n", "\r"), e.Message, LineNumber, block), "ioSender", MessageBoxButton.YesNo) == MessageBoxResult.Yes))
+                    // if ((ok = MessageBox.Show(string.Format(LibStrings.FindResource("LoadError").Replace("\\n", "\r"), e.Message, LineNumber, block), "ioSender", MessageBoxButton.YesNo) == MessageBoxResult.Yes))
+                    // {
                         block = sr.ReadLine();
-                    else
-                        block = null;
+                    // }
+                    // else
+                    //    block = null;
                 }
             }
 

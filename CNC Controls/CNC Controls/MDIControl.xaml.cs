@@ -37,13 +37,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class MDIControl : UserControl
@@ -57,17 +59,17 @@ namespace CNC.Controls
 
         public new bool IsFocused { get { return txtMDI.IsKeyboardFocusWithin; } }
 
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(string), typeof(MDIControl), new PropertyMetadata(""));
+                public static readonly StyledProperty<string> CommandProperty = AvaloniaProperty.Register<MDIControl, string>(nameof(Command), string.Empty);
         public string Command
         {
-            get { return (string)GetValue(CommandProperty); }
+            get { return GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 
-        public static readonly DependencyProperty CommandsProperty = DependencyProperty.Register(nameof(Commands), typeof(ObservableCollection<string>), typeof(MDIControl));
+                public static readonly StyledProperty<ObservableCollection<string>> CommandsProperty = AvaloniaProperty.Register<MDIControl, ObservableCollection<string>>(nameof(Commands), default);
         public ObservableCollection<string> Commands
         {
-            get { return (ObservableCollection<string>)GetValue(CommandsProperty); }
+            get { return GetValue(CommandsProperty); }
             set { SetValue(CommandsProperty, value); }
         }
 
@@ -84,11 +86,11 @@ namespace CNC.Controls
             }
         }
 
-        private void txtMDI_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void txtMDI_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Return && (DataContext as GrblViewModel).MDICommand.CanExecute(null))
             {
-                string cmd = (sender as ComboBox).Text;
+                string cmd = (sender as ComboBox).SelectedItem?.ToString() ?? "";
                 var model = DataContext as GrblViewModel;
                 if (!string.IsNullOrEmpty(cmd) && (Commands.Count == 0 || Commands[0] != cmd))
                     Commands.Insert(0, cmd);
@@ -101,11 +103,10 @@ namespace CNC.Controls
 
         private void txtMDI_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var cmbTextBox = (TextBox)(sender as ComboBox).Template.FindName("PART_EditableTextBox", (sender as ComboBox));
-            if (cmbTextBox != null)
+            // Avalonia doesn't support Template.FindName, skip this functionality for now
+            if (sender is ComboBox comboBox)
             {
-                cmbTextBox.Focus();
-                cmbTextBox.CaretIndex = cmbTextBox.Text.Length;
+                comboBox.Focus();
             }
         }
 
@@ -120,9 +121,7 @@ namespace CNC.Controls
 
         private void MDIControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var mdi = txtMDI.Template.FindName("PART_EditableTextBox", txtMDI) as TextBox;
-            if(mdi != null)
-                mdi.Tag = "MDI";
+            // Avalonia doesn't support Template.FindName, skip this functionality for now
             if(DataContext != null && DataContext is GrblViewModel)
                 (DataContext as GrblViewModel).PropertyChanged += OnDataContextPropertyChanged;
         }

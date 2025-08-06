@@ -42,6 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System.IO;
 using System.IO.Pipes;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace CNC.Controls
 {
@@ -50,7 +51,7 @@ namespace CNC.Controls
         public delegate void FileTransferHandler(string filename);
         public static event FileTransferHandler FileTransfer;
 
-        public PipeServer(System.Windows.Threading.Dispatcher dispatcher)
+        public PipeServer(object dispatcher)
         {
             Task server = null;
 
@@ -58,7 +59,7 @@ namespace CNC.Controls
                 server = Task.Factory.StartNew(() => RunServer(dispatcher));
         }
 
-        private static void RunServer(System.Windows.Threading.Dispatcher dispatcher)
+        private static void RunServer(object dispatcher)
         {
             string filename; int c;
 
@@ -87,7 +88,7 @@ namespace CNC.Controls
                                         if (c >= ' ')
                                             filename += (char)c;
                                         else if (c == 10 && FileTransfer != null && File.Exists(filename))
-                                            dispatcher.Invoke(FileTransfer, filename);
+                                            Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() => FileTransfer?.Invoke(filename));
                                     }
                                 }
                                 pipeServer.Disconnect();

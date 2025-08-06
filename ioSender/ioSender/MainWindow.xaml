@@ -1,153 +1,113 @@
 ﻿<Window x:Class="GCode_Sender.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
-        xmlns:cnccore="clr-namespace:CNC.Core;assembly=CNC.Core"
-        xmlns:cnccontrols="clr-namespace:CNC.Controls;assembly=CNC.Controls.WPF"
-        xmlns:cnclathecontrols="clr-namespace:CNC.Controls.Lathe;assembly=CNC.Controls.Lathe"
-        xmlns:cncprobingcontrols="clr-namespace:CNC.Controls.Probing;assembly=CNC.Controls.Probing"
-        xmlns:local="clr-namespace:GCode_Sender"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:cnccore="using:CNC.Core"
+        xmlns:cnccontrols="using:CNC.Controls"
+        xmlns:cnclathecontrols="using:CNC.Controls.Lathe"
+        xmlns:cncprobingcontrols="using:CNC.Controls.Probing"
+        xmlns:local="using:GCode_Sender"
         mc:Ignorable="d"
         Background="#FFE5E5E5"
         Title="Sender ({0})" Height="640" Width="925" MinHeight="685" MinWidth="1020"
-        Loaded="Window_Load"
-        SizeChanged="Window_SizeChanged"
-        Closing="Window_Closing"
-        Closed="Window_Closed" Icon="App.ico">
+        Icon="App.ico">
     <Window.Resources>
-        <system:String x:Uid="str_mnuRotate" x:Key="MenuRotate">Rotate</system:String>
-        <system:String x:Uid="str_mnuArcsToLines" x:Key="MenuArcsToLines">Arcs to lines</system:String>
-        <system:String x:Uid="str_mnuCompress" x:Key="MenuCompress">Compress (experimental)</system:String>
-        <system:String x:Uid="str_mnuDragKnife" x:Key="MenuDragKnife">Add drag knife moves</system:String>
-        <system:String x:Uid="str_jogStep" x:Key="JogStep">Jog step: {0}</system:String>
-        <system:String x:Uid="str_runTime" x:Key="RunTime">Run time: {0}</system:String>
-        <cnccontrols:BlocksToStringConverter x:Key="BlocksToStringConverter" />
-        <cnccontrols:LogicalNotConverter x:Key="BooleanConverter" />
+        <system:String x:Key="MenuRotate">Rotate</system:String>
+        <system:String x:Key="MenuArcsToLines">Arcs to lines</system:String>
+        <system:String x:Key="MenuCompress">Compress (experimental)</system:String>
+        <system:String x:Key="MenuDragKnife">Add drag knife moves</system:String>
+        <system:String x:Key="JogStep">Jog step: {0}</system:String>
+        <system:String x:Key="RunTime">Run time: {0}</system:String>
     </Window.Resources>
     <Window.DataContext>
         <cnccore:GrblViewModel />
     </Window.DataContext>
 
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Menu IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" DockPanel.Dock="Top">
-            <MenuItem x:Uid="mnu_file" x:Name="menuFile" Header="_File">
-                <MenuItem x:Uid="mnu_load" Header="_Load" Click="fileOpenMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_save" x:Name="menuSaveFile" Header="_Save" IsEnabled="false" Click="fileSaveMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_close" x:Name="menuCloseFile" Header="_Close" IsEnabled="false" Click="fileCloseMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_transform" x:Name="menuTransform" Header="_Transform" IsEnabled="false" ItemsSource="{Binding Path=UIViewModel.TransformMenuItems, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                <MenuItem x:Uid="mnu_openConsole" x:Name="menuOpenConsole" Header="_Open Console" Click="openConsoleMenuItem_Click"/>
-                <MenuItem x:Uid="mnu_exit" Header="_Exit" Click="exitMenuItem_Click"/>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem x:Name="menuFile" Header="_File">
+                <MenuItem Header="_Load"/>
+                <MenuItem x:Name="menuSaveFile" Header="_Save" IsEnabled="false"/>
+                <MenuItem x:Name="menuCloseFile" Header="_Close" IsEnabled="false"/>
+                <MenuItem x:Name="menuTransform" Header="_Transform" IsEnabled="false"/>
+                <MenuItem x:Name="menuOpenConsole" Header="_Open Console"/>
+                <MenuItem Header="_Exit"/>
             </MenuItem>
-            <MenuItem x:Uid="mnu_camera" x:Name="menuCamera" Header="_Camera">
-                <MenuItem x:Uid="mnu_open" Header="_Open" Click="CameraOpen_Click"/>
+            <MenuItem x:Name="menuCamera" Header="_Camera">
+                <MenuItem Header="_Open"/>
             </MenuItem>
-            <MenuItem x:Uid="mnu_help" x:Name="menuHelp" Header="_Help">
-                <MenuItem x:Uid="mnu_wiki" Header="_Wiki" Click="aboutWikiItem_Click"/>
-                <MenuItem x:Uid="mnu_usageTips" Header="Usage _tips" Click="tipsWikiItem_Click"/>
-                <MenuItem x:Uid="mnu_briefTour" Header="A _brief tour" Click="briefTour_Click"/>
-                <MenuItem x:Uid="mnu_videoTutorials" Header="_Video tutorials" Click="videoTutorials_Click"/>
-                <MenuItem x:Uid="mnu_errorsAndAlarms" Header="_Error and alarm codes" Click="errorAndAlarms_Click"/>
-                <MenuItem x:Uid="mnu_about" Header="_About" Click="aboutMenuItem_Click"/>
+            <MenuItem x:Name="menuHelp" Header="_Help">
+                <MenuItem Header="_Wiki"/>
+                <MenuItem Header="Usage _tips"/>
+                <MenuItem Header="A _brief tour"/>
+                <MenuItem Header="_Video tutorials"/>
+                <MenuItem Header="_Error and alarm codes"/>
+                <MenuItem Header="_About"/>
             </MenuItem>
         </Menu>
-        <ToolBarTray IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" DockPanel.Dock="Top" IsLocked="True">
-            <ToolBar IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" Height="42" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DockPanel}}}" >
-                <cnccontrols:FileActionControl IsEnabled="{Binding Path=IsToolChanging, Converter={StaticResource BooleanConverter}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Separator Margin="4,0"></Separator>
-                <cnccontrols:MacroToolbarControl x:Name="toolbarMacros"/>
-            </ToolBar>
-        </ToolBarTray>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" MinWidth="120" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem>
-                <TextBlock TextWrapping="NoWrap">
-                    <TextBlock.Text>
-                        <MultiBinding Converter="{StaticResource BlocksToStringConverter}">
-                            <Binding Path="Blocks" />
-                            <Binding Path="BlockExecuting" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </StatusBarItem>
-            <Separator Grid.Column="1" />
-            <StatusBarItem Grid.Column="2">
-                <TextBlock x:Uid="lbl_message" Text="{Binding Path=Message}" TextWrapping="NoWrap"/>
-            </StatusBarItem>
-            <Separator Grid.Column="3" />
-            <StatusBarItem Grid.Column="4">
-                <TextBlock x:Uid="lbl_runtime" Text="{Binding Path=RunTime, StringFormat={StaticResource RunTime}}" TextWrapping="NoWrap" Padding="2,0"/>
-            </StatusBarItem>
-            <Separator Grid.Column="5" />
-            <StatusBarItem Grid.Column="6">
-                <TextBlock x:Uid="lbl_jogStep" ToolTip="Distance for keyboard step jog (with &lt;CTRL&gt; modifier)." Text="{Binding Path=JogStep, StringFormat={StaticResource JogStep}}" HorizontalAlignment="Right" TextWrapping="NoWrap" Margin="4,0"/>
-            </StatusBarItem>
-        </StatusBar>
-        <Canvas IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" DockPanel.Dock="Right" Width="22" VerticalAlignment="Stretch" HorizontalAlignment="Right" ClipToBounds="False" Panel.ZIndex="1" Margin="0,34,0,0">
-            <ItemsControl x:Name="xx" Width="22" VerticalAlignment="Stretch">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel IsEnabled="{Binding Path=IsJobRunning, Converter={StaticResource BooleanConverter}}" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-            <cnccontrols:JogFlyoutControl x:Name="jogControl" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:MacroExecuteControl x:Name="macroControl" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:GotoFlyoutControl x:Name="gotoControl" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:OutlineFlyout x:Name="outlineFlyout" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:MachinePositionFlyout x:Name="mposFlyout" Visibility="Hidden" Canvas.Right="22"/>
-            <cnccontrols:THCMonitorControl x:Name="thcControl" Visibility="Hidden" Canvas.Right="22"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="42">
+            <!-- Toolbar placeholder - will be implemented with proper controls -->
+            <Button Content="File Actions" Margin="4"/>
+            <Separator Width="2" Margin="4,0"/>
+            <Button Content="Macros" Margin="4"/>
+        </StackPanel>
+        <Border DockPanel.Dock="Bottom" Background="LightGray" BorderBrush="Gray" BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="120" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Blocks: 0/0" Margin="4,2"/>
+                <Rectangle Grid.Column="1" Width="1" Fill="Gray" Margin="4,2"/>
+                <TextBlock Grid.Column="2" Text="{Binding Path=Message}" Margin="4,2"/>
+                <Rectangle Grid.Column="3" Width="1" Fill="Gray" Margin="4,2"/>
+                <TextBlock Grid.Column="4" Text="{Binding Path=RunTime, StringFormat='Run time: {0}'}" Margin="4,2"/>
+                <Rectangle Grid.Column="5" Width="1" Fill="Gray" Margin="4,2"/>
+                <TextBlock Grid.Column="6" Text="{Binding Path=JogStep, StringFormat='Jog step: {0}'}" HorizontalAlignment="Right" Margin="4,2"/>
+            </Grid>
+        </Border>
+        <Canvas DockPanel.Dock="Right" Width="22" VerticalAlignment="Stretch" HorizontalAlignment="Right" ClipToBounds="False" ZIndex="1" Margin="0,34,0,0">
+            <!-- Flyout controls placeholder -->
         </Canvas>
-        <TabControl IsEnabled="{Binding Path=IsMPGActive, Converter={StaticResource BooleanConverter}}" Background="Transparent" DockPanel.Dock="Left" x:Name="tabMode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Focusable="False" SelectionChanged="TabMode_SelectionChanged">
-            <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Height" Value="32" />
-                    <Setter Property="MinWidth" Value="40" />
-                </Style>
-            </TabControl.Resources>
-            <TabItem x:Uid="tab_grbl" x:Name="tabGrbl" Header="Grbl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TabControl DockPanel.Dock="Left" x:Name="tabMode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem x:Name="tabGrbl" Header="Grbl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <local:JobView x:Name="Grbl"/>
             </TabItem>
-            <!---
-            <TabItem x:Uid="tab_3DView" x:Name="tabViewer" Header="3D View">
-                <cncviewer:Viewer x:Name="viewer"/>
+            <TabItem x:Name="tabProbing" Header="Probing">
+                <!-- Probing view placeholder -->
+                <TextBlock Text="Probing View - To be implemented"/>
             </TabItem>
-            -->
-            <TabItem x:Uid="tab_probing" x:Name="tabProbing" Header="Probing">
-                <cncprobingcontrols:ProbingView x:Name="probingView"/>
+            <TabItem x:Name="tabSDCard" Header="SD Card">
+                <!-- SD Card view placeholder -->
+                <TextBlock Text="SD Card View - To be implemented"/>
             </TabItem>
-            <TabItem x:Uid="tab_sdCard" x:Name="tabSDCard" Header="SD Card">
-                <cnccontrols:SDCardView x:Name="SDCardView" FileSelected="SDCardView_FileSelected"/>
+            <TabItem x:Name="tabLatheWizards" Header="Lathe Wizards">
+                <!-- Lathe wizards placeholder -->
+                <TextBlock Text="Lathe Wizards - To be implemented"/>
             </TabItem>
-            <TabItem x:Uid="tab_latheWizards" x:Name="tabLatheWizards" Header="Lathe Wizards">
-                <cnclathecontrols:LatheWizardsView x:Name="latheWizards"/>
+            <TabItem x:Name="tabOffsets" Header="Offsets">
+                <!-- Offsets view placeholder -->
+                <TextBlock Text="Offsets View - To be implemented"/>
             </TabItem>
-            <TabItem x:Uid="tab_offsets" x:Name="tabOffsets" Header="Offsets">
-                <cnccontrols:OffsetView x:Name="offsetControl"/>
+            <TabItem x:Name="tabTools" Header="Tools">
+                <!-- Tools view placeholder -->
+                <TextBlock Text="Tools View - To be implemented"/>
             </TabItem>
-            <TabItem x:Uid="tab_tools" x:Name="tabTools" Header="Tools">
-                <cnccontrols:ToolView x:Name="toolControl"/>
+            <TabItem x:Name="tabConfig" Header="Settings: Grbl">
+                <!-- Grbl config placeholder -->
+                <TextBlock Text="Grbl Config - To be implemented"/>
             </TabItem>
-            <TabItem x:Uid="tab_grblConfig" x:Name="tabConfig" Header="Settings: Grbl">
-                <cnccontrols:GrblConfigView x:Name="configControl"/>
-            </TabItem>
-            <TabItem x:Uid="tab_appConfig" x:Name="tabAppConfig" Header="Settings: App">
-                <cnccontrols:AppConfigView x:Name="appConfigControl"/>
+            <TabItem x:Name="tabAppConfig" Header="Settings: App">
+                <!-- App config placeholder -->
+                <TextBlock Text="App Config - To be implemented"/>
             </TabItem>
         </TabControl>
     </DockPanel>

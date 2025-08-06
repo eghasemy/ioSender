@@ -37,12 +37,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+using System;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
-using System.Windows.Input;
+using CNC.GCode;
+using Avalonia.Input;
+using Avalonia.Data;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class SpindleControl : UserControl
@@ -63,15 +67,13 @@ namespace CNC.Controls
             overrideControl.CoarseMinusCommand = GrblConstants.CMD_SPINDLE_OVR_COARSE_MINUS;
             overrideControl.CoarsePlusCommand = GrblConstants.CMD_SPINDLE_OVR_COARSE_PLUS;
 
-            cvRPM.PreviewKeyUp += txtPos_KeyPress;
+            cvRPM.KeyUp += txtPos_KeyPress;
         }
 
-        private void SpindleControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        private void SpindleControl_DataContextChanged(object sender, EventArgs e)
         {
-            if (e.OldValue != null && e.OldValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)e.OldValue).PropertyChanged -= OnDataContextPropertyChanged;
-            if (e.NewValue != null && e.NewValue is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)e.NewValue).PropertyChanged += OnDataContextPropertyChanged;
+            if (DataContext != null && DataContext is INotifyPropertyChanged)
+                ((INotifyPropertyChanged)DataContext).PropertyChanged += OnDataContextPropertyChanged;
         }
 
         private void OnDataContextPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -86,10 +88,10 @@ namespace CNC.Controls
             }
         }
 
-        public static readonly DependencyProperty IsSpindleStateEnabledProperty = DependencyProperty.Register(nameof(IsSpindleStateEnabled), typeof(bool), typeof(SpindleControl), new PropertyMetadata(false));
+                public static readonly StyledProperty<bool> IsSpindleStateEnabledProperty = AvaloniaProperty.Register<SpindleControl, bool>(nameof(IsSpindleStateEnabled), false);
         public bool IsSpindleStateEnabled
         {
-            get { return (bool)GetValue(IsSpindleStateEnabledProperty); }
+            get { return GetValue(IsSpindleStateEnabledProperty); }
             set { SetValue(IsSpindleStateEnabledProperty, value); }
         }
 

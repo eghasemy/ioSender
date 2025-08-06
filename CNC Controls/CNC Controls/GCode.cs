@@ -39,15 +39,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using CNC.Core;
 using CNC.GCode;
+using Avalonia.Interactivity;
+#if WINDOWS
 using Microsoft.Win32;
+using Avalonia;
+using Avalonia.Controls;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using System.Reflection;
 
 namespace CNC.Controls
 {
@@ -73,7 +77,7 @@ namespace CNC.Controls
 
         private static readonly Lazy<GCode> file = new Lazy<GCode>(() => new GCode());
 
-        public event GCodeJob.ToolChangedHandler ToolChanged = null;
+        public event Func<int, bool> ToolChanged = null;
 
         private GCode()
         {
@@ -136,14 +140,14 @@ namespace CNC.Controls
             return types;
         }
 
-        public bool AddTransformer(Type converter, string name, ObservableCollection<MenuItem> menu)
+        public bool AddTransformer(Type converter, string name, ObservableCollection<Avalonia.Controls.MenuItem> menu)
         {
             bool ok = converter.GetInterface("CNC.Controls.IGCodeTransformer") != null;
             if (ok)
             {
                 Transformers.Add(new GCodeTransformer { Type = converter, Name = name });
 
-                MenuItem item = new MenuItem()
+                Avalonia.Controls.MenuItem item = new Avalonia.Controls.MenuItem()
                 {
                     Header = name,
                     Tag = menu.Count
@@ -164,7 +168,7 @@ namespace CNC.Controls
 
         private void TransformMenu_Click(object sender, RoutedEventArgs e)
         {
-            Transform((int)(sender as MenuItem).Tag);
+            Transform((int)(sender as Avalonia.Controls.MenuItem).Tag);
         }
 
         public void Transform(int id)
@@ -196,27 +200,46 @@ namespace CNC.Controls
                     row.Sent = string.Empty;
         }
 
-        public void Drag(object sender, DragEventArgs e)
+        public void Drag(object sender, Avalonia.Input.DragEventArgs e)
         {
             bool allow = Model != null && GrblParserState.IsLoaded && (Model.StreamingState == StreamingState.Idle || Model.StreamingState == StreamingState.NoFile);
 
-            if (allow && e.Data.GetDataPresent(DataFormats.FileDrop))
+            // In Avalonia, drag-drop data checking is different
+            if (allow && e.Data.Contains(Avalonia.Input.DataFormats.Files))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-                allow = files.Count() == 1 && FileUtils.IsAllowedFile(files[0].ToLower(), FileTypes + (getConversionTypes() == string.Empty ? "" : "," + getConversionTypes()) + ",txt");
+                // Use reflection to access GetFiles method to avoid type conflicts
+                var getFilesMethod = e.Data.GetType().GetMethod("GetFiles");
+                if (getFilesMethod != null)
+                {
+                    var fileItems = getFilesMethod.Invoke(e.Data, null) as System.Collections.Generic.IEnumerable<Avalonia.Platform.Storage.IStorageItem>;
+                    if (fileItems != null)
+                    {
+                        var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
+                        allow = files.Length == 1 && FileUtils.IsAllowedFile(files[0].ToLower(), FileTypes + (getConversionTypes() == string.Empty ? "" : "," + getConversionTypes()) + ",txt");
+                    }
+                }
             }
 
             e.Handled = true;
-            e.Effects = allow ? DragDropEffects.Copy : DragDropEffects.None;
+            e.DragEffects = allow ? Avalonia.Input.DragDropEffects.Copy : Avalonia.Input.DragDropEffects.None;
         }
 
-        public void Drop(object sender, DragEventArgs e)
+        public void Drop(object sender, Avalonia.Input.DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-
-            if (files.Count() == 1)
+            // In Avalonia, file names are accessed through GetFiles() method using reflection to avoid type conflicts
+            var getFilesMethod = e.Data.GetType().GetMethod("GetFiles");
+            if (getFilesMethod != null)
             {
-                Load(files[0]);
+                var fileItems = getFilesMethod.Invoke(e.Data, null) as System.Collections.Generic.IEnumerable<Avalonia.Platform.Storage.IStorageItem>;
+                if (fileItems != null)
+                {
+                    var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
+                
+                    if (files.Length == 1)
+                    {
+                        Load(files[0]);
+                    }
+                }
             }
         }
 
@@ -228,6 +251,7 @@ namespace CNC.Controls
 
         public void Open()
         {
+#if WINDOWS
             string filename = string.Empty;
             OpenFileDialog file = new OpenFileDialog();
 
@@ -245,6 +269,10 @@ namespace CNC.Controls
 
             if(filename != string.Empty)
                 Load(filename);
+#else
+            // Cross-platform: File dialogs not available - use Load(filename) method directly
+            throw new NotSupportedException("File dialogs are not supported on this platform. Use Load(filename) method directly.");
+#endif
 
             Model.Blocks = Blocks;
         }
@@ -275,6 +303,7 @@ namespace CNC.Controls
 
         public void Save()
         {
+#if WINDOWS
             SaveFileDialog saveDialog = new SaveFileDialog()
             {
                 Filter = "GCode file (*.nc)|*.nc",
@@ -306,6 +335,10 @@ namespace CNC.Controls
 
                 Model.FileName = saveDialog.FileName;
             }
+#else
+            // Cross-platform: File dialogs not available - use Save(filename) method directly
+            throw new NotSupportedException("File dialogs are not supported on this platform. Use Save(filename) method directly.");
+#endif
         }
     }
 }

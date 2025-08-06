@@ -37,56 +37,89 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+/*
+ * MainWindow.xaml.cs - part of ioSender
+ *
+ * v0.46 / 2025-06-05 / Io Engineering (Terje Io)
+ *
+ */
+
+/*
+
+Copyright (c) 2019-2024, Io Engineering (Terje Io)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+· Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+
+· Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+
+· Neither the name of the copyright holder nor the names of its contributors may
+be used to endorse or promote products derived from this software without
+specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
 using System;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.Interactivity;
 using CNC.Core;
-using CNC.Controls;
-using CNC.Converters;
-using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
 #if ADD_CAMERA
 using CNC.Controls.Camera;
+using Avalonia.Input;
 #endif
 
 namespace GCode_Sender
 {
-
     public partial class MainWindow : Window
     {
         private const string version = "2.0.46";
         public static MainWindow ui = null;
         public static CNC.Controls.Viewer.Viewer GCodeViewer = null;
-        public static UIViewModel UIViewModel { get; } = new UIViewModel();
-
+        
         private bool saveWinSize = false;
 
         public MainWindow()
         {
-//            CNC.Core.Resources.Path = AppDomain.CurrentDomain.BaseDirectory;
-
             InitializeComponent();
-
+            
             ui = this;
-//            GCodeViewer = viewer;
             Title = string.Format(Title, version);
 
-            int res;
-            if ((res = AppConfig.Settings.SetupAndOpen(Title, (GrblViewModel)DataContext, App.Current.Dispatcher)) != 0)
-                Environment.Exit(res);
+            // Initialize data context with GrblViewModel
+            DataContext = new GrblViewModel();
 
+            // TODO: Initialize AppConfig and other components for Avalonia
             BaseWindowTitle = Title;
 
             CNC.Core.Grbl.GrblViewModel = (GrblViewModel)DataContext;
-            GrblInfo.LatheModeEnabled = AppConfig.Settings.Lathe.IsEnabled;
+            
+            // TODO: Port other initialization logic
+        }
 
-            //       SDCardControl.FileSelected += new CNC_Controls.SDCardControl.FileSelectedHandler(SDCardControl_FileSelected);
-
-            new PipeServer(App.Current.Dispatcher);
-            PipeServer.FileTransfer += Pipe_FileTransfer;
-            AppConfig.Settings.Base.PropertyChanged += Base_PropertyChanged;
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
         }
 
         public string BaseWindowTitle { get; set; }
@@ -96,8 +129,13 @@ namespace GCode_Sender
             set
             {
                 ui.Title = BaseWindowTitle + (string.IsNullOrEmpty(value) ? "" : " - " + value);
-                ui.menuCloseFile.IsEnabled = ui.menuSaveFile.IsEnabled = !(string.IsNullOrEmpty(value) || value.StartsWith("SDCard:"));
-                ui.menuTransform.IsEnabled = ui.menuCloseFile.IsEnabled && UIViewModel.TransformMenuItems.Count > 0;
+                // TODO: Update menu enabled states
+            }
+        }
+
+        // TODO: Port event handlers and other methods from original WPF implementation
+    }
+}
             }
         }
 
@@ -150,7 +188,7 @@ namespace GCode_Sender
 #if ADD_CAMERA
             enableCamera(this);
 #else
-            menuCamera.Visibility = Visibility.Hidden;
+            menuCamera.IsVisible = false;
 #endif
             if (!AppConfig.Settings.GCodeViewer.IsEnabled)
                 ShowView(false, ViewType.GCodeViewer);
@@ -418,7 +456,7 @@ namespace GCode_Sender
             else
             {
                 if (UIViewModel.Console.IsVisible)
-                    UIViewModel.Console.Visibility = Visibility.Hidden;
+                    UIViewModel.Console.IsVisible = false;
                 else
                     UIViewModel.Console.Show();
             }

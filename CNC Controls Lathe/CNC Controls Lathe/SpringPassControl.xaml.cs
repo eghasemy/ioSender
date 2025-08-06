@@ -37,8 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace CNC.Controls.Lathe
 {
@@ -52,17 +52,17 @@ namespace CNC.Controls.Lathe
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty IsPassesEnabledProperty = DependencyProperty.Register(nameof(IsPassesEnabled), typeof(bool), typeof(SpringPassControl), new PropertyMetadata(/*"Label:"  , new PropertyChangedCallback(OnLabelChanged)*/));
+                public static readonly StyledProperty<bool> IsPassesEnabledProperty = AvaloniaProperty.Register<SpringPassControl, bool>(nameof(IsPassesEnabled), false);
         public bool IsPassesEnabled
         {
-            get { return (bool)GetValue(IsPassesEnabledProperty); }
+            get { return GetValue(IsPassesEnabledProperty); }
             set { SetValue(IsPassesEnabledProperty, value); }
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(SpringPassControl), new PropertyMetadata(double.NaN));
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<SpringPassControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
+            get { return GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
     }

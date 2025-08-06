@@ -37,10 +37,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia;
+using Avalonia.Controls;
 using CNC.Core;
+using CNC.GCode;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     /// <summary>
@@ -120,17 +122,15 @@ namespace CNC.Controls
 
         private void tab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Equals(e.OriginalSource, sender))
+            // In Avalonia, we simplify this check
+            if (e.AddedItems.Count == 1)
             {
-                if (e.AddedItems.Count == 1)
-                {
-                    if (e.RemovedItems.Count == 1)
-                        getView(e.RemovedItems[0] as TabItem).Activate(false);
+                if (e.RemovedItems.Count == 1)
+                    getView(e.RemovedItems[0] as TabItem).Activate(false);
 
-                    getView(e.AddedItems[0] as TabItem).Activate(true);
-                }
-                e.Handled = true;
+                getView(e.AddedItems[0] as TabItem).Activate(true);
             }
+            e.Handled = true;
         }
 
         private void RemoveTab (GrblConfigType type)

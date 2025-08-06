@@ -37,15 +37,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
+using Avalonia.Interactivity;
 namespace CNC.Controls
 {
     public partial class DROBaseControl : UserControl
     {
-        private static Brush ScaledOn = Brushes.Yellow, ScaledOff;
+        private static Brush ScaledOn = new SolidColorBrush(Colors.Yellow), ScaledOff;
 
         public delegate void ZeroClickHandler(object sender, RoutedEventArgs e);
         public event ZeroClickHandler ZeroClick;
@@ -54,20 +55,20 @@ namespace CNC.Controls
         {
             InitializeComponent();
 
-            ScaledOff = btnScaled.Background;
+            ScaledOff = btnScaled.Background as Brush ?? new SolidColorBrush(Colors.Transparent);
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(DROBaseControl), new PropertyMetadata());
+                public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<DROBaseControl, string>(nameof(Label), string.Empty);
         public string Label
         {
-            get { return (string)GetValue(LabelProperty); }
+            get { return GetValue(LabelProperty); }
             set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(DROBaseControl), new PropertyMetadata());
+                public static readonly StyledProperty<double> ValueProperty = AvaloniaProperty.Register<DROBaseControl, double>(nameof(Value), 0.0);
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
+            get { return GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 
@@ -77,13 +78,13 @@ namespace CNC.Controls
             set { txtReadout.IsReadOnly = value; }
         }
 
-        public static readonly DependencyProperty IsScaledProperty = DependencyProperty.Register(nameof(IsScaled), typeof(bool), typeof(DROBaseControl), new PropertyMetadata(false, new PropertyChangedCallback(OnIsScaledChanged)));
+                public static readonly StyledProperty<bool> IsScaledProperty = AvaloniaProperty.Register<DROBaseControl, bool>(nameof(IsScaled), false);
         public bool IsScaled
         {
-            get { return (bool)GetValue(IsScaledProperty); }
+            get { return GetValue(IsScaledProperty); }
             set { SetValue(IsScaledProperty, value); }
         }
-        private static void OnIsScaledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsScaledChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
         {
             ((DROBaseControl)d).btnScaled.Background = (bool)e.NewValue ? ScaledOn : ScaledOff;
         }

@@ -46,15 +46,17 @@ using System.Globalization;
 using System.IO;
 using System.Data;
 using System.Diagnostics;
-using System.Windows.Media;
+using Avalonia.Media;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
-using System.Windows.Threading;
-using System.Windows;
+using Avalonia.Threading;
+using Avalonia;
 using CNC.GCode;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace CNC.Core
 {
@@ -214,6 +216,12 @@ namespace CNC.Core
         AccelerationBase = 120,
         MaxTravelBase = 130,
         MotorCurrentBase = 140,
+        JogStepDistance = 150,
+        JogSlowDistance = 151,
+        JogFastDistance = 152,
+        JogStepSpeed = 153,
+        JogSlowSpeed = 154,
+        JogFastSpeed = 155,
     }
 
     public enum grblHALSetting
@@ -1107,7 +1115,7 @@ namespace CNC.Core
 
             model.Silent = true;
             Firmware = model.Firmware;
-            dispatcher = Dispatcher.CurrentDispatcher;
+            dispatcher = Dispatcher.UIThread;
             dataReceived += Process;
 
             new Thread(() =>
@@ -1311,9 +1319,9 @@ namespace CNC.Core
 
         private static void Process(string data)
         {
-            if (Dispatcher.CurrentDispatcher != dispatcher)
+            if (Dispatcher.UIThread != dispatcher)
             {
-                dispatcher.Invoke(dataReceived, data);
+                dispatcher.Invoke(() => dataReceived(data));
                 return;
             }
 
@@ -1887,7 +1895,7 @@ namespace CNC.Core
             if (!GrblParserState.IsLoaded)
                 GrblParserState.Get(model);
 
-            dispatcher = Dispatcher.CurrentDispatcher;
+            dispatcher = Dispatcher.UIThread;
             dataReceived += process;
             LatheMode = GrblParserState.LatheMode;
 
@@ -1987,9 +1995,9 @@ namespace CNC.Core
 
         private static void process(string data)
         {
-            if (Dispatcher.CurrentDispatcher != dispatcher)
+            if (Dispatcher.UIThread != dispatcher)
             {
-                dispatcher.Invoke(dataReceived, data);
+                dispatcher.Invoke(() => dataReceived(data));
                 return;
             }
 
@@ -2130,7 +2138,8 @@ namespace CNC.Core
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    // TODO: Replace with cross-platform dialog
+                    Debug.WriteLine($"Error: {e.Message}");
                 }
 
             return ok;
@@ -2209,7 +2218,7 @@ namespace CNC.Core
 
             if (GrblInfo.IsGrblHAL && GrblInfo.Build >= 20240307 && Spindles.Count == 0)
             {
-                dispatcher = Dispatcher.CurrentDispatcher;
+                dispatcher = Dispatcher.UIThread;
                 dataReceived += process;
 
                 PollGrbl.Suspend();
@@ -2240,9 +2249,9 @@ namespace CNC.Core
 
         private static void process(string data)
         {
-            if (Dispatcher.CurrentDispatcher != dispatcher)
+            if (Dispatcher.UIThread != dispatcher)
             {
-                dispatcher.Invoke(dataReceived, data);
+                dispatcher.Invoke(() => dataReceived(data));
                 return;
             }
 
@@ -3130,7 +3139,12 @@ namespace CNC.Core
         {
             if (Settings.Count > 0) try
             {
+#if WINDOWS
                 Clipboard.SetText(string.Join("\r\n", Export().ToArray()));
+#else
+                // TODO: Implement Avalonia clipboard functionality
+                Debug.WriteLine("Clipboard export not implemented for cross-platform builds");
+#endif
             }
             catch
             {
@@ -3156,7 +3170,8 @@ namespace CNC.Core
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "ioSender", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                // TODO: Replace with cross-platform dialog
+                Debug.WriteLine($"Error: {e.Message}");
             }
 
             return ok;
@@ -3225,7 +3240,11 @@ namespace CNC.Core
                     {
                         Action<GrblSettingDetails> addMethod = Settings.Add;
                         setting = new GrblSettingDetails(id.ToString() + "|0||||||");
+#if WINDOWS
                         Application.Current.Dispatcher.BeginInvoke(addMethod, setting);
+#else
+                        Dispatcher.UIThread.InvokeAsync(() => addMethod(setting));
+#endif
                     }
 
                     setting.Value = valuepair[1];
