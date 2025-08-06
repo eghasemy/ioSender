@@ -63,26 +63,27 @@ namespace CNC.Controls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var parent = Application.Current.MainWindow;
+            var parent = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
 
-            Left = parent.Left + (parent.Width - Width) / 2d;
-            Top = parent.Top + (parent.Height - Height) / 2d;
-
-            (sender as Window).Dispatcher.Invoke(new System.Action(() =>
+            if (parent != null)
             {
-                (sender as Window).MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-            }), DispatcherPriority.ContextIdle);
+                Position = new PixelPoint(
+                    (int)(parent.Position.X + (parent.Bounds.Width - Bounds.Width) / 2),
+                    (int)(parent.Position.Y + (parent.Bounds.Height - Bounds.Height) / 2)
+                );
+            }
+
+            // Focus handling in Avalonia is different, we'll skip this for now
         }
 
         void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
-            Close();
+            Close(true);
         }
 
         void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Close(false);
         }
     }
 
@@ -123,7 +124,9 @@ namespace CNC.Controls
 
         public void Apply()
         {
-            if (new GCodeWrapDialog(this).ShowDialog<bool>() != true)
+            var dialog = new GCodeWrapDialog(this);
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            if (dialog.ShowDialog<bool>(mainWindow) != true)
                 return;
 
             if (Diameter == 0d)

@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using Avalonia;
 using Avalonia.Controls;
-using Microsoft.Win32;
+using Avalonia.Platform.Storage;
 using System.Collections.Generic;
 using System.IO;
 using System;
@@ -47,6 +47,8 @@ using System.Threading;
 using CNC.Core;
 using CNC.GCode;
 using Avalonia.Input;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Avalonia.Interactivity;
 namespace CNC.Controls
@@ -177,7 +179,7 @@ namespace CNC.Controls
 
             canvas.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-            txtDescription.Height = Math.Max(ActualHeight - 40d - canvas.DesiredSize.Height, 0d);
+            txtDescription.Height = Math.Max(Bounds.Height - 40d - canvas.DesiredSize.Height, 0d);
         }
 
         private bool SetSetting (KeyValuePair<int, string> setting)
@@ -356,20 +358,30 @@ namespace CNC.Controls
                 retval = data;
         }
 
-        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        private async void btnRestore_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel?.StorageProvider == null) return;
 
-            file.InitialDirectory = Core.Resources.ConfigPath;
-            file.Title = (string)this.FindResource("SettingsRestore");
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = (string)this.FindResource("SettingsRestore"),
+                AllowMultiple = false,
+                FileTypeFilter = new[]
+                {
+                    new FilePickerFileType("Text files")
+                    {
+                        Patterns = new[] { "*.txt" }
+                    }
+                }
+            });
 
-            file.Filter = string.Format("Text files (*.txt)|*.txt");
-
-            if (file.ShowDialog() == true)
+            if (files.Count >= 1)
             {
                 using (new UIUtils.WaitCursor())
                 {
-                    LoadFile(file.FileName);
+                    var file = files[0];
+                    LoadFile(file.Path.LocalPath);
                 }
             }
         }
@@ -383,15 +395,15 @@ namespace CNC.Controls
 
         private void treeView_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e != null && e.NewValue is GrblSettingDetails && (e.NewValue as GrblSettingDetails).Value != null)
-                ShowSetting(e.NewValue as GrblSettingDetails, true);
+            if (e != null && e.AddedItems.Count > 0 && e.AddedItems[0] is GrblSettingDetails details && details.Value != null)
+                ShowSetting(details, true);
             else
-                details.IsVisible = false;
+                this.details.IsVisible = false;
         }
 
         private void searchField_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            if(e.Key == Avalonia.Input.Key.Return && e.IsDown)
+            if(e.Key == Avalonia.Input.Key.Return)
             {
                 var setting = GrblSettings.Get((GrblSetting)searchField.Value);
 
@@ -401,23 +413,17 @@ namespace CNC.Controls
                     {
                         if ((g as GrblSettingGroup).Id == setting.GroupId)
                         {
-                            TreeViewItem gitm = (TreeViewItem)treeView.ItemContainerGenerator.ContainerFromItem(g);
-                            gitm.IsExpanded = true;
-                            gitm.UpdateLayout();
-                            gitm.BringIntoView();
-                            foreach (object s in gitm.Items)
+                            // For Avalonia, we simplify by directly setting the selected item
+                            foreach (object s in (g as GrblSettingGroup).Settings)
                             {
                                 if ((s as GrblSettingDetails).Id == setting.Id)
                                 {
-                                    TreeViewItem sitm = (TreeViewItem)gitm.ItemContainerGenerator.ContainerFromItem(s);
-                                    if (sitm != null)
-                                    {
-                                        sitm.IsSelected = true;
-                                        sitm.BringIntoView();
-//                                        sitm.Focus();
-                                    }
+                                    treeView.SelectedItem = s;
+                                    ShowSetting(s as GrblSettingDetails, true);
+                                    break;
                                 }
                             }
+                            break;
                         }
                     }
                 }
@@ -426,7 +432,7 @@ namespace CNC.Controls
 
         private void ConfigView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            txtDescription.Height = e.NewSize.Height - 40d - canvas.ActualHeight;
+            txtDescription.Height = e.NewSize.Height - 40d - canvas.Bounds.Height;
         }
     }
 }

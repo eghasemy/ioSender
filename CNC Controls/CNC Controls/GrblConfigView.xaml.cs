@@ -122,17 +122,15 @@ namespace CNC.Controls
 
         private void tab_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Equals(e.OriginalSource, sender))
+            // In Avalonia, we simplify this check
+            if (e.AddedItems.Count == 1)
             {
-                if (e.AddedItems.Count == 1)
-                {
-                    if (e.RemovedItems.Count == 1)
-                        getView(e.RemovedItems[0] as TabItem).Activate(false);
+                if (e.RemovedItems.Count == 1)
+                    getView(e.RemovedItems[0] as TabItem).Activate(false);
 
-                    getView(e.AddedItems[0] as TabItem).Activate(true);
-                }
-                e.Handled = true;
+                getView(e.AddedItems[0] as TabItem).Activate(true);
             }
+            e.Handled = true;
         }
 
         private void RemoveTab (GrblConfigType type)

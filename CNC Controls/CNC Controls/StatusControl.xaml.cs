@@ -62,7 +62,7 @@ namespace CNC.Controls
         {
             InitializeComponent();
 
-            HomeButtonColor = btnHome.Background;
+            HomeButtonColor = btnHome.Background as Brush;
 
             btnHome.Tag = StatusButton.Home;
             btnReset.Tag = StatusButton.Reset;

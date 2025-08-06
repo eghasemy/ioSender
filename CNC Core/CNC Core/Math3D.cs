@@ -223,6 +223,13 @@ namespace CNC.Core
             Z = z;
         }
 
+        public Vector3(double[] values)
+        {
+            X = values.Length > 0 ? values[0] : 0;
+            Y = values.Length > 1 ? values[1] : 0;
+            Z = values.Length > 2 ? values[2] : 0;
+        }
+
         public double Length => Math.Sqrt(X * X + Y * Y + Z * Z);
 
         public double LengthSquared => X * X + Y * Y + Z * Z;
@@ -329,6 +336,11 @@ namespace CNC.Core
         {
             return $"{X},{Y},{Z}";
         }
+
+        /// <summary>
+        /// Returns the Vector3 components as a double array for compatibility with GCodeParser
+        /// </summary>
+        public double[] Array => new double[] { X, Y, Z };
     }
     
     /// <summary>

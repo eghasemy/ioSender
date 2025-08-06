@@ -133,23 +133,23 @@ namespace CNC.Controls
                             break;
 
                         case OriginControl.Origin.AB:
-                            offset = new RP.Math.Vector3(limits.MinX + limits.SizeX / 2d, limits.MinY, 0d);
+                            offset = new CNC.Core.Vector3(limits.MinX + limits.SizeX / 2d, limits.MinY, 0d);
                             break;
 
                         case OriginControl.Origin.AD:
-                            offset = new RP.Math.Vector3(limits.MinX, limits.MinY + limits.SizeY / 2d, 0d);
+                            offset = new CNC.Core.Vector3(limits.MinX, limits.MinY + limits.SizeY / 2d, 0d);
                             break;
 
                         case OriginControl.Origin.CB:
-                            offset = new RP.Math.Vector3(limits.MaxX, limits.MinY + limits.SizeY / 2d, 0d);
+                            offset = new CNC.Core.Vector3(limits.MaxX, limits.MinY + limits.SizeY / 2d, 0d);
                             break;
 
                         case OriginControl.Origin.CD:
-                            offset = new RP.Math.Vector3(limits.MinX + limits.SizeX / 2d, limits.MaxY, 0d);
+                            offset = new CNC.Core.Vector3(limits.MinX + limits.SizeX / 2d, limits.MaxY, 0d);
                             break;
 
                         default: // Origin.None -> 0,0
-                            offset = new RP.Math.Vector3();
+                            offset = new CNC.Core.Vector3();
                             break;
                     }
 
