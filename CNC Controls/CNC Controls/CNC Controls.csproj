@@ -6,7 +6,7 @@
     <AssemblyName>CNC.Controls.Avalonia</AssemblyName>
     <UICulture>en-US</UICulture>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">

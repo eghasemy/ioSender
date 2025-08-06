@@ -46,7 +46,6 @@ using CNC.GCode;
 using Avalonia.Controls;
 
 using Avalonia.Interactivity;
-using RP = CNC.Core;
 namespace CNC.Controls
 {
     /// <summary>
@@ -63,21 +62,26 @@ namespace CNC.Controls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var parent = Application.Current.MainWindow;
+            var parent = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            if (parent != null)
+            {
+                var parentBounds = parent.Bounds;
+                Position = new PixelPoint(
+                    (int)(parentBounds.X + (parentBounds.Width - Width) / 2d),
+                    (int)(parentBounds.Y + (parentBounds.Height - Height) / 2d)
+                );
+            }
 
-            Left = parent.Left + (parent.Width - Width) / 2d;
-            Top = parent.Top + (parent.Height - Height) / 2d;
-
-            (sender as Window).Dispatcher.Invoke(new System.Action(() =>
-                {
-                    (sender as Window).MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-                }), DispatcherPriority.ContextIdle);
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                // Focus the first focusable element
+                Focus();
+            });
         }
 
         void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
-            Close();
+            Close(true);
         }
 
         void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -94,11 +98,12 @@ namespace CNC.Controls
         public double Angle { get { return _Angle; } set { _Angle = value; OnPropertyChanged(); } }
         public OriginControl.Origin Origin { get { return _origin; } set { _origin = value; OnPropertyChanged(); } }
 
-        public void Apply()
+        public async void Apply()
         {
             var dialog = new GCodeRotateDialog(this);
             var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
-            if (dialog.ShowDialog<bool>(mainWindow) != true)
+            var result = await dialog.ShowDialog<bool>(mainWindow);
+            if (result != true)
                 return;
 
             if (Angle == 0d)
@@ -108,30 +113,30 @@ namespace CNC.Controls
             {
                 try
                 {
-                    RP.Math.Vector3 offset;
+                    CNC.Core.Vector3 offset;
 
                     var limits = GCode.File.Model.ProgramLimits;
 
                     switch (_origin)
                     {
                         case OriginControl.Origin.A:
-                            offset = new RP.Math.Vector3(limits.MinX, limits.MinY, 0d);
+                            offset = new CNC.Core.Vector3(limits.MinX, limits.MinY, 0d);
                             break;
 
                         case OriginControl.Origin.B:
-                            offset = new RP.Math.Vector3(limits.MaxX, limits.MinY, 0d);
+                            offset = new CNC.Core.Vector3(limits.MaxX, limits.MinY, 0d);
                             break;
 
                         case OriginControl.Origin.C:
-                            offset = new RP.Math.Vector3(limits.MaxX, limits.MaxY, 0d);
+                            offset = new CNC.Core.Vector3(limits.MaxX, limits.MaxY, 0d);
                             break;
 
                         case OriginControl.Origin.D:
-                            offset = new RP.Math.Vector3(limits.MinX, limits.MaxY, 0d);
+                            offset = new CNC.Core.Vector3(limits.MinX, limits.MaxY, 0d);
                             break;
 
                         case OriginControl.Origin.Center:
-                            offset = new RP.Math.Vector3(limits.MinX + limits.SizeX / 2d, limits.MinY + limits.SizeY / 2d, 0d);
+                            offset = new CNC.Core.Vector3(limits.MinX + limits.SizeX / 2d, limits.MinY + limits.SizeY / 2d, 0d);
                             break;
 
                         case OriginControl.Origin.AB:

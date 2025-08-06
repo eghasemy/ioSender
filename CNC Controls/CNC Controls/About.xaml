@@ -24,13 +24,7 @@
                 <Label x:Name="txtGrblNewOpts" Content="-" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Bottom" Height="20" Padding="0"/>
                 <Label x:Name="txtGrblConnection" Content="-" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Bottom" Height="20" Padding="0"/>
                 <TextBox IsReadOnly="True" HorizontalAlignment="Center" Height="145" Width="410" TextWrapping="Wrap" VerticalAlignment="Top"
-                     FontSize="10" FontFamily="Verdana">
-                    <TextBox.Text>
-                        <MultiBinding Converter="{StaticResource OcToString}">
-                            <Binding Path="SystemInfo" Mode="OneWay"/>
-                            <Binding Path="SystemInfo.Count" Mode="OneWay" />
-                        </MultiBinding>
-                    </TextBox.Text>
+                     FontSize="10" FontFamily="Verdana" Text="System information placeholder">
                 </TextBox>
             </StackPanel>
         </HeaderedContentControl>

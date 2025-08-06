@@ -9,9 +9,6 @@
              d:DesignHeight="216" d:DesignWidth="216">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="SharedStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <local:LatheModeToStringConverter x:Key="LatheModeConverter" />
             <local:LogicalNotConverter x:Key="BooleanConverter" />
             <local:BoolToVisibleConverter x:Key="IsVisibleConverter" />

@@ -19,8 +19,8 @@
         </DockPanel>
         <TextBox IsReadOnly="True" TextWrapping="NoWrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                  local:TextBoxUtilities.AlwaysScrollToEnd="True" FontSize="10" FontFamily="Verdana"
-                 ScrollViewer.VerticalScrollBarIsVisible="Auto"
-                 ScrollViewer.HorizontalScrollBarIsVisible="Visible">
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <TextBox.Text>
                 <MultiBinding Converter="{StaticResource OcToString}">
                     <Binding Path="ResponseLog" Mode="OneWay"/>

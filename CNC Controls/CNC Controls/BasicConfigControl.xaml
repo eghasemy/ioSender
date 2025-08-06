@@ -6,7 +6,7 @@
              xmlns:local="using:CNC.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="230" d:DesignWidth="310">
-    <HeaderedContentControl x:Name="grpBasic" Header="Main" HorizontalAlignment="Left" VerticalAlignment="Top" Height="Auto" Width="310">
+    <HeaderedContentControl x:Name="grpBasic" Header="Main" HorizontalAlignment="Left" VerticalAlignment="Top" Width="310">
         <StackPanel HorizontalAlignment="Left">
             <Grid x:Name="grid">
                 <Grid.ColumnDefinitions>
@@ -14,7 +14,13 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblTheme" Content="Theme:" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26"/>
-                <ComboBox Grid.Column="1" IsEnabled="False" ItemsSource="{Binding Path=Themes}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding Path=Theme, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Center" Width="80"/>
+                <ComboBox Grid.Column="1" IsEnabled="False" ItemsSource="{Binding Themes}" SelectedItem="{Binding Theme}" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Center" Width="80">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Value}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </Grid>
             <local:NumericField Label="Reset delay:" ColonAt="160" Unit="ms" Format="###0" Value="{Binding Path=ResetDelay, Mode=TwoWay}" Height="29" VerticalAlignment="Bottom" ToolTip.Tip="Delay to allow controller to finish booting before communication starts."/>
             <local:NumericField Label="Poll interval:" ColonAt="160" Unit="ms" Format="###0" Value="{Binding Path=PollInterval, Mode=TwoWay}" Height="29" VerticalAlignment="Bottom" ToolTip.Tip="Time between status request sent to controller."/>

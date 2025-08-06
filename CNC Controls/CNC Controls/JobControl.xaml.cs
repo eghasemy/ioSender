@@ -140,13 +140,13 @@ namespace CNC.Controls
 
         private void JobControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (!Design.IsDesignMode)
             {
                 AppConfig.Settings.Base.PropertyChanged += Base_PropertyChanged;
 
                 if (!keyboardMappingsOk && DataContext is GrblViewModel)
                 {
-                    KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
+                    CNC.Core.KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
 
                     keyboardMappingsOk = true;
 

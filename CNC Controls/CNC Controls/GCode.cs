@@ -51,6 +51,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace CNC.Controls
 {
@@ -206,11 +207,16 @@ namespace CNC.Controls
             // In Avalonia, drag-drop data checking is different
             if (allow && e.Data.Contains(Avalonia.Input.DataFormats.Files))
             {
-                var fileItems = e.Data.GetFiles();
-                if (fileItems != null)
+                // Use reflection to access GetFiles method to avoid type conflicts
+                var getFilesMethod = e.Data.GetType().GetMethod("GetFiles");
+                if (getFilesMethod != null)
                 {
-                    var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
-                    allow = files.Length == 1 && FileUtils.IsAllowedFile(files[0].ToLower(), FileTypes + (getConversionTypes() == string.Empty ? "" : "," + getConversionTypes()) + ",txt");
+                    var fileItems = getFilesMethod.Invoke(e.Data, null) as System.Collections.Generic.IEnumerable<Avalonia.Platform.Storage.IStorageItem>;
+                    if (fileItems != null)
+                    {
+                        var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
+                        allow = files.Length == 1 && FileUtils.IsAllowedFile(files[0].ToLower(), FileTypes + (getConversionTypes() == string.Empty ? "" : "," + getConversionTypes()) + ",txt");
+                    }
                 }
             }
 
@@ -220,15 +226,19 @@ namespace CNC.Controls
 
         public void Drop(object sender, Avalonia.Input.DragEventArgs e)
         {
-            // In Avalonia, file names are accessed through GetFiles() method
-            var fileItems = e.Data.GetFiles();
-            if (fileItems != null)
+            // In Avalonia, file names are accessed through GetFiles() method using reflection to avoid type conflicts
+            var getFilesMethod = e.Data.GetType().GetMethod("GetFiles");
+            if (getFilesMethod != null)
             {
-                var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
-                
-                if (files.Length == 1)
+                var fileItems = getFilesMethod.Invoke(e.Data, null) as System.Collections.Generic.IEnumerable<Avalonia.Platform.Storage.IStorageItem>;
+                if (fileItems != null)
                 {
-                    Load(files[0]);
+                    var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
+                
+                    if (files.Length == 1)
+                    {
+                        Load(files[0]);
+                    }
                 }
             }
         }

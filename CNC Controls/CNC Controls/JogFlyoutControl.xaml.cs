@@ -57,7 +57,8 @@ namespace CNC.Controls
             this.KeyDown += (sender, e) => {
                 if (!(e.Handled = ProcessKeyPreview(e)))
                 {
-                    if (KeyboardDevice.Instance.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
+                    var modifiers = e.KeyModifiers;
+                    if (modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
                         Focus();
                 }
             };

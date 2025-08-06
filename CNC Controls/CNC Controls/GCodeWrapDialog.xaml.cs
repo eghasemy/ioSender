@@ -122,11 +122,12 @@ namespace CNC.Controls
         public int TargetAxis { get { return targetAxis; } set { targetAxis = value; OnPropertyChanged(); } }
         public ObservableCollection<WrapAxis> TargetAxes { get; private set; } = new ObservableCollection<WrapAxis>();
 
-        public void Apply()
+        public async void Apply()
         {
             var dialog = new GCodeWrapDialog(this);
             var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
-            if (dialog.ShowDialog<bool>(mainWindow) != true)
+            var result = await dialog.ShowDialog<bool>(mainWindow);
+            if (result != true)
                 return;
 
             if (Diameter == 0d)

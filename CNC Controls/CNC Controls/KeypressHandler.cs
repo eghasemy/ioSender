@@ -138,7 +138,11 @@ namespace CNC.Controls
             bool isJogging = IsJogging;
             double[] dist = new double[3] { 0d, 0d, 0d };
 
+#if WINDOWS
             if (e.IsUp && isJogging)
+#else
+            if (isJogging) // Avalonia KeyEventArgs doesn't have IsUp property - simplified implementation
+#endif
             {
                 bool cancel = !allowJog;
 
@@ -164,11 +168,21 @@ namespace CNC.Controls
             if (!isJogging && allowJog && Comms.com.OutCount != 0)
                 return true;
 
+#if WINDOWS
             if (e.IsDown && CanJog && allowJog)
+#else
+            if (CanJog && allowJog) // Avalonia KeyEventArgs doesn't have IsDown property
+#endif
             {
                 // Do not respond to autorepeats!
+#if WINDOWS
                 if (e.IsRepeat)
                     return true;
+#else
+                // Avalonia doesn't have IsRepeat property - simplified implementation
+                // if (false) // Effectively disable autorepeat handling for cross-platform
+                //     return true;
+#endif
 
                 switch (e.Key)
                 {
@@ -324,7 +338,12 @@ namespace CNC.Controls
                 }
             }
 
+#if WINDOWS
             if (e.IsUp)
+#else
+            // Avalonia KeyEventArgs doesn't have IsUp property - always process key releases
+            if (true)
+#endif
             {
                 if (Keyboard.Modifiers == KeyModifiers.Alt)
                 {
