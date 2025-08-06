@@ -512,16 +512,32 @@ namespace CNC.Controls
                     setPort(port, baud);
 #if USEWEBSOCKET
                 if (Base.PortParams.ToLower().StartsWith("ws://"))
+#if WINDOWS
                     new WebsocketStream(Base.PortParams, dispatcher);
+#else
+                    new WebsocketStream(Base.PortParams);
+#endif
                 else
 #endif
                 if (char.IsDigit(Base.PortParams[0])) // We have an IP address
+#if WINDOWS
                     new TelnetStream(Base.PortParams, dispatcher);
+#else
+                    new TelnetStream(Base.PortParams);
+#endif
                 else
 #if USEELTIMA
+#if WINDOWS
                     new EltimaStream(Config.PortParams, Config.ResetDelay, dispatcher);
 #else
+                    new EltimaStream(Config.PortParams, Config.ResetDelay);
+#endif
+#else
+#if WINDOWS
                     new SerialStream(Base.PortParams, Base.ResetDelay, dispatcher);
+#else
+                    new SerialStream(Base.PortParams, Base.ResetDelay);
+#endif
 #endif
             }
 
@@ -538,16 +554,32 @@ namespace CNC.Controls
                     setPort(port, string.Empty);
 #if USEWEBSOCKET
                     if (port.ToLower().StartsWith("ws://"))
+#if WINDOWS
                         new WebsocketStream(Base.PortParams, dispatcher);
+#else
+                        new WebsocketStream(Base.PortParams);
+#endif
                     else
 #endif
                     if (char.IsDigit(port[0])) // We have an IP address
+#if WINDOWS
                         new TelnetStream(Base.PortParams, dispatcher);
+#else
+                        new TelnetStream(Base.PortParams);
+#endif
                     else
 #if USEELTIMA
+#if WINDOWS
                         new EltimaStream(Config.PortParams, Config.ResetDelay, dispatcher);
 #else
+                        new EltimaStream(Config.PortParams, Config.ResetDelay);
+#endif
+#else
+#if WINDOWS
                         new SerialStream(Base.PortParams, Base.ResetDelay, dispatcher);
+#else
+                        new SerialStream(Base.PortParams, Base.ResetDelay);
+#endif
 #endif
                     Save(CNC.Core.Resources.IniFile);
                 }
@@ -822,7 +854,7 @@ namespace CNC.Controls
                 MessageBox.Show(response == string.Empty
                                     ? LibStrings.FindResource("MsgNoResponseExit")
                                     : string.Format(LibStrings.FindResource("MsgBadResponseExit"), response),
-                                    "ioSender", MessageBoxButton.OK, MessageBoxImage.Stop);
+                                    "ioSender", MessageBoxButton.OK, MessageBoxImage.Error);
                 return RestartResult.Exit;
             }
 

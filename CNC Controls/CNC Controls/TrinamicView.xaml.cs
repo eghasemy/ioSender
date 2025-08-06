@@ -388,7 +388,7 @@ namespace CNC.Controls
                 int v1 = int.Parse(sg_result[0]);
                 int v2 = sg_result.Length == 2 ? int.Parse(sg_result[1]) : -1;
 
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new System.Action(() => PlotSGValue(v1, v2)));
+                Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() => PlotSGValue(v1, v2));
             }
         }
     }

@@ -54,9 +54,9 @@ namespace CNC.Controls
         public NumericTextBox()
         {
             Height = 24;
-            HorizontalContentAlignment = HorizontalAlignment.Right;
-            VerticalContentAlignment = VerticalAlignment.Bottom;
-            TextWrapping = TextWrapping.NoWrap;
+            HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Right;
+            VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Bottom;
+            TextWrapping = Avalonia.Media.TextWrapping.NoWrap;
             if (Format == NumericProperties.MetricFormat)
                 NumericProperties.OnFormatChanged(this, np, Format);
                 

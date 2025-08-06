@@ -202,7 +202,7 @@ namespace CNC.Controls
 
             public WaitCursor()
             {
-                _previousCursor = Mouse.OverrideCursor;
+                _previousCursor = Mouse.OverrideCursor as Cursor;
 
                 Mouse.OverrideCursor = Cursors.Wait;
             }
@@ -338,7 +338,8 @@ namespace CNC.Controls
     public static class TextBoxUtilities
     {
         // TODO: Convert AlwaysScrollToEndProperty to Avalonia AttachedProperty
-        public static readonly StyledProperty<bool> AlwaysScrollToEndProperty = AvaloniaProperty.RegisterAttached<Control, bool>("AlwaysScrollToEnd", false);
+        public static readonly AttachedProperty<bool> AlwaysScrollToEndProperty = 
+            AvaloniaProperty.RegisterAttached<UIUtils, Control, bool>("AlwaysScrollToEnd", false);
 
         private static void AlwaysScrollToEndChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {

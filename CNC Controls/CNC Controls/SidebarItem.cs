@@ -55,13 +55,13 @@ namespace CNC.Controls
 
         public SidebarItem(ISidebarControl view) : base()
         {
-            if (view.MenuLabel.Contains("_"))
-                Content = new AccessText()
-                {
-                    Text = view.MenuLabel
-                };
-            else
-                Content = view.MenuLabel;
+            // In Avalonia, we use TextBlock instead of AccessText
+            // AccessKey handling is different, so we'll just clean the text
+            string text = view.MenuLabel.Replace("_", "");
+            Content = new TextBlock()
+            {
+                Text = text
+            };
 
             this.view = view as UserControl;
 
@@ -74,11 +74,17 @@ namespace CNC.Controls
 
             try
             {
-                Style = Application.Current.FindResource("btnSidebar") as Style;
+                // In Avalonia, use TryGetResource instead of FindResource
+                if (Application.Current?.TryGetResource("btnSidebar", null, out var resource) == true)
+                {
+                    if (resource is Avalonia.Styling.Style style)
+                        Classes.Add("btnSidebar"); // Use CSS-like classes instead
+                }
             }
             catch { }
 
-            LayoutTransform = new RotateTransform(90d);
+            // In Avalonia, LayoutTransform is different - use RenderTransform instead
+            RenderTransform = new RotateTransform(90d);
 
             Click += button_Click;
         }

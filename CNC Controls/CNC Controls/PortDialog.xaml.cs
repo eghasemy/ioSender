@@ -122,7 +122,8 @@ namespace CNC.Controls
                 }
             }
 
-            ShowDialog();
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            ShowDialog(mainWindow);
 
             return port;
         }
