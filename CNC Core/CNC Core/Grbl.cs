@@ -216,6 +216,12 @@ namespace CNC.Core
         AccelerationBase = 120,
         MaxTravelBase = 130,
         MotorCurrentBase = 140,
+        JogStepDistance = 150,
+        JogSlowDistance = 151,
+        JogFastDistance = 152,
+        JogStepSpeed = 153,
+        JogSlowSpeed = 154,
+        JogFastSpeed = 155,
     }
 
     public enum grblHALSetting

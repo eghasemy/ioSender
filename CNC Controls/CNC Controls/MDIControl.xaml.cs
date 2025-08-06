@@ -90,7 +90,7 @@ namespace CNC.Controls
         {
             if (e.Key == Key.Return && (DataContext as GrblViewModel).MDICommand.CanExecute(null))
             {
-                string cmd = (sender as ComboBox).Text;
+                string cmd = (sender as ComboBox).SelectedItem?.ToString() ?? "";
                 var model = DataContext as GrblViewModel;
                 if (!string.IsNullOrEmpty(cmd) && (Commands.Count == 0 || Commands[0] != cmd))
                     Commands.Insert(0, cmd);
@@ -103,11 +103,10 @@ namespace CNC.Controls
 
         private void txtMDI_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var cmbTextBox = (TextBox)(sender as ComboBox).Template.FindName("PART_EditableTextBox", (sender as ComboBox));
-            if (cmbTextBox != null)
+            // Avalonia doesn't support Template.FindName, skip this functionality for now
+            if (sender is ComboBox comboBox)
             {
-                cmbTextBox.Focus();
-                cmbTextBox.CaretIndex = cmbTextBox.Text.Length;
+                comboBox.Focus();
             }
         }
 
@@ -122,9 +121,7 @@ namespace CNC.Controls
 
         private void MDIControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var mdi = txtMDI.Template.FindName("PART_EditableTextBox", txtMDI) as TextBox;
-            if(mdi != null)
-                mdi.Tag = "MDI";
+            // Avalonia doesn't support Template.FindName, skip this functionality for now
             if(DataContext != null && DataContext is GrblViewModel)
                 (DataContext as GrblViewModel).PropertyChanged += OnDataContextPropertyChanged;
         }
