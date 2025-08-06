@@ -103,9 +103,9 @@ namespace CNC.Controls
                 case nameof(GrblViewModel.ScrollPosition):
                     int sp = ((GrblViewModel)sender).ScrollPosition;
                     if (sp == 0)
-                        scroll.ScrollToTop();
+                        scroll.ScrollToHome();
                     else
-                        scroll.ScrollToVerticalOffset(sp);
+                        scroll.Offset = new Vector(scroll.Offset.X, sp);
                     break;
             }
         }

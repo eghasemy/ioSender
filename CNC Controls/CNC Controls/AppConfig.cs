@@ -641,7 +641,8 @@ namespace CNC.Controls
                 if (MPGactive == true)
                 {
                     MPGPending mpgPending = new MPGPending(model);
-                    mpgPending.ShowDialog(TopLevel.GetTopLevel(this) as Window);
+                    var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+                    mpgPending.ShowDialog(mainWindow);
                     if (mpgPending.Cancelled)
                     {
                         Comms.com.Close(); //!!

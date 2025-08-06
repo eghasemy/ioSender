@@ -82,7 +82,7 @@ namespace CNC.Controls
 
             if (macroData.Macro == null && macroData.LastMacro != null)
             {
-                macroData.LastMacro.Name = cbxMacro.Text;
+                macroData.LastMacro.Name = cbxMacro.SelectedItem?.ToString() ?? "";
                 macroData.LastMacro.ConfirmOnExecute = macroData.ConfirmOnExecute;
             }
 
@@ -100,7 +100,7 @@ namespace CNC.Controls
 
             addMacro = new CNC.GCode.Macro();
             addMacro.Id = id + 1;
-            addMacro.Name = cbxMacro.Text;
+            addMacro.Name = cbxMacro.SelectedItem?.ToString() ?? "";
 
             (DataContext as MacroData).Macros.Add(addMacro);
             (DataContext as MacroData).Macro = addMacro;

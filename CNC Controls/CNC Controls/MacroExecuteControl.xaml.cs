@@ -128,7 +128,8 @@ namespace CNC.Controls
         private void button_Edit(object sender, RoutedEventArgs e)
         {
             MacroEditor editor = new MacroEditor(Macros);
-            editor.ShowDialog<object>();
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            editor.ShowDialog<object>(mainWindow);
             AppConfig.Settings.Save();
         }
     }

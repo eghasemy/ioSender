@@ -47,7 +47,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 namespace CNC.Controls
 {
-    public partial class JogFlyoutControl : ISidebarControl
+    public partial class JogFlyoutControl : UserControl, ISidebarControl
     {
         public JogFlyoutControl()
         {
@@ -70,11 +70,19 @@ namespace CNC.Controls
             };
         }
 
-        public string MenuLabel { get { return (string)this.FindResource("MenuLabel"); } }
+        public string MenuLabel 
+        { 
+            get 
+            { 
+                if (this.TryGetResource("MenuLabel", out var resource))
+                    return resource?.ToString() ?? "";
+                return "";
+            } 
+        }
 
         private void btn_Close(object sender, RoutedEventArgs e)
         {
-            Visibility = false;
+            IsVisible = false;
         }
 
         private void JogControl_Loaded(object sender, RoutedEventArgs e)

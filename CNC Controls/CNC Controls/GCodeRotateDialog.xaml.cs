@@ -96,7 +96,9 @@ namespace CNC.Controls
 
         public void Apply()
         {
-            if (new GCodeRotateDialog(this).ShowDialog<bool>() != true)
+            var dialog = new GCodeRotateDialog(this);
+            var mainWindow = (Application.Current?.ApplicationLifetime as Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+            if (dialog.ShowDialog<bool>(mainWindow) != true)
                 return;
 
             if (Angle == 0d)

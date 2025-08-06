@@ -76,7 +76,7 @@ namespace CNC.Controls
 
         private static readonly Lazy<GCode> file = new Lazy<GCode>(() => new GCode());
 
-        public event EventHandler ToolChanged = null;
+        public event Func<int, bool> ToolChanged = null;
 
         private GCode()
         {
@@ -203,23 +203,33 @@ namespace CNC.Controls
         {
             bool allow = Model != null && GrblParserState.IsLoaded && (Model.StreamingState == StreamingState.Idle || Model.StreamingState == StreamingState.NoFile);
 
-            if (allow && e.Data.GetDataPresent(DataFormats.FileDrop))
+            // In Avalonia, drag-drop data checking is different
+            if (allow && e.Data.Contains(Avalonia.Input.DataFormats.Files))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-                allow = files.Count() == 1 && FileUtils.IsAllowedFile(files[0].ToLower(), FileTypes + (getConversionTypes() == string.Empty ? "" : "," + getConversionTypes()) + ",txt");
+                var fileItems = e.Data.GetFiles();
+                if (fileItems != null)
+                {
+                    var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
+                    allow = files.Length == 1 && FileUtils.IsAllowedFile(files[0].ToLower(), FileTypes + (getConversionTypes() == string.Empty ? "" : "," + getConversionTypes()) + ",txt");
+                }
             }
 
             e.Handled = true;
-            e.Effects = allow ? DragDropEffects.Copy : DragDropEffects.None;
+            e.DragEffects = allow ? Avalonia.Input.DragDropEffects.Copy : Avalonia.Input.DragDropEffects.None;
         }
 
         public void Drop(object sender, Avalonia.Input.DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-
-            if (files.Count() == 1)
+            // In Avalonia, file names are accessed through GetFiles() method
+            var fileItems = e.Data.GetFiles();
+            if (fileItems != null)
             {
-                Load(files[0]);
+                var files = fileItems.Select(f => f.Path.LocalPath).ToArray();
+                
+                if (files.Length == 1)
+                {
+                    Load(files[0]);
+                }
             }
         }
 

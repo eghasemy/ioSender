@@ -137,7 +137,7 @@ namespace CNC.Controls
                 updateText = true;
             }
 
-            base.OnPreviewTextInput(e);
+            base.OnTextInput(e);
         }
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)

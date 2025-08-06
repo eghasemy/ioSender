@@ -84,12 +84,12 @@ namespace CNC.Controls
 
         private void DRO_Loaded(object sender, RoutedEventArgs e)
         {
-            if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+            if (Avalonia.Controls.Design.IsDesignMode)
                 return;
 
             if (!keyboardMappingsOk && DataContext is GrblViewModel)
             {
-                KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
+                CNC.Core.KeypressHandler keyboard = (DataContext as GrblViewModel).Keyboard;
 
                 keyboardMappingsOk = true;
 

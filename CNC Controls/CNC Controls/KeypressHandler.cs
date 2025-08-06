@@ -328,9 +328,10 @@ namespace CNC.Controls
             {
                 if (Keyboard.Modifiers == KeyModifiers.Alt)
                 {
-                    var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.SystemKey).FirstOrDefault();
+                    // In Avalonia, Alt keys are handled through the main Key property, not SystemKey
+                    var handler = handlers.Where(k => k.modifiers == Keyboard.Modifiers && k.key == e.Key).FirstOrDefault();
                     if (handler != null)
-                        return handler.Call(e.SystemKey);
+                        return handler.Call(e.Key);
                 }
                 else if (Keyboard.Modifiers == KeyModifiers.None || Keyboard.Modifiers == KeyModifiers.Control || Keyboard.Modifiers == (KeyModifiers.Control | KeyModifiers.Shift))
                 {
@@ -341,20 +342,20 @@ namespace CNC.Controls
                     else switch (e.Key)
                     {
                         case Key.NumPad4:
-                            JogControl.JogData.StepDec();
+                            JogBaseControl.JogData.StepDec();
                             return true;
                         //  break;
 
                         case Key.NumPad6:
-                            JogControl.JogData.StepInc();
+                            JogBaseControl.JogData.StepInc();
                             return true;
 
                         case Key.NumPad8:
-                            JogControl.JogData.FeedInc();
+                            JogBaseControl.JogData.FeedInc();
                             return true;
 
                         case Key.NumPad2:
-                            JogControl.JogData.FeedDec();
+                            JogBaseControl.JogData.FeedDec();
                             return true;
                                 //  break;
                     }

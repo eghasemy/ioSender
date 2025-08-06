@@ -88,7 +88,7 @@ namespace CNC.Controls
                                         if (c >= ' ')
                                             filename += (char)c;
                                         else if (c == 10 && FileTransfer != null && File.Exists(filename))
-                                            dispatcher.Invoke(FileTransfer, filename);
+                                            Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() => FileTransfer?.Invoke(filename));
                                     }
                                 }
                                 pipeServer.Disconnect();

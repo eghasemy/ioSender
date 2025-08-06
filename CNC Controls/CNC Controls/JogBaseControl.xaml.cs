@@ -57,7 +57,7 @@ namespace CNC.Controls
         private bool softLimits = false;
         private int distance = 2, feedrate = 2, jogAxis = -1;
         private double limitSwitchesClearance = .5d, position = 0d;
-        private KeypressHandler keyboard;
+        private CNC.Core.KeypressHandler keyboard;
         private static bool keyboardMappingsOk = false;
 
         private const Key xplus = Key.J, xminus = Key.H, yplus = Key.K, yminus = Key.L, zplus = Key.I, zminus = Key.M, aplus = Key.U, aminus = Key.N;
